@@ -1007,17 +1007,21 @@ section {
                 flex-direction: column;
                 padding: 2rem 1.5rem;
                 gap: 2rem;
+                align-items: stretch; 
             }
 
             .store-slide-image {
                 max-width: 100%;
-                height: 250px;
+                height: auto;
                 font-size: 4rem;
-                aspect-ratio: 16 / 9;
+                aspect-ratio: 4 / 5;
+                background: none;
+                border-radius: 15px;
+                overflow: hidden;
             }
               .store-slide-image img{
-                object-fit: contain; /* móvil: se ve completa */
-                background: rgba(10,14,39,0.6); /* relleno bonito si sobran bordes */
+                object-fit: contain;
+                background: rgba(10,14,39,0.6);
             }
 
             .store-slide-content {
@@ -1040,7 +1044,8 @@ section {
             }
 
             .store-slide-content .features {
-                margin-bottom: 1.5rem;
+                margin: 1rem auto 1.2rem;
+                max-width: 420px;
             }
 
             .store-slide-content .features li {
