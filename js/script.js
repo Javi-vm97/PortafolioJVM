@@ -470,3 +470,45 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+(() => {
+  const navbar = document.getElementById('navbar');
+  if (!navbar) return;
+
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  function onScroll() {
+    const currentY = window.scrollY;
+
+    // Visible solo en parte de arriba
+    if (currentY < 50) {
+      navbar.classList.remove('nav-hidden');
+      lastScrollY = currentY;
+      return;
+    }
+
+    // Umbral para que no parpadee
+    const diff = currentY - lastScrollY;
+
+    if (Math.abs(diff) > 8) {
+      if (diff > 0) {
+        // bajando
+        navbar.classList.add('nav-hidden');
+      } else {
+        // subiendo
+        navbar.classList.remove('nav-hidden');
+      }
+      lastScrollY = currentY;
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        onScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();

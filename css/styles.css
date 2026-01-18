@@ -678,7 +678,7 @@ section {
     );
 }
 
-/* PERSONALIZA AQUÍ LA IMAGEN DE FONDO DE CADA PROYECTO */
+/* IMAGEN DE FONDO DE CADA PROYECTO */
 .project-card:nth-child(1) .project-image {
     background-image: url('../img/poc.png');
 }
@@ -834,8 +834,8 @@ section {
             .store-slide-image{
             flex: 1;
             width: 100%;
-            max-width: 500px;        /* ajusta el ancho máximo en desktop */
-            aspect-ratio: 4 / 5;     /* proporción tipo portada (ajústalo si tu imagen es diferente) */
+            max-width: 500px;        /* ancho máximo en desktop */
+            aspect-ratio: 4 / 5;     /* proporción tipo portada */
             border-radius: 15px;
             position: relative;
             overflow: hidden;
@@ -850,7 +850,7 @@ section {
         display: block;
         border-radius: 15px;
         object-position: center;
-        object-fit: cover;  /* desktop: llena el cuadro */
+        object-fit: cover; 
         }
 
 
@@ -1075,6 +1075,9 @@ section {
                 width: 10px;
                 height: 10px;
             }
+              #navbar{
+               padding: 0.6rem 0;
+            } 
         }
 
         /* Small Mobile (max 480px) */
@@ -1364,7 +1367,7 @@ section {
     .nav-links {
         gap: 0.75rem;
     flex-wrap: nowrap;
-    overflow-x: auto;          /* ✅ scroll horizontal */
+    overflow-x: auto;          /* scroll horizontal */
     -webkit-overflow-scrolling: touch;
     padding-bottom: 6px;    
 
@@ -1374,7 +1377,7 @@ section {
      } 
 
      .nav-links a{
-    white-space: nowrap;        /* ✅ evita que "Contacto" se parta */
+    white-space: nowrap;        /* evita que "Contacto" se parta */
     font-size: 0.85rem;
   }
       nav .nav-content{
@@ -1405,7 +1408,7 @@ section {
     width: 100%;
   }
 
-  /* ✅ redes sociales centradas y en 2 filas si es necesario */
+  /* redes sociales centradas */
   .social-links{
     justify-content: center;
     gap: 0.75rem;
@@ -1416,47 +1419,7 @@ section {
     height: 52px;
     font-size: 1.5rem;
   }
-  nav {
-    padding: 0.75rem 0;
-  }
-
-  .nav-content{
-    padding: 0 1rem;
-    gap: 1rem;
-  }
-
-  .logo{
-    font-size: 1.2rem;
-    flex: 0 0 auto;
-  }
-
-  .nav-links{
-    flex: 1;
-    display: flex;
-    gap: 0.9rem;
-
-    /* ✅ lo importante */
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-
-    margin: 0;
-    padding: 0 0 6px 0; /* deja espacio al underline */
-    list-style: none;
-  }
-
-  .nav-links::-webkit-scrollbar{
-    height: 0; /* oculta la barra */
-  }
-
-  .nav-links li{
-    flex: 0 0 auto;
-  }
-
-  .nav-links a{
-    white-space: nowrap;
-    font-size: 0.85rem;
-  }
+ 
 
 
 }
@@ -1477,3 +1440,15 @@ section {
   font-size: 0.95rem;
   letter-spacing: 0.3px;
 }
+
+/* Navbar: animación para ocultar/mostrar */
+#navbar{
+  transition: transform 0.25s ease, background 0.25s ease, padding 0.25s ease;
+  will-change: transform;
+}
+
+/* Cuando se oculta */
+#navbar.nav-hidden{
+  transform: translateY(-110%);
+}
+
