@@ -678,7 +678,7 @@ section {
     );
 }
 
-/* IMAGEN DE FONDO DE CADA PROYECTO */
+/* PERSONALIZA AQUÍ LA IMAGEN DE FONDO DE CADA PROYECTO */
 .project-card:nth-child(1) .project-image {
     background-image: url('../img/poc.png');
 }
@@ -835,7 +835,7 @@ section {
             flex: 1;
             width: 100%;
             max-width: 500px;        /* ajusta el ancho máximo en desktop */
-            aspect-ratio: 4 / 5;     /* proporción tipo portada */
+            aspect-ratio: 4 / 5;     /* proporción tipo portada (ajústalo si tu imagen es diferente) */
             border-radius: 15px;
             position: relative;
             overflow: hidden;
@@ -850,7 +850,7 @@ section {
         display: block;
         border-radius: 15px;
         object-position: center;
-        object-fit: cover;  /* desktop */
+        object-fit: cover;  /* desktop: llena el cuadro */
         }
 
 
@@ -1349,7 +1349,12 @@ section {
     .cube-face.right { transform: rotateY(90deg) translateZ(150px); }
     .cube-face.left { transform: rotateY(-90deg) translateZ(150px); }
     .cube-face.top { transform: rotateX(90deg) translateZ(150px); }
-    .cube-face.bottom { transform: rotateX(-90deg) translateZ(150px); 
+    .cube-face.bottom { transform: rotateX(-90deg) translateZ(150px); }
+
+    #tienda .store-slide{
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+  }
 
     .contact-grid {
         grid-template-columns: 1fr;
