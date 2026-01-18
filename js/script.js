@@ -5,7 +5,7 @@ for (let i = 0; i < 50; i++) {
     const particle = document.createElement('div');
     particle.className = 'particle';
     particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = Math.random() * 100 + '%'; // mejor distribución inicial
+    particle.style.top = Math.random() * 100 + '%'; // distribución inicial
     particle.style.animationDelay = Math.random() * 15 + 's';
     particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
     particlesContainer.appendChild(particle);
@@ -102,7 +102,7 @@ Object.keys(skills).forEach(face => {
 let isDragging = false;
 let prevX = 0;
 let prevY = 0;
-let rotationX = -20; // posición inicial bonita
+let rotationX = -20; // posición inicial
 let rotationY = 25;
 let velocityX = 0;
 let velocityY = 0;
@@ -114,7 +114,7 @@ function applyCubeTransform() {
 
 applyCubeTransform();
 
-// Inercia suave al soltar (opcional)
+// Inercia suave al soltar
 function startInertia() {
   cancelAnimationFrame(inertiaFrame);
 
@@ -138,11 +138,11 @@ function startInertia() {
   inertiaFrame = requestAnimationFrame(animate);
 }
 
-// ✅ pointerdown
+//  pointerdown
 skillsCube.addEventListener('pointerdown', (e) => {
   isDragging = true;
 
-  // ✅ Sincroniza con el ángulo actual visible antes de arrastrar
+  // Sincroniza con el ángulo actual visible antes de arrastrar
 const currentTransform = getComputedStyle(skillsCube).transform;
 if (currentTransform && currentTransform !== 'none') {
   const values = currentTransform.match(/matrix3d\((.+)\)/);
@@ -156,31 +156,31 @@ if (currentTransform && currentTransform !== 'none') {
     prevX = e.clientX;
     prevY = e.clientY;
 
-  // ✅ mata la animación CSS mientras el usuario arrastra
+  // mata la animación CSS mientras el usuario arrastra
   skillsCube.classList.add('dragging');
-  skillsCube.classList.add('paused'); // si quieres mantener tu lógica existente
+  skillsCube.classList.add('paused'); 
 
   cancelAnimationFrame(inertiaFrame);
 
-  // ✅ captura el pointer
+  // captura el pointer
   skillsCube.setPointerCapture(e.pointerId);
 
   e.preventDefault();
 });
 
-// ✅ pointermove
+// pointermove
 skillsCube.addEventListener('pointermove', (e) => {
   if (!isDragging) return;
 
   const dx = e.clientX - prevX;
   const dy = e.clientY - prevY;
 
-  rotationY += dx * 0.4;
-  rotationX -= dy * 0.4;
+  rotationY += dx * 0.5;
+  rotationX -= dy * 0.5;
 
-  // ✅ velocidad para inercia
-  velocityX = dx * 0.08;
-  velocityY = dy * 0.08;
+  // velocidad para inercia
+  velocityX = dx * 0.09;
+  velocityY = dy * 0.09;
 
   applyCubeTransform();
 
@@ -190,21 +190,21 @@ skillsCube.addEventListener('pointermove', (e) => {
   e.preventDefault();
 });
 
-// ✅ pointerup
+//  pointerup
 skillsCube.addEventListener('pointerup', () => {
   isDragging = false;
-    // ✅ guarda la posición final como nuevo "inicio" de la animación
+    //  guarda la posición final como nuevo "inicio" de la animación
     skillsCube.style.setProperty('--rx', `${rotationX}deg`);
     skillsCube.style.setProperty('--ry', `${rotationY}deg`);
 
-  // ✅ vuelve a permitir animación automática (si la quieres)
+  // vuelve a permitir animación automática
   skillsCube.classList.remove('paused');
   skillsCube.classList.remove('dragging');
 
   //startInertia();
 });
 
-// ✅ pointercancel
+// pointercancel
 skillsCube.addEventListener('pointercancel', () => {
   isDragging = false;
   skillsCube.classList.remove('paused');
