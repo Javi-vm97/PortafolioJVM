@@ -1351,10 +1351,11 @@ section {
     .cube-face.top { transform: rotateX(90deg) translateZ(150px); }
     .cube-face.bottom { transform: rotateX(-90deg) translateZ(150px); }
 
-    #tienda .store-slide{
+    .store-slide {
     flex-direction: column;
-    padding: 2rem 1.5rem;
-  }
+    padding: 2rem;
+    }
+
 
     .contact-grid {
         grid-template-columns: 1fr;
