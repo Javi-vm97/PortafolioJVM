@@ -1,4 +1,43 @@
-// Particles animation
+function revealText(el, startDelay, stepDelay) {
+    const words = el.textContent.split(' ');
+    el.textContent = '';
+    let charIndex = 0;
+    words.forEach((word, wi) => {
+        const wordSpan = document.createElement('span');
+        wordSpan.style.display = 'inline-block';
+        [...word].forEach((char) => {
+            const letter = document.createElement('span');
+            letter.className = 'reveal-letter';
+            letter.textContent = char;
+            letter.style.animationDelay = `${startDelay + charIndex * stepDelay}s`;
+            wordSpan.appendChild(letter);
+            charIndex++;
+        });
+        el.appendChild(wordSpan);
+        if (wi < words.length - 1) {
+            const space = document.createElement('span');
+            space.className = 'reveal-letter';
+            space.textContent = '\u00A0';
+            space.style.animationDelay = `${startDelay + charIndex * stepDelay}s`;
+            el.appendChild(space);
+            charIndex++;
+        }
+    });
+    return charIndex;
+}
+
+const heroName = document.getElementById('heroName');
+let nameChars = 0;
+if (heroName) {
+    nameChars = revealText(heroName, 0, 0.06);
+}
+
+const heroSubtitle = document.getElementById('heroSubtitle');
+if (heroSubtitle) {
+    const subtitleDelay = nameChars * 0.06 + 0.4;
+    revealText(heroSubtitle, subtitleDelay, 0.03);
+}
+
 const particlesContainer = document.getElementById('particles');
 if (particlesContainer) {
 for (let i = 0; i < 50; i++) {
@@ -148,7 +187,6 @@ if (currentTransform && currentTransform !== 'none') {
   const values = currentTransform.match(/matrix3d\((.+)\)/);
   if (values) {
     const m = values[1].split(',').map(v => parseFloat(v.trim()));
-    // Aproximación de ángulos desde matrix3d
     rotationY = Math.atan2(m[0], m[2]) * (180 / Math.PI);
     rotationX = Math.atan2(m[9], m[10]) * (180 / Math.PI);
   }
@@ -156,13 +194,11 @@ if (currentTransform && currentTransform !== 'none') {
     prevX = e.clientX;
     prevY = e.clientY;
 
-  // mata la animación CSS mientras el usuario arrastra
   skillsCube.classList.add('dragging');
   skillsCube.classList.add('paused'); 
 
   cancelAnimationFrame(inertiaFrame);
 
-  // captura el pointer
   skillsCube.setPointerCapture(e.pointerId);
 
   e.preventDefault();
@@ -178,7 +214,6 @@ skillsCube.addEventListener('pointermove', (e) => {
   rotationY += dx * 0.5;
   rotationX -= dy * 0.5;
 
-  // velocidad para inercia
   velocityX = dx * 0.09;
   velocityY = dy * 0.09;
 
@@ -193,38 +228,36 @@ skillsCube.addEventListener('pointermove', (e) => {
 //  pointerup
 skillsCube.addEventListener('pointerup', () => {
   isDragging = false;
-    //  guarda la posición final como nuevo "inicio" de la animación
     skillsCube.style.setProperty('--rx', `${rotationX}deg`);
     skillsCube.style.setProperty('--ry', `${rotationY}deg`);
 
-  // vuelve a permitir animación automática
   skillsCube.classList.remove('paused');
   skillsCube.classList.remove('dragging');
 
-  //startInertia();
 });
 
-// pointercancel
-skillsCube.addEventListener('pointercancel', () => {
+}skillsCube.addEventListener('pointercancel', () => {
   isDragging = false;
   skillsCube.classList.remove('paused');
-  // skillsCube.classList.remove('dragging');
   startInertia();
 });
 
 
-}
+
 
 // Project Modal
 const modal = document.getElementById('projectModal');
 const closeModal = document.getElementById('closeModal');
 const projectIframe = document.getElementById('projectIframe');
+const modalOpenTab = document.getElementById('modalOpenTab');
 const projectButtons = document.querySelectorAll('.project-detail-btn');
 
 projectButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const url = btn.getAttribute('data-url');
         projectIframe.src = url;
+        modalOpenTab.href = url;
         modal.classList.add('active');
     });
 });
@@ -241,8 +274,74 @@ modal.addEventListener('click', (e) => {
     }
 });
 
+// Projects Sidebar Interaction (assandev style)
+const sidebarCards = document.querySelectorAll('.projects-sidebar__card');
+const bentoCards = document.querySelectorAll('.projects-bento__card');
 
-// Store Carousel with Drag/Swipe functionality
+function setActiveProject(projectId) {
+    sidebarCards.forEach(card => {
+        card.classList.toggle('projects-sidebar__card--active', card.dataset.project === projectId);
+    });
+    bentoCards.forEach(card => {
+        card.classList.toggle('projects-bento__card--active', card.dataset.project === projectId);
+    });
+}
+
+sidebarCards.forEach(card => {
+    card.addEventListener('click', () => {
+        setActiveProject(card.dataset.project);
+    });
+});
+
+bentoCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+        if (e.target.closest('.project-detail-btn')) return;
+        setActiveProject(card.dataset.project);
+    });
+});
+
+
+// Services Carousel (4-card pages)
+(() => {
+    const track = document.getElementById('svcTrack');
+    const pages = track.querySelectorAll('.svc-page');
+    const prevArrow = document.getElementById('svcPrev');
+    const nextArrow = document.getElementById('svcNext');
+    const dotsBox = document.getElementById('svcDots');
+    let svcIndex = 0;
+    let svcAutoPlay;
+
+    // Create dots for each page
+    pages.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'svc-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Página ${i + 1}`);
+        dot.addEventListener('click', () => goTo(i));
+        dotsBox.appendChild(dot);
+    });
+
+    function goTo(index) {
+        svcIndex = ((index % pages.length) + pages.length) % pages.length;
+        track.style.transform = `translateX(-${svcIndex * 100}%)`;
+
+        dotsBox.querySelectorAll('.svc-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === svcIndex);
+        });
+
+        resetAuto();
+    }
+
+    prevArrow.addEventListener('click', () => goTo(svcIndex - 1));
+    nextArrow.addEventListener('click', () => goTo(svcIndex + 1));
+
+    function resetAuto() {
+        clearInterval(svcAutoPlay);
+        svcAutoPlay = setInterval(() => goTo(svcIndex + 1), 15000);
+    }
+
+    resetAuto();
+})();
+
 const carousel = document.getElementById('storeCarousel');
 const carouselContainer = document.querySelector('.store-carousel-container');
 const prevBtn = document.getElementById('prevBtn');
@@ -328,7 +427,6 @@ function drag(event) {
   const currentPosition = getPositionX(event);
   currentTranslate = prevTranslate + currentPosition - startPos;
 
-  // Prevent dragging beyond first and last slide
   const maxTranslate = 0;
   const minTranslate = -(slides.length - 1) * carouselContainer.offsetWidth;
 
@@ -413,6 +511,56 @@ carouselContainer.addEventListener('mouseleave', () => {
 });
 
 
+const statCounterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const el = entry.target;
+            const text = el.textContent.trim();
+            const match = text.match(/^(\d+)(.*)$/);
+            if (match) {
+                const target = parseInt(match[1]);
+                const suffix = match[2];
+                const duration = 2000;
+                const start = performance.now();
+                el.textContent = '0' + suffix;
+                function update(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.round(target * eased);
+                    el.textContent = current + suffix;
+                    if (progress < 1) requestAnimationFrame(update);
+                }
+                requestAnimationFrame(update);
+            }
+            statCounterObserver.unobserve(el);
+        }
+    });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-number').forEach(el => {
+    statCounterObserver.observe(el);
+});
+
+// Skill cards staggered slide-in
+const skillsGrid = document.querySelector('.skills-grid');
+if (skillsGrid) {
+    const skillSlideObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const cards = skillsGrid.querySelectorAll('.skill-card.slide-in');
+                cards.forEach((card, i) => {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, i * 200);
+                });
+                skillSlideObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    skillSlideObserver.observe(skillsGrid);
+}
+
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -424,26 +572,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Intersection Observer
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
+const scrollRevealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('visible');
+            scrollRevealObserver.unobserve(entry.target);
         }
     });
-}, observerOptions);
+}, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -60px 0px'
+});
 
-document.querySelectorAll('.fade-in, .skill-card, .project-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-    observer.observe(el);
+document.querySelectorAll('.section-title, .skill-card, .projects-bento__card, .fade-in, .stat-card, .experience-content, .booking-container, .contact-item').forEach(el => {
+    scrollRevealObserver.observe(el);
 });
 
 // Active nav link on scroll

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Javier Vidal Miguel - FullStack Developer & Enterprise Systems Specialist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
@@ -18,7 +21,7 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#tienda">Tienda</a></li>
+                <!-- <li><a href="#tienda">Tienda</a></li> -->
                 <li><a href="#booking">Agendar</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
@@ -28,11 +31,12 @@
     <section id="inicio">
         <div class="hero">
             <div class="hero-content">
-                <h1>Javier Vidal Miguel<br><span class="gradient-text">FullStack Development & Enterprise Systems Specialist</span></h1>
+                <h1><span class="reveal-text" id="heroName">Javier Vidal Miguel</span><br><span class="gradient-text reveal-text" id="heroSubtitle">FullStack Development & Enterprise Systems Specialist</span></h1>
                 <p>Colaboro con empresas y startups a escalar mediante soluciones eficientes: apps web, integraciones, soporte técnico especializado y optimización de procesos internos. Integro soluciones de marketing para empresas que deseen escalar.</p>
                 <div class="cta-buttons">
                     <a href="#contacto" class="btn btn-primary">Contáctame</a>
                     <a href="#proyectos" class="btn btn-secondary">Ver trabajos</a>
+                    <a href="./img/Curriculum_javier vidalmdevops.pdf" download class="btn btn-secondary btn-cv">Descargar CV</a>
                 </div>
             </div>
             <div class="profile-container">
@@ -70,7 +74,7 @@
         <div class="profile-stats">
             <div class="stat-card">
                 <div class="stat-number">6+</div>
-                <div class="stat-label">Años de Experiencia</div>
+                <div class="stat-label">Años de Experiencia hibrida</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">50+</div>
@@ -92,22 +96,22 @@
         </div>
 
         <div class="skills-grid">
-            <div class="skill-card fade-in">
+            <div class="skill-card slide-in">
                 <div class="icon">💻</div>
                 <h3>Development</h3>
                 <p>Web • Automatización • Integraciones</p>
             </div>
-            <div class="skill-card fade-in">
+            <div class="skill-card slide-in">
                 <div class="icon">🛡️</div>
                 <h3>Support L1-L3</h3>
                 <p>Incidentes • Optimización • Continuidad</p>
             </div>
-            <div class="skill-card fade-in">
+            <div class="skill-card slide-in">
                 <div class="icon">☁️</div>
                 <h3>Cloud & DevOps</h3>
                 <p>AWS • CI/CD • Docker</p>
             </div>
-            <div class="skill-card fade-in">
+            <div class="skill-card slide-in">
                 <div class="icon">📈</div>
                 <h3>Marketing Digital</h3>
                 <p>Contenido • Marca • Conversión</p>
@@ -117,112 +121,231 @@
 
     <section id="servicios">
         <h2 class="section-title">Servicios</h2>
-        <p style="text-align: center; color: var(--text-dim); max-width: 800px; margin: 0 auto 3rem;">Soluciones digitales diseñadas para impulsar crecimiento, eficiencia y conversión.</p>
-        
-        <div class="skills-grid">
-            <div class="skill-card">
-                <div class="icon">🎨</div>
-                <h3>Desarrollo Web</h3>
-                <p>Sitios web de alto rendimiento pensados para convertir. Diseño responsive y accesible, SPA y Optimización SEO.</p>
-                <div class="skill-card-buttons">
-                    <a href="#proyectos" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Ver</a>
-                    <a href="#contacto" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Cotizar</a>
+        <p class="svc-header__subtitle">Donde la <strong>tecnología</strong> se encuentra con la <strong>estrategia de negocio</strong>.</p>
+
+        <div class="svc-carousel" id="svcCarousel">
+            <button class="svc-carousel__arrow svc-carousel__arrow--prev" id="svcPrev" aria-label="Anterior">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            <div class="svc-carousel__viewport">
+                <div class="svc-carousel__track" id="svcTrack">
+                    <!-- Page 1: 4 services -->
+                    <div class="svc-page">
+                        <div class="svc-card" style="--card-accent: 128,70,200;">
+                            <div class="svc-card__glass"></div>
+                            <div class="svc-card__specular"></div>
+                            <div class="svc-card__body">
+                                <div class="svc-card__emoji">🎨</div>
+                                <h3 class="svc-card__name">Desarrollo Web</h3>
+                                <span class="svc-card__tagline">HIGH-PERFORMANCE WEBSITES</span>
+                                <p class="svc-card__desc-short">Sitios web de alto rendimiento pensados para convertir y escalar tu presencia digital.</p>
+                                <div class="svc-card__tags">
+                                    <span class="svc-tag">React</span>
+                                    <span class="svc-tag">Next.js</span>
+                                    <span class="svc-tag">SEO</span>
+                                </div>
+                                <a href="#contacto" class="btn btn-primary svc-card__btn">Cotizar</a>
+                            </div>
+                        </div>
+
+                        <div class="svc-card" style="--card-accent: 160,90,240;">
+                            <div class="svc-card__glass"></div>
+                            <div class="svc-card__specular"></div>
+                            <div class="svc-card__body">
+                                <div class="svc-card__emoji">📱</div>
+                                <h3 class="svc-card__name">Aplicaciones</h3>
+                                <span class="svc-card__tagline">WEB & MOBILE APPS</span>
+                                <p class="svc-card__desc-short">Aplicaciones web y móviles listas para escalar con integración completa de APIs.</p>
+                                <div class="svc-card__tags">
+                                    <span class="svc-tag">Node.js</span>
+                                    <span class="svc-tag">React</span>
+                                    <span class="svc-tag">PWA</span>
+                                </div>
+                                <a href="#contacto" class="btn btn-primary svc-card__btn">Iniciar</a>
+                            </div>
+                        </div>
+
+                        <div class="svc-card" style="--card-accent: 200,140,60;">
+                            <div class="svc-card__glass"></div>
+                            <div class="svc-card__specular"></div>
+                            <div class="svc-card__body">
+                                <div class="svc-card__emoji">🔧</div>
+                                <h3 class="svc-card__name">Integraciones</h3>
+                                <span class="svc-card__tagline">ENTERPRISE SYSTEMS</span>
+                                <p class="svc-card__desc-short">Conexión de ecosistemas tecnológicos heterogéneos para flujos de trabajo unificados.</p>
+                                <div class="svc-card__tags">
+                                    <span class="svc-tag">SAP</span>
+                                    <span class="svc-tag">CRM</span>
+                                    <span class="svc-tag">REST API</span>
+                                </div>
+                                <a href="#contacto" class="btn btn-primary svc-card__btn">Consultar</a>
+                            </div>
+                        </div>
+
+                        <div class="svc-card" style="--card-accent: 100,180,160;">
+                            <div class="svc-card__glass"></div>
+                            <div class="svc-card__specular"></div>
+                            <div class="svc-card__body">
+                                <div class="svc-card__emoji">🛠️</div>
+                                <h3 class="svc-card__name">Soporte L1-L3</h3>
+                                <span class="svc-card__tagline">TECHNICAL SUPPORT</span>
+                                <p class="svc-card__desc-short">Garantía de continuidad operativa con resolución de incidentes y enfoque preventivo.</p>
+                                <div class="svc-card__tags">
+                                    <span class="svc-tag">ITIL</span>
+                                    <span class="svc-tag">Monitoring</span>
+                                    <span class="svc-tag">SLA</span>
+                                </div>
+                                <a href="#contacto" class="btn btn-primary svc-card__btn">Contratar</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 2: 4 services -->
+                    <div class="svc-page">
+                        <div class="svc-card" style="--card-accent: 70,140,220;">
+                            <div class="svc-card__glass"></div>
+                            <div class="svc-card__specular"></div>
+                            <div class="svc-card__body">
+                                <div class="svc-card__emoji">☁️</div>
+                                <h3 class="svc-card__name">Cloud & DevOps</h3>
+                                <span class="svc-card__tagline">CLOUD ARCHITECTURE</span>
+                                <p class="svc-card__desc-short">Infraestructura escalable en la nube con despliegues automatizados y contenedores.</p>
+                                <div class="svc-card__tags">
+                                    <span class="svc-tag">AWS</span>
+                                    <span class="svc-tag">Docker</span>
+                                    <span class="svc-tag">Terraform</span>
+                                </div>
+                                <a href="#contacto" class="btn btn-primary svc-card__btn">Consultar</a>
+                            </div>
+                        </div>
+
+                        <div class="svc-card" style="--card-accent: 220,120,80;">
+                            <div class="svc-card__glass"></div>
+                            <div class="svc-card__specular"></div>
+                            <div class="svc-card__body">
+                                <div class="svc-card__emoji">📊</div>
+                                <h3 class="svc-card__name">Marketing Digital</h3>
+                                <span class="svc-card__tagline">GROWTH STRATEGY</span>
+                                <p class="svc-card__desc-short">Estrategias de contenido y conversión para negocios en crecimiento.</p>
+                                <div class="svc-card__tags">
+                                    <span class="svc-tag">SEO</span>
+                                    <span class="svc-tag">CRO</span>
+                                    <span class="svc-tag">Analytics</span>
+                                </div>
+                                <a href="#contacto" class="btn btn-primary svc-card__btn">Solicitar</a>
+                            </div>
+                        </div>
+
+                        <div class="svc-card" style="--card-accent: 128,70,200;">
+                            <div class="svc-card__glass"></div>
+                            <div class="svc-card__specular"></div>
+                            <div class="svc-card__body">
+                                <div class="svc-card__emoji">🤖</div>
+                                <h3 class="svc-card__name">Automatización & IA</h3>
+                                <span class="svc-card__tagline">AI INTEGRATION</span>
+                                <p class="svc-card__desc-short">Flujos inteligentes e integración de IA para optimizar operaciones y escalar.</p>
+                                <div class="svc-card__tags">
+                                    <span class="svc-tag">OpenAI</span>
+                                    <span class="svc-tag">LangChain</span>
+                                    <span class="svc-tag">AI Agents</span>
+                                </div>
+                                <a href="#contacto" class="btn btn-primary svc-card__btn">Solicitar</a>
+                            </div>
+                        </div>
+
+                        <div class="svc-card" style="--card-accent: 180,80,80;">
+                            <div class="svc-card__glass"></div>
+                            <div class="svc-card__specular"></div>
+                            <div class="svc-card__body">
+                                <div class="svc-card__emoji">🛡️</div>
+                                <h3 class="svc-card__name">Seguridad</h3>
+                                <span class="svc-card__tagline">SECURITY & COMPLIANCE</span>
+                                <p class="svc-card__desc-short">Fortalece la seguridad y cumple estándares con acompañamiento experto.</p>
+                                <div class="svc-card__tags">
+                                    <span class="svc-tag">Pentesting</span>
+                                    <span class="svc-tag">Compliance</span>
+                                    <span class="svc-tag">OSHA</span>
+                                </div>
+                                <a href="#contacto" class="btn btn-primary svc-card__btn">Solicitar</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="skill-card">
-                <div class="icon">📱</div>
-                <h3>Desarrollo de Aplicaciones</h3>
-                <p>Aplicaciones web y móviles listas para escalar con integración completa de APIs y servicios externos.</p>
-                <div class="skill-card-buttons">
-                    <a href="#proyectos" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Ver</a>
-                    <a href="#contacto" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Iniciar</a>
-                </div>
-            </div>
-
-            <div class="skill-card">
-                <div class="icon">🔧</div>
-                <h3>Integraciones Empresariales</h3>
-                <p>Conexión de sistemas SAP, CRM y APIs. Automatización de flujos de trabajo y sincronización en tiempo real.</p>
-                <div class="skill-card-buttons">
-                    <a href="#contacto" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Consultar</a>
-                </div>
-            </div>
-
-            <div class="skill-card">
-                <div class="icon">🛠️</div>
-                <h3>Soporte Técnico L1-L3</h3>
-                <p>Resolución de incidentes, optimización de sistemas y garantía de continuidad operativa con enfoque preventivo.</p>
-                <div class="skill-card-buttons">
-                    <a href="#contacto" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Contratar</a>
-                </div>
-            </div>
-
-            <div class="skill-card">
-                <div class="icon">☁️</div>
-                <h3>Cloud & DevOps</h3>
-                <p>Arquitectura cloud (AWS, GCP), CI/CD, contenedores Docker y despliegues automatizados para máxima eficiencia.</p>
-                <div class="skill-card-buttons">
-                    <a href="#contacto" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Consultar</a>
-                </div>
-            </div>
-
-            <div class="skill-card">
-                <div class="icon">📊</div>
-                <h3>Marketing Digital</h3>
-                <p>Estrategias de contenido, posicionamiento de marca y optimización de conversión para negocios en crecimiento.</p>
-                <div class="skill-card-buttons">
-                    <a href="#contacto" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Solicitar</a>
-                </div>
-            </div>
-            <div class="skill-card">
-                <div class="icon">🤖</div>
-                <h3>Automatización & IA</h3>
-                <p>Automatización de procesos, flujos inteligentes e integración de IA para optimizar operaciones, reducir costos y escalar tu negocio de forma eficiente.</p>
-                <div class="skill-card-buttons">
-                    <a href="#contacto" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Solicitar</a>
-                </div>
-            </div>
-            <div class="skill-card">
-                <div class="icon">🛡️</div>
-                <h3>Mentorías en Seguridad & Compliance</h3>
-                <p>Acompañamiento experto para fortalecer la seguridad, cumplir estándares y aplicar buenas prácticas en infraestructura, aplicaciones y procesos.</p>
-                <div class="skill-card-buttons">
-                    <a href="#contacto" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Solicitar</a>
-                </div>
-            </div>
+            <button class="svc-carousel__arrow svc-carousel__arrow--next" id="svcNext" aria-label="Siguiente">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
         </div>
+
+        <div class="svc-carousel__dots" id="svcDots"></div>
     </section>
 
     <section id="proyectos">
         <h2 class="section-title">Proyectos Destacados</h2>
-        <p style="text-align: center; color: var(--text-dim); max-width: 800px; margin: 0 auto 3rem;">Haz clic en "Ver detalle" para explorar cada proyecto en una ventana emergente.</p>
-        
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-image">🚀</div>
-                <div class="project-content">
-                    <h3>PoC AegisAI Agents</h3>
-                    <p>Implementación de agente AI que analiza observaciones de seguridad, evalua riesgos y crea planes de acción que cumplan con requerimientos OSHA en tiempo real</p>
-                    <button class="btn btn-secondary project-detail-btn" data-url="https://aegisai.team/" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Ver detalle</button>
+        <p class="projects-header__subtitle">Construidos para <strong>impacto real</strong>. Diseñados para <strong>crecimiento continuo</strong>.</p>
+
+        <div class="projects-layout">
+            <div class="projects-sidebar">
+                <div class="projects-sidebar__card projects-sidebar__card--active" data-project="aegis" style="--card-accent: 128,70,200;">
+                    <div class="projects-sidebar__text">
+                        <span class="projects-sidebar__name">AegisAI Agents</span>
+                        <span class="projects-sidebar__subtitle">AI SAFETY COMPLIANCE</span>
+                    </div>
+                </div>
+                <div class="projects-sidebar__card" data-project="safety" style="--card-accent: 160,90,240;">
+                    <div class="projects-sidebar__text">
+                        <span class="projects-sidebar__name">Safety Excellence</span>
+                        <span class="projects-sidebar__subtitle">CLOUD & DEVOPS</span>
+                    </div>
+                </div>
+                <div class="projects-sidebar__card" data-project="chatbot" style="--card-accent: 230,225,216;">
+                    <div class="projects-sidebar__text">
+                        <span class="projects-sidebar__name">Safety Excellence Group</span>
+                        <span class="projects-sidebar__subtitle">WEBSITE & INTEGRATIONS</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="project-card">
-                <div class="project-image">🛒</div>
-                <div class="project-content">
-                    <h3>Safety-Excellence-App</h3>
-                    <p>Implementación de nuevas funciones dentro del entorno, despliegue y automatización, monitoreo de incidentes, rotación de keys y aplicación de politicas de seguridad en aws.</p>
-                    <button class="btn btn-secondary project-detail-btn" data-url="https://app.safety-excellence.com/" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Ver detalle</button>
+            <div class="projects-bento">
+                <div class="projects-bento__card projects-bento__card--aegis projects-bento__card--active" data-project="aegis" style="--card-accent: 128,70,200;">
+                    <div class="projects-bento__media">
+                        <img src="./img/poc.png" alt="PoC AegisAI Agents">
+                    </div>
+                    <div class="projects-bento__glass"></div>
+                    <div class="projects-bento__specular"></div>
+                    <div class="projects-bento__overlay">
+                        <h3 class="projects-bento__title">PoC AegisAI Agents</h3>
+                        <p class="projects-bento__desc">Agente AI que analiza observaciones de seguridad, evalúa riesgos y crea planes de acción OSHA en tiempo real.</p>
+                        <button class="btn btn-primary project-detail-btn" data-url="https://aegisai.team/" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Ver detalle</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="project-card">
-                <div class="project-image">📱</div>
-                <div class="project-content">
-                    <h3>Chatbot SEG</h3>
-                    <p>Desarrollo, integración e implementación de chatbots para entornos y sitios web con capacidad de realizar registros, responder solicitudes a través de openai y compartir documentos o imagenes descargables.</p>
-                    <button class="btn btn-secondary project-detail-btn" data-url="https://ejemplo-proyecto3.com" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Ver detalle</button>
+                <div class="projects-bento__card projects-bento__card--safety" data-project="safety" style="--card-accent: 160,90,240;">
+                    <div class="projects-bento__media">
+                        <img src="./img/seg.png" alt="Safety Excellence App">
+                    </div>
+                    <div class="projects-bento__glass"></div>
+                    <div class="projects-bento__specular"></div>
+                    <div class="projects-bento__overlay">
+                        <h3 class="projects-bento__title">Safety-Excellence-App</h3>
+                        <p class="projects-bento__desc">Despliegue, automatización, monitoreo de incidentes, rotación de keys y políticas de seguridad en AWS.</p>
+                        <button class="btn btn-primary project-detail-btn" data-url="https://app.safety-excellence.com/" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Ver detalle</button>
+                    </div>
+                </div>
+
+                <div class="projects-bento__card projects-bento__card--chatbot" data-project="chatbot" style="--card-accent: 230,225,216;">
+                    <div class="projects-bento__media">
+                        <img src="./img/seg-website.png" alt="Website Safety Excellence Group">
+                    </div>
+                    <div class="projects-bento__glass"></div>
+                    <div class="projects-bento__specular"></div>
+                    <div class="projects-bento__overlay">
+                        <h3 class="projects-bento__title">Website Safety Excellence Group</h3>
+                        <p class="projects-bento__desc">Diseño web, integraciones empresariales, entrenamiento de chatbot con IA y automatización de flujos operativos.</p>
+                        <button class="btn btn-primary project-detail-btn" data-url="https://segwebsite-production.up.railway.app/" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Ver detalle</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -230,12 +353,17 @@
 
     <div class="modal" id="projectModal">
         <div class="modal-content">
-            <button class="modal-close" id="closeModal">✕</button>
+            <div class="modal-header">
+                <a class="modal-open-tab" id="modalOpenTab" href="#" target="_blank" rel="noopener noreferrer">
+                    Abrir en nueva pestaña <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i>
+                </a>
+                <button class="modal-close" id="closeModal">✕</button>
+            </div>
             <iframe class="modal-iframe" id="projectIframe"></iframe>
         </div>
     </div>
 
-    <section id="tienda">
+    <section id="tienda" style="display: none;">
         <h2 class="section-title">Tienda</h2>
         <p style="text-align: center; color: var(--text-dim); max-width: 800px; margin: 0 auto;">Explora nuestros productos digitales premium. Usa las flechas para navegar.</p>
         
@@ -366,7 +494,7 @@
                 <input type="hidden" name="_subject" value="Nuevo mensaje desde portafolio">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value="https://javi-vm97.github.io/PortafolioJVM/">
+                <input type="hidden" name="_next" value="https://javi-vm97.github.io/PortafolioJVM/#contacto">
                 
                 <div class="form-group">
                     <label>Nombre</label>
