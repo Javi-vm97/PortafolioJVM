@@ -6,574 +6,569 @@
     <title>Javier Vidal Miguel - FullStack Developer & Enterprise Systems Specialist</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/styles.css">
+    <style>html,body{background:#0b0d17;}</style>
 </head>
 <body>
-    <div class="background-animation"></div>
-    <div class="particles" id="particles"></div>
 
-    <nav id="navbar">
-        <div class="nav-content">
-            <div class="logo">JVM</div>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <!-- <li><a href="#tienda">Tienda</a></li> -->
-                <li><a href="#booking">Agendar</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
+    <!-- LOADER -->
+    <div class="loader" id="loader">
+        <div class="loader-circle">
+            <div class="loader-circle-inner"></div>
         </div>
-    </nav>
-
-    <section id="inicio">
-        <div class="hero">
-            <div class="hero-content">
-                <h1><span class="reveal-text" id="heroName">Javier Vidal Miguel</span><br><span class="gradient-text reveal-text" id="heroSubtitle">FullStack Development & Enterprise Systems Specialist</span></h1>
-                <p>Colaboro con empresas y startups a escalar mediante soluciones eficientes: apps web, integraciones, soporte técnico especializado y optimización de procesos internos. Integro soluciones de marketing para empresas que deseen escalar.</p>
-                <div class="cta-buttons">
-                    <a href="#contacto" class="btn btn-primary">Contáctame</a>
-                    <a href="#proyectos" class="btn btn-secondary">Ver trabajos</a>
-                    <a href="./img/Curriculum_javier vidalmdevops.pdf" download class="btn btn-secondary btn-cv">Descargar CV</a>
-                </div>
-            </div>
-            <div class="profile-container">
-                <div class="profile-3d" id="profile3d">
-                    <div class="profile-image">
-                        <div class="profile-glow"></div>
-                        <img src="./img/perfil.png" alt="Javier Vidal Miguel" id="profileImg">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="perfil">
-        <h2 class="section-title">Perfil Profesional</h2>
-        <div class="experience-content">
-            <p>Como <span class="highlight">Desarrollador FullStack y Especialista en Sistemas Empresariales</span>, cuento con más de <span class="highlight">6 años de experiencia transformadora</span> en el diseño e implementación de soluciones tecnológicas que impulsan la eficiencia operativa y el crecimiento sostenible de organizaciones.</p>
-            
-            <p>Mi enfoque combina <span class="highlight">expertise técnico profesional</span> con una visión estratégica de negocio, permitiéndome no solo desarrollar software de calidad enterprise-grade, sino también <span class="highlight">automatizar procesos críticos</span>, optimizar flujos de trabajo complejos y garantizar la continuidad operativa para entornos de alta demanda.</p>
-            
-            <p>Especializado en la <span class="highlight">integración de ecosistemas tecnológicos heterogéneos</span> (SAP, CRM, APIs REST), despliegues en la nube (AWS, GCP), y la implementación de prácticas DevOps que aceleran el time-to-market sin comprometer la seguridad ni la escalabilidad.</p>
-            
-            <p>Como profesional híbrido, también integro <span class="highlight">estrategias de marketing digital y e-commerce</span>, ayudando a empresas a construir no solo productos tecnológicos robustos, sino también experiencias digitales que convierten y escalan.</p>
-
-            <div class="experience-tags">
-                <span class="tag" style="animation-delay: 0.1s">Enterprise Architecture</span>
-                <span class="tag" style="animation-delay: 0.2s">Cloud Solutions</span>
-                <span class="tag" style="animation-delay: 0.3s">DevOps & CI/CD</span>
-                <span class="tag" style="animation-delay: 0.4s">Digital Transformation</span>
-                <span class="tag" style="animation-delay: 0.5s">Business Intelligence</span>
-                <span class="tag" style="animation-delay: 0.6s">Support Specialist</span>
-            </div>
-        </div>
-
-        <div class="profile-stats">
-            <div class="stat-card">
-                <div class="stat-number">6+</div>
-                <div class="stat-label">Años de Experiencia hibrida</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">50+</div>
-                <div class="stat-label">Proyectos Completados</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">99%</div>
-                <div class="stat-label">Satisfacción del Cliente</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills">
-        <h2 class="section-title">Skills & Tecnologías</h2>
-        <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem;">Cubo 3D interactivo - Arrastra para rotar y explorar todas las tecnologías</p>
-        
-        <div class="skills-3d-container">
-            <div class="skills-cube-wrapper" id="skillsCube"></div>
-        </div>
-
-        <div class="skills-grid">
-            <div class="skill-card slide-in">
-                <div class="icon">💻</div>
-                <h3>Development</h3>
-                <p>Web • Automatización • Integraciones</p>
-            </div>
-            <div class="skill-card slide-in">
-                <div class="icon">🛡️</div>
-                <h3>Support L1-L3</h3>
-                <p>Incidentes • Optimización • Continuidad</p>
-            </div>
-            <div class="skill-card slide-in">
-                <div class="icon">☁️</div>
-                <h3>Cloud & DevOps</h3>
-                <p>AWS • CI/CD • Docker</p>
-            </div>
-            <div class="skill-card slide-in">
-                <div class="icon">📈</div>
-                <h3>Marketing Digital</h3>
-                <p>Contenido • Marca • Conversión</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="servicios">
-        <h2 class="section-title">Servicios</h2>
-        <p class="svc-header__subtitle">Donde la <strong>tecnología</strong> se encuentra con la <strong>estrategia de negocio</strong>.</p>
-
-        <div class="svc-carousel" id="svcCarousel">
-            <button class="svc-carousel__arrow svc-carousel__arrow--prev" id="svcPrev" aria-label="Anterior">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-
-            <div class="svc-carousel__viewport">
-                <div class="svc-carousel__track" id="svcTrack">
-                    <!-- Page 1: 4 services -->
-                    <div class="svc-page">
-                        <div class="svc-card" style="--card-accent: 128,70,200;">
-                            <div class="svc-card__glass"></div>
-                            <div class="svc-card__specular"></div>
-                            <div class="svc-card__body">
-                                <div class="svc-card__emoji">🎨</div>
-                                <h3 class="svc-card__name">Desarrollo Web</h3>
-                                <span class="svc-card__tagline">HIGH-PERFORMANCE WEBSITES</span>
-                                <p class="svc-card__desc-short">Sitios web de alto rendimiento pensados para convertir y escalar tu presencia digital.</p>
-                                <div class="svc-card__tags">
-                                    <span class="svc-tag">React</span>
-                                    <span class="svc-tag">Next.js</span>
-                                    <span class="svc-tag">SEO</span>
-                                </div>
-                                <a href="#contacto" class="btn btn-primary svc-card__btn">Cotizar</a>
-                            </div>
-                        </div>
-
-                        <div class="svc-card" style="--card-accent: 160,90,240;">
-                            <div class="svc-card__glass"></div>
-                            <div class="svc-card__specular"></div>
-                            <div class="svc-card__body">
-                                <div class="svc-card__emoji">📱</div>
-                                <h3 class="svc-card__name">Aplicaciones</h3>
-                                <span class="svc-card__tagline">WEB & MOBILE APPS</span>
-                                <p class="svc-card__desc-short">Aplicaciones web y móviles listas para escalar con integración completa de APIs.</p>
-                                <div class="svc-card__tags">
-                                    <span class="svc-tag">Node.js</span>
-                                    <span class="svc-tag">React</span>
-                                    <span class="svc-tag">PWA</span>
-                                </div>
-                                <a href="#contacto" class="btn btn-primary svc-card__btn">Iniciar</a>
-                            </div>
-                        </div>
-
-                        <div class="svc-card" style="--card-accent: 200,140,60;">
-                            <div class="svc-card__glass"></div>
-                            <div class="svc-card__specular"></div>
-                            <div class="svc-card__body">
-                                <div class="svc-card__emoji">🔧</div>
-                                <h3 class="svc-card__name">Integraciones</h3>
-                                <span class="svc-card__tagline">ENTERPRISE SYSTEMS</span>
-                                <p class="svc-card__desc-short">Conexión de ecosistemas tecnológicos heterogéneos para flujos de trabajo unificados.</p>
-                                <div class="svc-card__tags">
-                                    <span class="svc-tag">SAP</span>
-                                    <span class="svc-tag">CRM</span>
-                                    <span class="svc-tag">REST API</span>
-                                </div>
-                                <a href="#contacto" class="btn btn-primary svc-card__btn">Consultar</a>
-                            </div>
-                        </div>
-
-                        <div class="svc-card" style="--card-accent: 100,180,160;">
-                            <div class="svc-card__glass"></div>
-                            <div class="svc-card__specular"></div>
-                            <div class="svc-card__body">
-                                <div class="svc-card__emoji">🛠️</div>
-                                <h3 class="svc-card__name">Soporte L1-L3</h3>
-                                <span class="svc-card__tagline">TECHNICAL SUPPORT</span>
-                                <p class="svc-card__desc-short">Garantía de continuidad operativa con resolución de incidentes y enfoque preventivo.</p>
-                                <div class="svc-card__tags">
-                                    <span class="svc-tag">ITIL</span>
-                                    <span class="svc-tag">Monitoring</span>
-                                    <span class="svc-tag">SLA</span>
-                                </div>
-                                <a href="#contacto" class="btn btn-primary svc-card__btn">Contratar</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Page 2: 4 services -->
-                    <div class="svc-page">
-                        <div class="svc-card" style="--card-accent: 70,140,220;">
-                            <div class="svc-card__glass"></div>
-                            <div class="svc-card__specular"></div>
-                            <div class="svc-card__body">
-                                <div class="svc-card__emoji">☁️</div>
-                                <h3 class="svc-card__name">Cloud & DevOps</h3>
-                                <span class="svc-card__tagline">CLOUD ARCHITECTURE</span>
-                                <p class="svc-card__desc-short">Infraestructura escalable en la nube con despliegues automatizados y contenedores.</p>
-                                <div class="svc-card__tags">
-                                    <span class="svc-tag">AWS</span>
-                                    <span class="svc-tag">Docker</span>
-                                    <span class="svc-tag">Terraform</span>
-                                </div>
-                                <a href="#contacto" class="btn btn-primary svc-card__btn">Consultar</a>
-                            </div>
-                        </div>
-
-                        <div class="svc-card" style="--card-accent: 220,120,80;">
-                            <div class="svc-card__glass"></div>
-                            <div class="svc-card__specular"></div>
-                            <div class="svc-card__body">
-                                <div class="svc-card__emoji">📊</div>
-                                <h3 class="svc-card__name">Marketing Digital</h3>
-                                <span class="svc-card__tagline">GROWTH STRATEGY</span>
-                                <p class="svc-card__desc-short">Estrategias de contenido y conversión para negocios en crecimiento.</p>
-                                <div class="svc-card__tags">
-                                    <span class="svc-tag">SEO</span>
-                                    <span class="svc-tag">CRO</span>
-                                    <span class="svc-tag">Analytics</span>
-                                </div>
-                                <a href="#contacto" class="btn btn-primary svc-card__btn">Solicitar</a>
-                            </div>
-                        </div>
-
-                        <div class="svc-card" style="--card-accent: 128,70,200;">
-                            <div class="svc-card__glass"></div>
-                            <div class="svc-card__specular"></div>
-                            <div class="svc-card__body">
-                                <div class="svc-card__emoji">🤖</div>
-                                <h3 class="svc-card__name">Automatización & IA</h3>
-                                <span class="svc-card__tagline">AI INTEGRATION</span>
-                                <p class="svc-card__desc-short">Flujos inteligentes e integración de IA para optimizar operaciones y escalar.</p>
-                                <div class="svc-card__tags">
-                                    <span class="svc-tag">OpenAI</span>
-                                    <span class="svc-tag">LangChain</span>
-                                    <span class="svc-tag">AI Agents</span>
-                                </div>
-                                <a href="#contacto" class="btn btn-primary svc-card__btn">Solicitar</a>
-                            </div>
-                        </div>
-
-                        <div class="svc-card" style="--card-accent: 180,80,80;">
-                            <div class="svc-card__glass"></div>
-                            <div class="svc-card__specular"></div>
-                            <div class="svc-card__body">
-                                <div class="svc-card__emoji">🛡️</div>
-                                <h3 class="svc-card__name">Seguridad</h3>
-                                <span class="svc-card__tagline">SECURITY & COMPLIANCE</span>
-                                <p class="svc-card__desc-short">Fortalece la seguridad y cumple estándares con acompañamiento experto.</p>
-                                <div class="svc-card__tags">
-                                    <span class="svc-tag">Pentesting</span>
-                                    <span class="svc-tag">Compliance</span>
-                                    <span class="svc-tag">OSHA</span>
-                                </div>
-                                <a href="#contacto" class="btn btn-primary svc-card__btn">Solicitar</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="svc-carousel__arrow svc-carousel__arrow--next" id="svcNext" aria-label="Siguiente">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-        </div>
-
-        <div class="svc-carousel__dots" id="svcDots"></div>
-    </section>
-
-    <section id="proyectos">
-        <h2 class="section-title">Proyectos Destacados</h2>
-        <p class="projects-header__subtitle">Construidos para <strong>impacto real</strong>. Diseñados para <strong>crecimiento continuo</strong>.</p>
-
-        <div class="projects-layout">
-            <div class="projects-sidebar">
-                <div class="projects-sidebar__card projects-sidebar__card--active" data-project="aegis" style="--card-accent: 128,70,200;">
-                    <div class="projects-sidebar__text">
-                        <span class="projects-sidebar__name">AegisAI Agents</span>
-                        <span class="projects-sidebar__subtitle">AI SAFETY COMPLIANCE</span>
-                    </div>
-                </div>
-                <div class="projects-sidebar__card" data-project="safety" style="--card-accent: 160,90,240;">
-                    <div class="projects-sidebar__text">
-                        <span class="projects-sidebar__name">Safety Excellence</span>
-                        <span class="projects-sidebar__subtitle">CLOUD & DEVOPS</span>
-                    </div>
-                </div>
-                <div class="projects-sidebar__card" data-project="chatbot" style="--card-accent: 230,225,216;">
-                    <div class="projects-sidebar__text">
-                        <span class="projects-sidebar__name">Safety Excellence Group</span>
-                        <span class="projects-sidebar__subtitle">WEBSITE & INTEGRATIONS</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="projects-bento">
-                <div class="projects-bento__card projects-bento__card--aegis projects-bento__card--active" data-project="aegis" style="--card-accent: 128,70,200;">
-                    <div class="projects-bento__media">
-                        <img src="./img/poc.png" alt="PoC AegisAI Agents">
-                    </div>
-                    <div class="projects-bento__glass"></div>
-                    <div class="projects-bento__specular"></div>
-                    <div class="projects-bento__overlay">
-                        <h3 class="projects-bento__title">PoC AegisAI Agents</h3>
-                        <p class="projects-bento__desc">Agente AI que analiza observaciones de seguridad, evalúa riesgos y crea planes de acción OSHA en tiempo real.</p>
-                        <button class="btn btn-primary project-detail-btn" data-url="https://aegisai.team/" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Ver detalle</button>
-                    </div>
-                </div>
-
-                <div class="projects-bento__card projects-bento__card--safety" data-project="safety" style="--card-accent: 160,90,240;">
-                    <div class="projects-bento__media">
-                        <img src="./img/seg.png" alt="Safety Excellence App">
-                    </div>
-                    <div class="projects-bento__glass"></div>
-                    <div class="projects-bento__specular"></div>
-                    <div class="projects-bento__overlay">
-                        <h3 class="projects-bento__title">Safety-Excellence-App</h3>
-                        <p class="projects-bento__desc">Despliegue, automatización, monitoreo de incidentes, rotación de keys y políticas de seguridad en AWS.</p>
-                        <button class="btn btn-primary project-detail-btn" data-url="https://app.safety-excellence.com/" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Ver detalle</button>
-                    </div>
-                </div>
-
-                <div class="projects-bento__card projects-bento__card--chatbot" data-project="chatbot" style="--card-accent: 230,225,216;">
-                    <div class="projects-bento__media">
-                        <img src="./img/seg-website.png" alt="Website Safety Excellence Group">
-                    </div>
-                    <div class="projects-bento__glass"></div>
-                    <div class="projects-bento__specular"></div>
-                    <div class="projects-bento__overlay">
-                        <h3 class="projects-bento__title">Website Safety Excellence Group</h3>
-                        <p class="projects-bento__desc">Diseño web, integraciones empresariales, entrenamiento de chatbot con IA y automatización de flujos operativos.</p>
-                        <button class="btn btn-primary project-detail-btn" data-url="https://segwebsite-production.up.railway.app/" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Ver detalle</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="modal" id="projectModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <a class="modal-open-tab" id="modalOpenTab" href="#" target="_blank" rel="noopener noreferrer">
-                    Abrir en nueva pestaña <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i>
-                </a>
-                <button class="modal-close" id="closeModal">✕</button>
-            </div>
-            <iframe class="modal-iframe" id="projectIframe"></iframe>
+        <div class="loader-dots">
+            <span></span><span></span><span></span>
         </div>
     </div>
 
-    <section id="tienda" style="display: none;">
-        <h2 class="section-title">Tienda</h2>
-        <p style="text-align: center; color: var(--text-dim); max-width: 800px; margin: 0 auto;">Explora nuestros productos digitales premium. Usa las flechas para navegar.</p>
-        
-        <div class="store-carousel-container">
-            <div class="store-carousel" id="storeCarousel">
-                <div class="store-slide">
-                    <div class="store-slide-image">
-                        <img src="./img/libro.png" alt="Mentalidad de Ganador"> 
-                    </div>
-                    <div class="store-slide-content">
-                        <h3>Mentalidad de Ganador</h3>
-                        <div class="price">$9.99</div>
-                        <p>Guía completa 3 en 1 para desarrollar tu mentalidad ganadora y alcanzar tus objetivos más ambiciosos.</p>
-                        <ul class="features">
-                            <li>Más de 200 páginas de contenido</li>
-                            <li>Ejercicios prácticos incluidos</li>
-                            <li>Acceso de por vida</li>
-                            <li>Actualizaciones gratuitas</li>
-                        </ul>
-                        <a href="https://buy.stripe.com/3cI28k0b5eRJcCp1AD7ss08" target="_blank" class="btn btn-primary">Comprar Ahora</a>
-                    </div>
-                </div>
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
 
-                <div class="store-slide">
-                    <div class="store-slide-image">
-                        <img src="./img/comerce.png" alt="Ecommerce profesional"> 
-                    </div>
-                    <div class="store-slide-content">
-                        <h3>Plantilla eCommerce Premium</h3>
-                        <div class="price">$149.99</div>
-                        <p>Plantilla completa lista para usar con carrito de compras, checkout integrado y panel de administración.</p>
-                        <ul class="features">
-                            <li>Totalmente responsive</li>
-                            <li>Integración con Stripe</li>
-                            <li>Panel de administración</li>
-                            <li>Código fuente completo</li>
-                            <li>Documentación detallada</li>
-                        </ul>
-                        <a href="https://buy.stripe.com/4gM6oA4rl7phdGt0wz7ss09" target="_blank" class="btn btn-primary">Comprar Ahora</a>
-                    </div>
-                </div>
-
-                <div class="store-slide">
-                    <div class="store-slide-image">
-                        <img src="./img/landing.png" alt="Landing Page"> 
-                    </div>
-                    <div class="store-slide-content">
-                        <h3>Landing Page Pro</h3>
-                        <div class="price">$79.99</div>
-                        <p>Landing page moderna optimizada para conversión. Perfecta para lanzar productos o servicios.</p>
-                        <ul class="features">
-                            <li>Diseño moderno y profesional</li>
-                            <li>Optimizada para SEO</li>
-                            <li>Formularios integrados</li>
-                            <li>Animaciones suaves</li>
-                            <li>100% personalizable</li>
-                        </ul>
-                        <a href="https://buy.stripe.com/5kQcMY2jd8tlauh7Z17ss0a" target="_blank" class="btn btn-primary">Comprar Ahora</a>
-                    </div>
-                </div>
- 
-                  <div class="store-slide">
-                    <div class="store-slide-image">📊</div>
-                    <div class="store-slide-content">
-                        <h3>Dashboard Analytics</h3>
-                        <div class="price">$199.99</div>
-                        <p>Dashboard completo con visualizaciones de datos, gráficos interactivos y reportes en tiempo real.</p>
-                        <ul class="features">
-                            <li>Gráficos interactivos</li>
-                            <li>Múltiples widgets</li>
-                            <li>Exportación a PDF/Excel</li>
-                            <li>Temas claro y oscuro</li>
-                            <li>API REST incluida</li>
-                        </ul>
-                        <a href="https://buy.stripe.com/tu_link_producto4" target="_blank" class="btn btn-primary">Comprar Ahora</a>
-                    </div>
-                </div>
-            </div> 
-
-            <div class="carousel-controls">
-                <button class="carousel-btn" id="prevBtn">‹</button>
-                <button class="carousel-btn" id="nextBtn">›</button>
+        <nav id="navbar">
+            <div class="nav-content">
+                <a href="#inicio" class="logo">JVM<span class="logo-dot">.</span></a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#proyectos">Proyectos</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <a href="./img/Curriculum_javier vidalmdevops.pdf" download class="nav-cta">
+                    <i class="fas fa-download"></i> CV
+                </a>
+                <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
+        </nav>
 
-            <div class="carousel-dots" id="carouselDots"></div>
-        </div>
-    </section>
-
-    <section id="booking">
-        <h2 class="section-title">Agenda una Llamada</h2>
-        
-        <div class="booking-container">
-            <h3>📅 Reserva tu Consultoría Gratuita</h3>
-            <p>Selecciona la plataforma de tu preferencia para agendar una llamada. Discutiremos tu proyecto, necesidades y cómo puedo ayudarte a alcanzar tus objetivos.</p>
-            
-            <div class="booking-options">
-                <div class="booking-option">
-                    <i class="fab fa-google"></i>
-                    <h4>Google Calendar</h4>
-                    <p>Agenda directamente en mi calendario de Google</p>
-                    <a href="https://calendar.app.google/yvuHBQnmjAaMswtGA" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Agendar</a>
+        <!-- HERO -->
+        <section id="inicio" class="hero-section">
+            <div class="hero">
+                <div class="hero-left">
+                    <div class="hero-badge reveal" data-delay="0">
+                        <span class="status-dot"></span> Disponible para proyectos
+                    </div>
+                    <h1 class="hero-title reveal" data-delay="1">
+                        <span class="hero-name">Javier Vidal Miguel</span>
+                    </h1>
+                    <p class="hero-role reveal" data-delay="2">FullStack Development & Enterprise Systems Specialist</p>
+                    <p class="hero-desc reveal" data-delay="3">Colaboro con empresas y startups a escalar mediante soluciones eficientes: apps web, integraciones, soporte técnico especializado y optimización de procesos internos. Integro soluciones de marketing para empresas que deseen escalar.</p>
                 </div>
-<!-- 
-                <div class="booking-option">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h4>Calendly</h4>
-                    <p>Usa Calendly para una experiencia optimizada</p>
-                    <a href="https://calendly.com/tu-usuario" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Agendar</a>
-                </div>
--->
-                <div class="booking-option">
-                    <i class="fas fa-video"></i>
-                    <h4>Zoom Meeting</h4>
-                    <p>Reserva una reunión virtual por Zoom</p>
-                    <a href="https://calendly.com/javividalm11/30min" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Agendar</a>
+                <div class="hero-right reveal" data-delay="2">
+                    <div class="hero-photo-wrapper">
+                        <div class="matrix-bg" id="matrixBg"></div>
+                        <div class="hero-photo">
+                            <img src="./img/perfil.png" alt="Javier Vidal Miguel">
+                        </div>
+                    </div>
+                    <div class="hero-social">
+                        <a href="https://github.com/Javi-vm97" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/javiervidalm/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="mailto:javividalm11@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.instagram.com/javimxoficial/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@javimxoficial" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
             </div>
 
-            <p style="margin-top: 2rem; font-size: 0.9rem;">💡 <strong>Tip:</strong> Después de agendar, recibirás un email de confirmación con los detalles de la reunión.</p>
-        </div>
-    </section>
-
-    <section id="contacto">
-        <h2 class="section-title">Contáctame</h2>
-        
-        <div class="contact-grid">
-            <form class="contact-form" id="contactForm" action="https://formsubmit.co/javividalm11@gmail.com" method="POST">
-                <input type="hidden" name="_subject" value="Nuevo mensaje desde portafolio">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value="https://javi-vm97.github.io/PortafolioJVM/#contacto">
-                
-                <div class="form-group">
-                    <label>Nombre</label>
-                    <input type="text" name="nombre" placeholder="Tu nombre" required>
+            <div class="hero-stats reveal" data-delay="6">
+                <div class="hero-stat" data-value="6" data-suffix="+">
+                    <div class="hero-stat-value"></div>
+                    <span class="hero-stat-label">Años experiencia</span>
                 </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" placeholder="tu@email.com" required>
+                <div class="hero-stat" data-value="50" data-suffix="+">
+                    <div class="hero-stat-value"></div>
+                    <span class="hero-stat-label">Proyectos</span>
                 </div>
-                <div class="form-group">
-                    <label>Asunto</label>
-                    <input type="text" name="asunto" placeholder="Motivo del contacto" required>
-                </div>
-                <div class="form-group">
-                    <label>Mensaje</label>
-                    <textarea name="mensaje" placeholder="Describe tu proyecto o consulta..." required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
-            </form>
-
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="icon"><i class="fas fa-envelope"></i></div>
-                    <div>
-                        <h4>Email</h4>
-                        <p>javividalm11@gmail.com</p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="icon"><i class="fas fa-phone"></i></div>
-                    <div>
-                        <h4>Teléfono</h4>
-                        <p>+52 1 287 125 4233 </p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
-                    <div>
-                        <h4>Ubicación</h4>
-                        <p>MX / PE</p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="icon"><i class="fas fa-briefcase"></i></div>
-                    <div>
-                        <h4>Disponibilidad</h4>
-                        <p>Remoto / Tiempo completo</p>
-                    </div>
-                </div>
-
-                <div class="social-links">
-                    <a href="https://www.instagram.com/javiervm.mx/" target="_blank" class="instagram" title="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://facebook.com/digitalstudiojavi" target="_blank" class="facebook" title="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.youtube.com/@javimxoficial" target="_blank" class="youtube" title="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/javiervidalm/" target="_blank" class="linkedin" title="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://github.com/Javi-vm97" target="_blank" class="github" title="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
+                <div class="hero-stat" data-value="99" data-suffix="%">
+                    <div class="hero-stat-value"></div>
+                    <span class="hero-stat-label">Satisfacción</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="site-footer" data-aos="fade-up">
-      <small>&copy; <span id="year"></span> Javier Vidal Miguel — Todos los derechos reservados</small>
-    </footer>
+        <!-- PERFIL / EXPERIENCIA -->
+        <section id="perfil" class="experience-section">
+            <div class="section-header">
+                <span class="section-label reveal">Perfil</span>
+                <h2 class="section-title reveal">Experiencia & Perfil</h2>
+            </div>
+            <div class="experience-about reveal">
+                <p>Como <strong>Desarrollador FullStack y Especialista en Sistemas Empresariales</strong>, cuento con más de 6 años de experiencia transformadora en el diseño e implementación de soluciones tecnológicas que impulsan la eficiencia operativa y el crecimiento sostenible de organizaciones.</p>
+                <p>Mi enfoque combina <strong>expertise técnico profesional</strong> con una visión estratégica de negocio, permitiéndome no solo desarrollar software de calidad enterprise-grade, sino también automatizar procesos críticos, optimizar flujos de trabajo complejos y garantizar la continuidad operativa.</p>
+                <p>Especializado en la <strong>integración de ecosistemas tecnológicos heterogéneos</strong> (SAP, CRM, APIs REST), despliegues en la nube (AWS, GCP), y la implementación de prácticas DevOps que aceleran el time-to-market sin comprometer la seguridad ni la escalabilidad.</p>
+                <p>Como profesional híbrido, también integro <strong>estrategias de marketing digital y e-commerce</strong>, ayudando a empresas a construir no solo productos tecnológicos robustos, sino también experiencias digitales que convierten y escalan.</p>
+            </div>
+            <div class="experience-tags reveal">
+                <span>Enterprise Architecture</span>
+                <span>Cloud Solutions</span>
+                <span>DevOps & CI/CD</span>
+                <span>Digital Transformation</span>
+                <span>Business Intelligence</span>
+                <span>Support Specialist</span>
+                <span>Desarrollo de Apps Web</span>
+                <span>Diseño UX/UI</span>
+                <span>Branding Profesional</span>
+                <span>Automatizaciones</span>
+            </div>
+        </section>
+
+        <!-- MARQUEE SKILLS -->
+        <section class="marquee-section">
+            <div class="marquee-header">
+                <span class="section-label">Skills</span>
+            </div>
+            <div class="marquee-track marquee-left">
+                <div class="marquee-content">
+                    <span class="marquee-badge"><i class="fab fa-html5"></i> HTML5</span>
+                    <span class="marquee-badge"><i class="fab fa-css3-alt"></i> CSS3</span>
+                    <span class="marquee-badge"><i class="fab fa-js"></i> JavaScript</span>
+                    <span class="marquee-badge"><i class="fab fa-react"></i> React</span>
+                    <span class="marquee-badge"><i class="fab fa-node-js"></i> Node.js</span>
+                    <span class="marquee-badge"><i class="fab fa-aws"></i> AWS</span>
+                    <span class="marquee-badge"><i class="fab fa-docker"></i> Docker</span>
+                    <span class="marquee-badge"><i class="fab fa-git-alt"></i> Git</span>
+                    <span class="marquee-badge"><i class="fab fa-python"></i> Python</span>
+                    <span class="marquee-badge"><i class="fas fa-database"></i> PostgreSQL</span>
+                    <span class="marquee-badge"><i class="fab fa-laravel"></i> Laravel</span>
+                </div>
+                <div class="marquee-content" aria-hidden="true">
+                    <span class="marquee-badge"><i class="fab fa-html5"></i> HTML5</span>
+                    <span class="marquee-badge"><i class="fab fa-css3-alt"></i> CSS3</span>
+                    <span class="marquee-badge"><i class="fab fa-js"></i> JavaScript</span>
+                    <span class="marquee-badge"><i class="fab fa-react"></i> React</span>
+                    <span class="marquee-badge"><i class="fab fa-node-js"></i> Node.js</span>
+                    <span class="marquee-badge"><i class="fab fa-aws"></i> AWS</span>
+                    <span class="marquee-badge"><i class="fab fa-docker"></i> Docker</span>
+                    <span class="marquee-badge"><i class="fab fa-git-alt"></i> Git</span>
+                    <span class="marquee-badge"><i class="fab fa-python"></i> Python</span>
+                    <span class="marquee-badge"><i class="fas fa-database"></i> PostgreSQL</span>
+                    <span class="marquee-badge"><i class="fab fa-laravel"></i> Laravel</span>
+                </div>
+            </div>
+            <div class="marquee-track marquee-right">
+                <div class="marquee-content">
+                    <span class="marquee-badge"><i class="fab fa-microsoft"></i> .NET</span>
+                    <span class="marquee-badge"><i class="fas fa-cloud"></i> Terraform</span>
+                    <span class="marquee-badge"><i class="fab fa-linux"></i> Linux</span>
+                    <span class="marquee-badge"><i class="fas fa-shield-alt"></i> Security</span>
+                    <span class="marquee-badge"><i class="fas fa-cogs"></i> CI/CD</span>
+                    <span class="marquee-badge"><i class="fas fa-robot"></i> OpenAI</span>
+                    <span class="marquee-badge"><i class="fas fa-chart-line"></i> Analytics</span>
+                    <span class="marquee-badge"><i class="fab fa-angular"></i> Angular</span>
+                    <span class="marquee-badge"><i class="fas fa-server"></i> Microservices</span>
+                    <span class="marquee-badge"><i class="fas fa-database"></i> MySQL</span>
+                    <span class="marquee-badge"><i class="fas fa-fire"></i> Firebase</span>
+                </div>
+                <div class="marquee-content" aria-hidden="true">
+                    <span class="marquee-badge"><i class="fab fa-microsoft"></i> .NET</span>
+                    <span class="marquee-badge"><i class="fas fa-cloud"></i> Terraform</span>
+                    <span class="marquee-badge"><i class="fab fa-linux"></i> Linux</span>
+                    <span class="marquee-badge"><i class="fas fa-shield-alt"></i> Security</span>
+                    <span class="marquee-badge"><i class="fas fa-cogs"></i> CI/CD</span>
+                    <span class="marquee-badge"><i class="fas fa-robot"></i> OpenAI</span>
+                    <span class="marquee-badge"><i class="fas fa-chart-line"></i> Analytics</span>
+                    <span class="marquee-badge"><i class="fab fa-angular"></i> Angular</span>
+                    <span class="marquee-badge"><i class="fas fa-server"></i> Microservices</span>
+                    <span class="marquee-badge"><i class="fas fa-database"></i> MySQL</span>
+                    <span class="marquee-badge"><i class="fas fa-fire"></i> Firebase</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS CUBE -->
+        <section id="skills" class="cube-section">
+            <div class="section-header">
+                <h2 class="section-title reveal">Stack Tecnológico</h2>
+                <p class="section-subtitle reveal">Arrastra el cubo para explorar todas las tecnologías</p>
+            </div>
+            <div class="skills-3d-container reveal">
+                <div class="skills-cube-wrapper" id="skillsCube"></div>
+            </div>
+        </section>
+
+        <!-- SERVICIOS -->
+        <section id="servicios">
+            <h2 class="section-title">Servicios</h2>
+            <p class="svc-header__subtitle">Donde la <strong>tecnología</strong> se encuentra con la <strong>estrategia de negocio</strong>.</p>
+
+            <div class="svc-carousel" id="svcCarousel">
+                <button class="svc-carousel__arrow svc-carousel__arrow--prev" id="svcPrev" aria-label="Anterior">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+
+                <div class="svc-carousel__viewport">
+                    <div class="svc-carousel__track" id="svcTrack">
+                        <div class="svc-page">
+                            <div class="svc-card" style="--card-accent: 128,70,200;">
+                                <div class="svc-card__glass"></div>
+                                <div class="svc-card__specular"></div>
+                                <div class="svc-card__body">
+                                    <div class="svc-card__emoji">🎨</div>
+                                    <h3 class="svc-card__name">Desarrollo Web</h3>
+                                    <span class="svc-card__tagline">HIGH-PERFORMANCE WEBSITES</span>
+                                    <p class="svc-card__desc-short">Sitios web de alto rendimiento pensados para convertir y escalar tu presencia digital.</p>
+                                    <div class="svc-card__tags"><span class="svc-tag">React</span><span class="svc-tag">Next.js</span><span class="svc-tag">SEO</span></div>
+                                    <a href="#contacto" class="btn btn-primary svc-card__btn">Cotizar</a>
+                                </div>
+                            </div>
+                            <div class="svc-card" style="--card-accent: 160,90,240;">
+                                <div class="svc-card__glass"></div>
+                                <div class="svc-card__specular"></div>
+                                <div class="svc-card__body">
+                                    <div class="svc-card__emoji">📱</div>
+                                    <h3 class="svc-card__name">Aplicaciones</h3>
+                                    <span class="svc-card__tagline">WEB & MOBILE APPS</span>
+                                    <p class="svc-card__desc-short">Aplicaciones web y móviles listas para escalar con integración completa de APIs.</p>
+                                    <div class="svc-card__tags"><span class="svc-tag">Node.js</span><span class="svc-tag">React</span><span class="svc-tag">PWA</span></div>
+                                    <a href="#contacto" class="btn btn-primary svc-card__btn">Iniciar</a>
+                                </div>
+                            </div>
+                            <div class="svc-card" style="--card-accent: 200,140,60;">
+                                <div class="svc-card__glass"></div>
+                                <div class="svc-card__specular"></div>
+                                <div class="svc-card__body">
+                                    <div class="svc-card__emoji">🔧</div>
+                                    <h3 class="svc-card__name">Integraciones</h3>
+                                    <span class="svc-card__tagline">ENTERPRISE SYSTEMS</span>
+                                    <p class="svc-card__desc-short">Conexión de ecosistemas tecnológicos heterogéneos para flujos de trabajo unificados.</p>
+                                    <div class="svc-card__tags"><span class="svc-tag">SAP</span><span class="svc-tag">CRM</span><span class="svc-tag">REST API</span></div>
+                                    <a href="#contacto" class="btn btn-primary svc-card__btn">Consultar</a>
+                                </div>
+                            </div>
+                            <div class="svc-card" style="--card-accent: 100,180,160;">
+                                <div class="svc-card__glass"></div>
+                                <div class="svc-card__specular"></div>
+                                <div class="svc-card__body">
+                                    <div class="svc-card__emoji">🛠️</div>
+                                    <h3 class="svc-card__name">Soporte L1-L3</h3>
+                                    <span class="svc-card__tagline">TECHNICAL SUPPORT</span>
+                                    <p class="svc-card__desc-short">Garantía de continuidad operativa con resolución de incidentes y enfoque preventivo.</p>
+                                    <div class="svc-card__tags"><span class="svc-tag">ITIL</span><span class="svc-tag">Monitoring</span><span class="svc-tag">SLA</span></div>
+                                    <a href="#contacto" class="btn btn-primary svc-card__btn">Contratar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svc-page">
+                            <div class="svc-card" style="--card-accent: 70,140,220;">
+                                <div class="svc-card__glass"></div>
+                                <div class="svc-card__specular"></div>
+                                <div class="svc-card__body">
+                                    <div class="svc-card__emoji">☁️</div>
+                                    <h3 class="svc-card__name">Cloud & DevOps</h3>
+                                    <span class="svc-card__tagline">CLOUD ARCHITECTURE</span>
+                                    <p class="svc-card__desc-short">Infraestructura escalable en la nube con despliegues automatizados y contenedores.</p>
+                                    <div class="svc-card__tags"><span class="svc-tag">AWS</span><span class="svc-tag">Docker</span><span class="svc-tag">Terraform</span></div>
+                                    <a href="#contacto" class="btn btn-primary svc-card__btn">Consultar</a>
+                                </div>
+                            </div>
+                            <div class="svc-card" style="--card-accent: 220,120,80;">
+                                <div class="svc-card__glass"></div>
+                                <div class="svc-card__specular"></div>
+                                <div class="svc-card__body">
+                                    <div class="svc-card__emoji">📊</div>
+                                    <h3 class="svc-card__name">Marketing Digital</h3>
+                                    <span class="svc-card__tagline">GROWTH STRATEGY</span>
+                                    <p class="svc-card__desc-short">Estrategias de contenido y conversión para negocios en crecimiento.</p>
+                                    <div class="svc-card__tags"><span class="svc-tag">SEO</span><span class="svc-tag">CRO</span><span class="svc-tag">Analytics</span></div>
+                                    <a href="#contacto" class="btn btn-primary svc-card__btn">Solicitar</a>
+                                </div>
+                            </div>
+                            <div class="svc-card" style="--card-accent: 128,70,200;">
+                                <div class="svc-card__glass"></div>
+                                <div class="svc-card__specular"></div>
+                                <div class="svc-card__body">
+                                    <div class="svc-card__emoji">🤖</div>
+                                    <h3 class="svc-card__name">Automatización & IA</h3>
+                                    <span class="svc-card__tagline">AI INTEGRATION</span>
+                                    <p class="svc-card__desc-short">Flujos inteligentes e integración de IA para optimizar operaciones y escalar.</p>
+                                    <div class="svc-card__tags"><span class="svc-tag">OpenAI</span><span class="svc-tag">LangChain</span><span class="svc-tag">AI Agents</span></div>
+                                    <a href="#contacto" class="btn btn-primary svc-card__btn">Solicitar</a>
+                                </div>
+                            </div>
+                            <div class="svc-card" style="--card-accent: 180,80,80;">
+                                <div class="svc-card__glass"></div>
+                                <div class="svc-card__specular"></div>
+                                <div class="svc-card__body">
+                                    <div class="svc-card__emoji">🛡️</div>
+                                    <h3 class="svc-card__name">Seguridad</h3>
+                                    <span class="svc-card__tagline">SECURITY & COMPLIANCE</span>
+                                    <p class="svc-card__desc-short">Fortalece la seguridad y cumple estándares con acompañamiento experto.</p>
+                                    <div class="svc-card__tags"><span class="svc-tag">Pentesting</span><span class="svc-tag">Compliance</span><span class="svc-tag">OSHA</span></div>
+                                    <a href="#contacto" class="btn btn-primary svc-card__btn">Solicitar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="svc-carousel__arrow svc-carousel__arrow--next" id="svcNext" aria-label="Siguiente">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+
+            <div class="svc-carousel__dots" id="svcDots"></div>
+        </section>
+
+        <!-- PROYECTOS -->
+        <section id="proyectos">
+            <h2 class="section-title">Proyectos Destacados</h2>
+            <p class="projects-header__subtitle">Construidos para <strong>impacto real</strong>. Diseñados para <strong>crecimiento continuo</strong>.</p>
+
+            <div class="projects-layout">
+                <div class="projects-sidebar">
+                    <div class="projects-sidebar__card projects-sidebar__card--active" data-project="aegis" style="--card-accent: 128,70,200;">
+                        <div class="projects-sidebar__text">
+                            <span class="projects-sidebar__name">AegisAI Agents</span>
+                            <span class="projects-sidebar__subtitle">AI SAFETY COMPLIANCE</span>
+                        </div>
+                    </div>
+                    <div class="projects-sidebar__card" data-project="safety" style="--card-accent: 160,90,240;">
+                        <div class="projects-sidebar__text">
+                            <span class="projects-sidebar__name">Safety Excellence</span>
+                            <span class="projects-sidebar__subtitle">CLOUD & DEVOPS</span>
+                        </div>
+                    </div>
+                    <div class="projects-sidebar__card" data-project="chatbot" style="--card-accent: 230,225,216;">
+                        <div class="projects-sidebar__text">
+                            <span class="projects-sidebar__name">Safety Excellence Group</span>
+                            <span class="projects-sidebar__subtitle">WEBSITE & INTEGRATIONS</span>
+                        </div>
+                    </div>
+                    <div class="projects-sidebar__card" data-project="tanya" style="--card-accent: 220,120,180;">
+                        <div class="projects-sidebar__text">
+                            <span class="projects-sidebar__name">Pacas Tanya</span>
+                            <span class="projects-sidebar__subtitle">E-COMMERCE & VENTAS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="projects-bento">
+                    <div class="projects-bento__card projects-bento__card--aegis projects-bento__card--active" data-project="aegis" style="--card-accent: 128,70,200;">
+                        <div class="projects-bento__media"><img src="./img/poc.png" alt="PoC AegisAI Agents"></div>
+                        <div class="projects-bento__glass"></div>
+                        <div class="projects-bento__specular"></div>
+                        <div class="projects-bento__overlay">
+                            <h3 class="projects-bento__title">PoC AegisAI Agents</h3>
+                            <p class="projects-bento__desc">Agente AI que analiza observaciones de seguridad, evalúa riesgos y crea planes de acción OSHA en tiempo real.</p>
+                            <div class="project-tech-tags"><span>OpenAI</span><span>React</span><span>Node.js</span></div>
+                            <button class="btn btn-primary project-detail-btn" data-url="https://aegisai.team/" style="padding:0.5rem 1.2rem;font-size:0.85rem;">Ver detalle</button>
+                        </div>
+                    </div>
+
+                    <div class="projects-bento__card projects-bento__card--safety" data-project="safety" style="--card-accent: 160,90,240;">
+                        <div class="projects-bento__media"><img src="./img/seg.png" alt="Safety Excellence App"></div>
+                        <div class="projects-bento__glass"></div>
+                        <div class="projects-bento__specular"></div>
+                        <div class="projects-bento__overlay">
+                            <h3 class="projects-bento__title">Safety-Excellence-App</h3>
+                            <p class="projects-bento__desc">Despliegue, automatización, monitoreo de incidentes, rotación de keys y políticas de seguridad en AWS.</p>
+                            <div class="project-tech-tags"><span>AWS</span><span>Docker</span><span>DevOps</span></div>
+                            <button class="btn btn-primary project-detail-btn" data-url="https://app.safety-excellence.com/" style="padding:0.5rem 1.2rem;font-size:0.85rem;">Ver detalle</button>
+                        </div>
+                    </div>
+
+                    <div class="projects-bento__card projects-bento__card--chatbot" data-project="chatbot" style="--card-accent: 230,225,216;">
+                        <div class="projects-bento__media"><img src="./img/seg-website.png" alt="Website Safety Excellence Group"></div>
+                        <div class="projects-bento__glass"></div>
+                        <div class="projects-bento__specular"></div>
+                        <div class="projects-bento__overlay">
+                            <h3 class="projects-bento__title">Website Safety Excellence Group</h3>
+                            <p class="projects-bento__desc">Diseño web, integraciones empresariales, entrenamiento de chatbot con IA y automatización de flujos operativos.</p>
+                            <div class="project-tech-tags"><span>Node.js</span><span>IA</span><span>Chatbot</span></div>
+                            <button class="btn btn-primary project-detail-btn" data-url="https://www.safety-excellence.com/" style="padding:0.5rem 1.2rem;font-size:0.85rem;">Ver detalle</button>
+                        </div>
+                    </div>
+
+                    <div class="projects-bento__card projects-bento__card--tanya" data-project="tanya" style="--card-accent: 220,120,180;">
+                        <div class="projects-bento__media"><img src="./img/pacastanya.png" alt="Pacas Tanya"></div>
+                        <div class="projects-bento__glass"></div>
+                        <div class="projects-bento__specular"></div>
+                        <div class="projects-bento__overlay">
+                            <h3 class="projects-bento__title">Pacas Tanya</h3>
+                            <p class="projects-bento__desc">Website dedicada a ventas al por mayor de ropa con catálogo de productos y sistema de pedidos.</p>
+                            <div class="project-tech-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+                            <button class="btn btn-primary project-detail-btn" data-url="https://pacas-tanya.netlify.app/" style="padding:0.5rem 1.2rem;font-size:0.85rem;">Ver detalle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal" id="projectModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="modal-open-tab" id="modalOpenTab" href="#" target="_blank" rel="noopener noreferrer">Abrir en nueva pestaña <i class="fas fa-external-link-alt" style="font-size:0.7rem;"></i></a>
+                    <button class="modal-close" id="closeModal">&#x2715;</button>
+                </div>
+                <iframe class="modal-iframe" id="projectIframe"></iframe>
+            </div>
+        </div>
+
+        <!-- BOOKING -->
+        <section id="booking">
+            <h2 class="section-title">Agenda una Llamada</h2>
+
+            <div class="booking-container">
+                <h3>📅 Reserva tu Consultoría Gratuita</h3>
+                <p>Selecciona la plataforma de tu preferencia para agendar una llamada. Discutiremos tu proyecto, necesidades y cómo puedo ayudarte a alcanzar tus objetivos.</p>
+
+                <div class="booking-options">
+                    <div class="booking-option">
+                        <i class="fab fa-google"></i>
+                        <h4>Google Calendar</h4>
+                        <p>Agenda directamente en mi calendario de Google</p>
+                        <a href="https://calendar.app.google/yvuHBQnmjAaMswtGA" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Agendar</a>
+                    </div>
+                    <div class="booking-option">
+                        <i class="fas fa-video"></i>
+                        <h4>Zoom Meeting</h4>
+                        <p>Reserva una reunión virtual por Zoom</p>
+                        <a href="https://calendly.com/javividalm11/30min" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Agendar</a>
+                    </div>
+                </div>
+
+                <p style="margin-top: 2rem; font-size: 0.9rem;">💡 <strong>Tip:</strong> Después de agendar, recibirás un email de confirmación con los detalles de la reunión.</p>
+            </div>
+        </section>
+
+        <!-- CONTACTO -->
+        <section id="contacto">
+            <h2 class="section-title">Contáctame</h2>
+
+            <div class="contact-grid">
+                <form class="contact-form" id="contactForm" action="https://formsubmit.co/javividalm11@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="Nuevo mensaje desde portafolio">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://javi-vm97.github.io/PortafolioJVM/#contacto">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="nombre" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Asunto</label>
+                        <input type="text" name="asunto" placeholder="Motivo del contacto" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensaje</label>
+                        <textarea name="mensaje" placeholder="Describe tu proyecto o consulta..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                </form>
+
+                <div class="contact-info">
+                    <a href="mailto:javividalm11@gmail.com?subject=Solicitud%20de%20informaci%C3%B3n&body=Hola%20Javier%2C%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20tus%20servicios." target="_blank" class="contact-item contact-item--link">
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>javividalm11@gmail.com</p>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/522871254233?text=Hola%20Javier%2C%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20tus%20servicios." target="_blank" class="contact-item contact-item--link">
+                        <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                        <div>
+                            <h4>WhatsApp MX</h4>
+                            <p>+52 287 125 4233</p>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/51982250549?text=Hola%20Javier%2C%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20tus%20servicios." target="_blank" class="contact-item contact-item--link">
+                        <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                        <div>
+                            <h4>WhatsApp PE</h4>
+                            <p>+51 982 250 549</p>
+                        </div>
+                    </a>
+                    <div class="contact-item">
+                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4>Ubicación</h4>
+                            <p>MX / PE</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon"><i class="fas fa-briefcase"></i></div>
+                        <div>
+                            <h4>Disponibilidad</h4>
+                            <p>Remoto / Tiempo completo</p>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/javimxoficial/" target="_blank" class="instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/digitalstudiojavi" target="_blank" class="facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.youtube.com/@javimxoficial" target="_blank" class="youtube" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/in/javiervidalm/" target="_blank" class="linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/Javi-vm97" target="_blank" class="github" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- WHATSAPP WIDGET -->
+    <div class="wa-widget" id="waWidget">
+        <button class="wa-fab" id="waFab" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+        <div class="wa-form" id="waForm">
+            <div class="wa-form-header">
+                <i class="fab fa-whatsapp"></i>
+                <span>Enviar mensaje</span>
+                <button class="wa-form-close" id="waClose">&times;</button>
+            </div>
+            <div class="wa-form-body">
+                <div class="wa-field">
+                    <label>Nombre y apellido</label>
+                    <input type="text" id="waName" placeholder="Tu nombre completo">
+                </div>
+                <div class="wa-field">
+                    <label>Empresa</label>
+                    <input type="text" id="waCompany" placeholder="Nombre de tu empresa">
+                </div>
+                <div class="wa-field">
+                    <label>Motivo de contacto</label>
+                    <div class="wa-select" id="waSelect">
+                        <div class="wa-select-trigger" id="waSelectTrigger">
+                            <span>Solicitar información</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="wa-select-options" id="waSelectOptions">
+                            <div class="wa-select-option wa-select-option--active" data-value="Solicitar información">Solicitar información</div>
+                            <div class="wa-select-option" data-value="Cotizar un proyecto">Cotizar un proyecto</div>
+                            <div class="wa-select-option" data-value="Soporte técnico">Soporte técnico</div>
+                            <div class="wa-select-option" data-value="Otro">Otro</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wa-field">
+                    <label>Nota (opcional)</label>
+                    <textarea id="waNote" rows="3" placeholder="Detalles adicionales..."></textarea>
+                </div>
+                <button class="wa-send" id="waSend">
+                    <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-content">
+                <small>&copy; <span id="year"></span> Javier Vidal Miguel — Todos los derechos reservados</small>
+            </div>
+        </footer>
+
+    </div><!-- /main-content -->
 
     <script src="./js/script.js" defer></script>
-
 </body>
 </html>
