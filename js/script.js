@@ -1,7 +1,233 @@
 /* ============================================
-   PORTFOLIO - ariel-tonato.me inspired JS
+   PORTFOLIO - Javier Vidal Miguel
    Loader, scroll reveals, cube, interactions
    ============================================ */
+
+// --- Wormhole / Galaxy Star Field ---
+(() => {
+    const canvas = document.getElementById('starField');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let w, h, cx, cy, stars;
+    const STAR_COUNT = 600;
+    const MAX_DEPTH = 1500;
+
+    function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        cx = w / 2;
+        cy = h / 2;
+    }
+
+    function createStars() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+            stars.push(newStar());
+        }
+    }
+
+    function newStar() {
+        // Distribute in a 3D cylinder around center
+        const angle = Math.random() * Math.PI * 2;
+        const radius = Math.random() * Math.max(w, h) * 0.6;
+        return {
+            x: Math.cos(angle) * radius,
+            y: Math.sin(angle) * radius,
+            z: Math.random() * MAX_DEPTH,
+            size: Math.random() * 1.5 + 0.5,
+            baseOpacity: Math.random() * 0.5 + 0.3,
+            twinkleSpeed: Math.random() * 0.03 + 0.008,
+            twinkleOffset: Math.random() * Math.PI * 2,
+            // Spiral properties
+            orbitRadius: radius,
+            angle: angle,
+            orbitSpeed: (Math.random() * 0.0004 + 0.0001) * (Math.random() < 0.5 ? 1 : -1),
+            // Color tint
+            hue: Math.random() < 0.15 ? 230 + Math.random() * 40 : 0, // some blue/purple tinted
+            colored: Math.random() < 0.15
+        };
+    }
+
+    let time = 0;
+    const WARP_SPEED = 1.5;
+
+    function draw() {
+        ctx.clearRect(0, 0, w, h);
+
+        time += 1;
+
+        for (const s of stars) {
+            // Move toward viewer (warp)
+            s.z -= WARP_SPEED;
+
+            // Spiral rotation
+            s.angle += s.orbitSpeed;
+            s.x = Math.cos(s.angle) * s.orbitRadius;
+            s.y = Math.sin(s.angle) * s.orbitRadius;
+
+            // Reset if past camera
+            if (s.z <= 0) {
+                s.z = MAX_DEPTH;
+                s.orbitRadius = Math.random() * Math.max(w, h) * 0.6;
+                s.angle = Math.random() * Math.PI * 2;
+                s.x = Math.cos(s.angle) * s.orbitRadius;
+                s.y = Math.sin(s.angle) * s.orbitRadius;
+            }
+
+            // Project 3D -> 2D
+            const scale = 300 / s.z;
+            const px = s.x * scale + cx;
+            const py = s.y * scale + cy;
+
+            // Off screen? skip
+            if (px < -10 || px > w + 10 || py < -10 || py > h + 10) continue;
+
+            // Size grows as star approaches
+            const size = s.size * scale * 0.5;
+            const clampedSize = Math.min(size, 4);
+
+            // Twinkle
+            const twinkle = Math.sin(time * s.twinkleSpeed + s.twinkleOffset);
+            const depthFade = 1 - s.z / MAX_DEPTH;
+            const opacity = (s.baseOpacity + twinkle * 0.2) * depthFade;
+
+            // Draw star
+            ctx.beginPath();
+            ctx.arc(px, py, Math.max(0.3, clampedSize), 0, Math.PI * 2);
+
+            if (s.colored) {
+                ctx.fillStyle = `hsla(${s.hue}, 60%, 75%, ${Math.max(0.05, opacity)})`;
+            } else {
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.05, opacity)})`;
+            }
+            ctx.fill();
+
+            // Streak/trail for close stars (warp effect)
+            if (s.z < 300 && clampedSize > 1) {
+                const trailLen = (1 - s.z / 300) * 15;
+                const dx = px - cx;
+                const dy = py - cy;
+                const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                const nx = dx / dist;
+                const ny = dy / dist;
+
+                ctx.beginPath();
+                ctx.moveTo(px, py);
+                ctx.lineTo(px + nx * trailLen, py + ny * trailLen);
+                ctx.strokeStyle = `rgba(200, 210, 255, ${opacity * 0.3})`;
+                ctx.lineWidth = clampedSize * 0.5;
+                ctx.stroke();
+            }
+
+            // Glow for bright close stars
+            if (depthFade > 0.7 && clampedSize > 1.5) {
+                ctx.beginPath();
+                ctx.arc(px, py, clampedSize * 3, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(180, 190, 255, ${opacity * 0.06})`;
+                ctx.fill();
+            }
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    // --- Static background layer: nebulas + planets ---
+    const bgCanvas = document.createElement('canvas');
+    bgCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;';
+    document.body.prepend(bgCanvas);
+    const bgCtx = bgCanvas.getContext('2d');
+
+    function drawBackground() {
+        bgCanvas.width = w;
+        bgCanvas.height = h;
+        bgCtx.clearRect(0, 0, w, h);
+
+        // Nebula clouds
+        const nebulas = [
+            { x: w * 0.15, y: h * 0.25, r: 250, color: [90, 50, 180] },
+            { x: w * 0.8, y: h * 0.6, r: 300, color: [40, 80, 160] },
+            { x: w * 0.5, y: h * 0.85, r: 200, color: [120, 40, 100] },
+            { x: w * 0.9, y: h * 0.15, r: 180, color: [50, 100, 140] },
+        ];
+
+        for (const n of nebulas) {
+            const grad = bgCtx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
+            grad.addColorStop(0, `rgba(${n.color[0]},${n.color[1]},${n.color[2]}, 0.06)`);
+            grad.addColorStop(0.4, `rgba(${n.color[0]},${n.color[1]},${n.color[2]}, 0.03)`);
+            grad.addColorStop(1, 'transparent');
+            bgCtx.fillStyle = grad;
+            bgCtx.fillRect(0, 0, w, h);
+        }
+
+        // Planets
+        const planets = [
+            { x: w * 0.88, y: h * 0.22, r: 18, color: '#4a3a6a', ring: true, ringColor: 'rgba(129,140,248,0.12)' },
+            { x: w * 0.12, y: h * 0.7, r: 10, color: '#2a4a5a', ring: false },
+            { x: w * 0.65, y: h * 0.92, r: 25, color: '#3a2a4a', ring: true, ringColor: 'rgba(180,140,220,0.08)' },
+        ];
+
+        for (const p of planets) {
+            // Planet body
+            const pGrad = bgCtx.createRadialGradient(p.x - p.r * 0.3, p.y - p.r * 0.3, 0, p.x, p.y, p.r);
+            pGrad.addColorStop(0, p.color);
+            pGrad.addColorStop(1, 'rgba(5,5,15,0.8)');
+            bgCtx.beginPath();
+            bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            bgCtx.fillStyle = pGrad;
+            bgCtx.fill();
+
+            // Atmosphere glow
+            const glowGrad = bgCtx.createRadialGradient(p.x, p.y, p.r * 0.8, p.x, p.y, p.r * 2.5);
+            glowGrad.addColorStop(0, 'rgba(129,140,248,0.04)');
+            glowGrad.addColorStop(1, 'transparent');
+            bgCtx.beginPath();
+            bgCtx.arc(p.x, p.y, p.r * 2.5, 0, Math.PI * 2);
+            bgCtx.fillStyle = glowGrad;
+            bgCtx.fill();
+
+            // Ring
+            if (p.ring) {
+                bgCtx.beginPath();
+                bgCtx.ellipse(p.x, p.y, p.r * 2.2, p.r * 0.5, -0.3, 0, Math.PI * 2);
+                bgCtx.strokeStyle = p.ringColor;
+                bgCtx.lineWidth = 1.5;
+                bgCtx.stroke();
+            }
+        }
+
+        // Distant galaxies (small spiral smudges)
+        const galaxies = [
+            { x: w * 0.35, y: h * 0.15, size: 30 },
+            { x: w * 0.75, y: h * 0.45, size: 20 },
+        ];
+
+        for (const g of galaxies) {
+            bgCtx.save();
+            bgCtx.translate(g.x, g.y);
+            bgCtx.rotate(0.5);
+            const gGrad = bgCtx.createRadialGradient(0, 0, 0, 0, 0, g.size);
+            gGrad.addColorStop(0, 'rgba(180, 170, 220, 0.08)');
+            gGrad.addColorStop(0.5, 'rgba(129, 140, 248, 0.03)');
+            gGrad.addColorStop(1, 'transparent');
+            bgCtx.fillStyle = gGrad;
+            bgCtx.beginPath();
+            bgCtx.ellipse(0, 0, g.size, g.size * 0.4, 0, 0, Math.PI * 2);
+            bgCtx.fill();
+            bgCtx.restore();
+        }
+    }
+
+    resize();
+    createStars();
+    drawBackground();
+    draw();
+
+    window.addEventListener('resize', () => {
+        resize();
+        drawBackground();
+    });
+})();
 
 // --- Loader ---
 window.addEventListener('load', () => {
