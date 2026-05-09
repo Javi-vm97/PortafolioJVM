@@ -454,8 +454,11 @@ window.addEventListener('scroll', () => {
 // --- Smooth scroll ---
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        // Bail if href was swapped to an external URL or is just "#"
+        if (!href || !href.startsWith('#') || href.length < 2) return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             // Close mobile menu
