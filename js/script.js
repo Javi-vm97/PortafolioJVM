@@ -392,19 +392,49 @@ const modal = document.getElementById('projectModal');
 const closeModalBtn = document.getElementById('closeModal');
 const projectIframe = document.getElementById('projectIframe');
 const modalOpenTab = document.getElementById('modalOpenTab');
+const modalFallback = document.getElementById('modalFallback');
+const modalFallbackImg = document.getElementById('modalFallbackImg');
+const modalFallbackTitle = document.getElementById('modalFallbackTitle');
+const modalFallbackDesc = document.getElementById('modalFallbackDesc');
+const modalFallbackCta = document.getElementById('modalFallbackCta');
+
+function closeProjectModal() {
+    modal.classList.remove('active');
+    projectIframe.src = '';
+    if (modalFallback) modalFallback.hidden = true;
+    projectIframe.style.display = '';
+}
 
 if (modal) {
     document.querySelectorAll('.project-detail-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const url = btn.dataset.url;
-            projectIframe.src = url;
+            const blocked = btn.dataset.blocked === 'true';
             modalOpenTab.href = url;
+
+            if (blocked && modalFallback) {
+                const card = btn.closest('.projects-bento__card');
+                const img = card?.querySelector('.projects-bento__media img');
+                const title = card?.querySelector('.projects-bento__title')?.textContent || '';
+                const desc = card?.querySelector('.projects-bento__desc')?.textContent || '';
+                if (img) { modalFallbackImg.src = img.src; modalFallbackImg.alt = img.alt || ''; }
+                modalFallbackTitle.textContent = title;
+                modalFallbackDesc.textContent = desc;
+                modalFallbackCta.href = url;
+                projectIframe.style.display = 'none';
+                projectIframe.src = '';
+                modalFallback.hidden = false;
+            } else {
+                if (modalFallback) modalFallback.hidden = true;
+                projectIframe.style.display = '';
+                projectIframe.src = url;
+            }
             modal.classList.add('active');
         });
     });
-    closeModalBtn.addEventListener('click', () => { modal.classList.remove('active'); projectIframe.src = ''; });
-    modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('active'); projectIframe.src = ''; } });
+    closeModalBtn.addEventListener('click', closeProjectModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeProjectModal(); });
 }
 
 // --- Navbar ---

@@ -419,7 +419,7 @@
                             <h3 class="projects-bento__title">The Silencers</h3>
                             <p class="projects-bento__desc">Hub gamer hispanohablante con guías, mods, plugins y servidores. Login con Discord y gestión de comunidad.</p>
                             <div class="project-tech-tags"><span>Next.js</span><span>TailwindCSS</span><span>Discord Auth</span></div>
-                            <button class="btn btn-primary project-detail-btn" data-url="https://thesilencers.netlify.app/" style="padding:0.5rem 1.2rem;font-size:0.85rem;">Ver detalle</button>
+                            <button class="btn btn-primary project-detail-btn" data-url="https://thesilencers.netlify.app/" data-blocked="true" style="padding:0.5rem 1.2rem;font-size:0.85rem;">Ver detalle</button>
                         </div>
                     </div>
                 </div>
@@ -433,6 +433,15 @@
                     <button class="modal-close" id="closeModal">&#x2715;</button>
                 </div>
                 <iframe class="modal-iframe" id="projectIframe"></iframe>
+                <div class="modal-fallback" id="modalFallback" hidden>
+                    <img class="modal-fallback__img" id="modalFallbackImg" alt="">
+                    <div class="modal-fallback__body">
+                        <h3 class="modal-fallback__title" id="modalFallbackTitle"></h3>
+                        <p class="modal-fallback__desc" id="modalFallbackDesc"></p>
+                        <a class="btn btn-primary modal-fallback__cta" id="modalFallbackCta" target="_blank" rel="noopener noreferrer">Visitar sitio <i class="fas fa-external-link-alt" style="font-size:0.7rem;margin-left:0.4rem;"></i></a>
+                        <p class="modal-fallback__note">El sitio no permite vista previa embebida.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
