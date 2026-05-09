@@ -1195,12 +1195,13 @@ section {
 
 .projects-bento {
     flex:1; display:grid; grid-template-columns:2fr 1.5fr; grid-template-rows:1fr 1fr 1fr; gap:1rem;
-    grid-template-areas:"aegis safety" "chatbot safety" "tanya tanya"; min-height:620px;
+    grid-template-areas:"aegis safety" "chatbot safety" "tanya silencers"; min-height:620px;
 }
 .projects-bento__card--aegis { grid-area:aegis; }
 .projects-bento__card--safety { grid-area:safety; }
 .projects-bento__card--chatbot { grid-area:chatbot; }
 .projects-bento__card--tanya { grid-area:tanya; }
+.projects-bento__card--silencers { grid-area:silencers; }
 
 .projects-bento__card {
     position:relative; border-radius:16px; overflow:hidden; border:1px solid hsla(0,0%,100%,0.08);
@@ -1249,7 +1250,7 @@ section {
 @media (max-width:768px) {
     .projects-layout { flex-direction:column; }
     .projects-sidebar { flex:auto; flex-direction:row; overflow-x:auto; gap:0.5rem; }
-    .projects-bento { grid-template-columns:1fr; grid-template-rows:auto; grid-template-areas:"aegis" "safety" "chatbot" "tanya"; min-height:auto; }
+    .projects-bento { grid-template-columns:1fr; grid-template-rows:auto; grid-template-areas:"aegis" "safety" "chatbot" "tanya" "silencers"; min-height:auto; }
 }
 
 /* ---- EXPERIENCE ---- */
