@@ -1261,6 +1261,8 @@ section {
     .projects-layout { flex-direction:column; }
     .projects-sidebar { flex:auto; flex-direction:row; overflow-x:auto; gap:0.5rem; }
     .projects-bento { grid-template-columns:1fr; grid-template-rows:auto; grid-template-areas:"aegis" "safety" "chatbot" "tanya" "silencers"; min-height:auto; }
+    .projects-bento__card { aspect-ratio: 16 / 11; min-height: 220px; }
+    .projects-bento__card .projects-bento__overlay { opacity: 1; transform: translateY(0); }
 }
 
 /* ---- EXPERIENCE ---- */
