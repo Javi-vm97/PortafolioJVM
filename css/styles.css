@@ -1148,12 +1148,33 @@ section {
 }
 
 @media (max-width: 768px) {
-    .svc-carousel { flex-direction: column; gap: 0; }
-    .svc-page { grid-template-columns: 1fr; gap: 1rem; padding: 0.5rem 0; }
+    .svc-carousel { gap: 0; }
     .svc-carousel__arrow { display: none; }
-    .svc-carousel__viewport { overflow: visible; }
-    .svc-carousel__track { flex-direction: column; transform: none !important; }
-    .svc-page { min-width: auto; }
+    .svc-carousel__viewport {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        border-radius: 0;
+    }
+    .svc-carousel__viewport::-webkit-scrollbar { display: none; }
+    .svc-carousel__track {
+        flex-direction: row !important;
+        transform: none !important;
+        gap: 1rem;
+        padding: 0.5rem 7.5%;
+    }
+    .svc-page {
+        display: contents;
+    }
+    .svc-card {
+        min-width: 85%;
+        max-width: 85%;
+        flex-shrink: 0;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
     .svc-carousel__dots { display: none; }
 }
 
