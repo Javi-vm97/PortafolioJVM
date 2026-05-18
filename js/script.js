@@ -340,6 +340,9 @@ document.querySelectorAll('.hero-stat').forEach(el => statObserver.observe(el));
     const prevArrow = document.getElementById('svcPrev');
     const nextArrow = document.getElementById('svcNext');
     const dotsBox = document.getElementById('svcDots');
+    const viewport = track.parentElement;
+    const allCards = Array.from(track.querySelectorAll('.svc-card'));
+    const mobileMQ = window.matchMedia('(max-width: 768px)');
     let svcIndex = 0;
     let svcAutoPlay;
 
@@ -359,11 +362,60 @@ document.querySelectorAll('.hero-stat').forEach(el => statObserver.observe(el));
         resetAuto();
     }
 
-    prevArrow.addEventListener('click', () => goTo(svcIndex - 1));
-    nextArrow.addEventListener('click', () => goTo(svcIndex + 1));
+    function updateCenterCard() {
+        if (!mobileMQ.matches) {
+            allCards.forEach(c => c.classList.remove('svc-card--center'));
+            return;
+        }
+        const vRect = viewport.getBoundingClientRect();
+        const vCenter = vRect.left + vRect.width / 2;
+        let closest = null;
+        let closestDist = Infinity;
+        allCards.forEach(card => {
+            const cRect = card.getBoundingClientRect();
+            const cCenter = cRect.left + cRect.width / 2;
+            const dist = Math.abs(cCenter - vCenter);
+            if (dist < closestDist) { closestDist = dist; closest = card; }
+        });
+        allCards.forEach(c => c.classList.toggle('svc-card--center', c === closest));
+    }
+
+    function scrollToCard(idx) {
+        const clamped = Math.max(0, Math.min(allCards.length - 1, idx));
+        allCards[clamped].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    prevArrow.addEventListener('click', () => {
+        if (mobileMQ.matches) {
+            const curr = allCards.findIndex(c => c.classList.contains('svc-card--center'));
+            scrollToCard((curr >= 0 ? curr : 0) - 1);
+        } else {
+            goTo(svcIndex - 1);
+        }
+    });
+    nextArrow.addEventListener('click', () => {
+        if (mobileMQ.matches) {
+            const curr = allCards.findIndex(c => c.classList.contains('svc-card--center'));
+            scrollToCard((curr >= 0 ? curr : 0) + 1);
+        } else {
+            goTo(svcIndex + 1);
+        }
+    });
+
+    let scrollTick = false;
+    viewport.addEventListener('scroll', () => {
+        if (!scrollTick) {
+            requestAnimationFrame(() => { updateCenterCard(); scrollTick = false; });
+            scrollTick = true;
+        }
+    }, { passive: true });
+    window.addEventListener('resize', updateCenterCard);
+    mobileMQ.addEventListener('change', updateCenterCard);
+    setTimeout(updateCenterCard, 100);
 
     function resetAuto() {
         clearInterval(svcAutoPlay);
+        if (mobileMQ.matches) return;
         svcAutoPlay = setInterval(() => goTo(svcIndex + 1), 15000);
     }
 

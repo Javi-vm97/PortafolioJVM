@@ -1148,8 +1148,23 @@ section {
 }
 
 @media (max-width: 768px) {
-    .svc-carousel { gap: 0; }
-    .svc-carousel__arrow { display: none; }
+    .svc-carousel { gap: 0; position: relative; }
+
+    .svc-carousel__arrow {
+        display: flex !important;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px; height: 44px;
+        z-index: 30;
+        background: hsla(0,0%,5%,0.78);
+        backdrop-filter: blur(8px);
+        border-color: hsla(0,0%,100%,0.15);
+    }
+    .svc-carousel__arrow--prev { left: 0.5rem; }
+    .svc-carousel__arrow--next { right: 0.5rem; }
+    .svc-carousel__arrow svg { width: 18px; height: 18px; }
+
     .svc-carousel__viewport {
         overflow-x: auto;
         overflow-y: hidden;
@@ -1157,24 +1172,49 @@ section {
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         border-radius: 0;
+        padding: 1.5rem 0;
+        perspective: 1400px;
     }
     .svc-carousel__viewport::-webkit-scrollbar { display: none; }
+
     .svc-carousel__track {
         flex-direction: row !important;
         transform: none !important;
-        gap: 1rem;
-        padding: 0.5rem 7.5%;
+        gap: 0.75rem;
+        padding: 0.5rem 10%;
+        transform-style: preserve-3d;
     }
-    .svc-page {
-        display: contents;
-    }
+
+    .svc-page { display: contents; }
+
     .svc-card {
-        min-width: 85%;
-        max-width: 85%;
+        min-width: 80%;
+        max-width: 80%;
         flex-shrink: 0;
         scroll-snap-align: center;
         scroll-snap-stop: always;
+        transition: filter 0.45s cubic-bezier(0.4,0,0.2,1), transform 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.45s ease;
+        filter: blur(3px) brightness(0.55);
+        transform: scale(0.86);
+        opacity: 0.7;
+        transform-origin: center;
+        backface-visibility: hidden;
     }
+    .svc-card--center {
+        filter: none;
+        transform: scale(1);
+        opacity: 1;
+    }
+    .svc-card--center::after { opacity: 1; }
+    .svc-card--center + .svc-card {
+        transform: scale(0.86) rotateY(-22deg);
+        transform-origin: left center;
+    }
+    .svc-card:has(+ .svc-card--center) {
+        transform: scale(0.86) rotateY(22deg);
+        transform-origin: right center;
+    }
+
     .svc-carousel__dots { display: none; }
 }
 
