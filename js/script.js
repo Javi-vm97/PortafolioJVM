@@ -425,13 +425,74 @@ document.querySelectorAll('.hero-stat').forEach(el => statObserver.observe(el));
 // --- Project Sidebar Interaction ---
 const sidebarCards = document.querySelectorAll('.projects-sidebar__card');
 const bentoCards = document.querySelectorAll('.projects-bento__card');
+const projectsBento = document.getElementById('projectsBento');
+const projectsBentoPrev = document.getElementById('projectsBentoPrev');
+const projectsBentoNext = document.getElementById('projectsBentoNext');
+const projMobileMQ = window.matchMedia('(max-width: 768px)');
 
 function setActiveProject(projectId) {
     sidebarCards.forEach(card => card.classList.toggle('projects-sidebar__card--active', card.dataset.project === projectId));
     bentoCards.forEach(card => card.classList.toggle('projects-bento__card--active', card.dataset.project === projectId));
 }
-sidebarCards.forEach(card => card.addEventListener('click', () => setActiveProject(card.dataset.project)));
+
+function scrollBentoToProject(projectId) {
+    const card = Array.from(bentoCards).find(c => c.dataset.project === projectId);
+    if (card) card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}
+
+function updateProjectsCenter() {
+    if (!projMobileMQ.matches || !projectsBento) {
+        bentoCards.forEach(c => c.classList.remove('projects-bento__card--center'));
+        return;
+    }
+    const vRect = projectsBento.getBoundingClientRect();
+    const vCenter = vRect.left + vRect.width / 2;
+    let closest = null;
+    let closestDist = Infinity;
+    bentoCards.forEach(card => {
+        const cRect = card.getBoundingClientRect();
+        const cCenter = cRect.left + cRect.width / 2;
+        const dist = Math.abs(cCenter - vCenter);
+        if (dist < closestDist) { closestDist = dist; closest = card; }
+    });
+    bentoCards.forEach(c => c.classList.toggle('projects-bento__card--center', c === closest));
+    if (closest) {
+        const projectId = closest.dataset.project;
+        sidebarCards.forEach(card => card.classList.toggle('projects-sidebar__card--active', card.dataset.project === projectId));
+    }
+}
+
+sidebarCards.forEach(card => card.addEventListener('click', () => {
+    setActiveProject(card.dataset.project);
+    if (projMobileMQ.matches) scrollBentoToProject(card.dataset.project);
+}));
 bentoCards.forEach(card => card.addEventListener('click', (e) => { if (!e.target.closest('.project-detail-btn')) setActiveProject(card.dataset.project); }));
+
+if (projectsBento) {
+    let projScrollTick = false;
+    projectsBento.addEventListener('scroll', () => {
+        if (!projScrollTick) {
+            requestAnimationFrame(() => { updateProjectsCenter(); projScrollTick = false; });
+            projScrollTick = true;
+        }
+    }, { passive: true });
+    window.addEventListener('resize', updateProjectsCenter);
+    projMobileMQ.addEventListener('change', updateProjectsCenter);
+    setTimeout(updateProjectsCenter, 100);
+}
+
+if (projectsBentoPrev) projectsBentoPrev.addEventListener('click', () => {
+    const cards = Array.from(bentoCards);
+    const curr = cards.findIndex(c => c.classList.contains('projects-bento__card--center'));
+    const prev = Math.max(0, (curr >= 0 ? curr : 0) - 1);
+    cards[prev].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+});
+if (projectsBentoNext) projectsBentoNext.addEventListener('click', () => {
+    const cards = Array.from(bentoCards);
+    const curr = cards.findIndex(c => c.classList.contains('projects-bento__card--center'));
+    const next = Math.min(cards.length - 1, (curr >= 0 ? curr : 0) + 1);
+    cards[next].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+});
 
 // Bento cards scroll reveal
 const bentoObserver = new IntersectionObserver((entries) => {

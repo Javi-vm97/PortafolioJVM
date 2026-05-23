@@ -1255,14 +1255,16 @@ section {
 .projects-sidebar__card:hover { background:hsla(0,0%,100%,0.05); border-color:hsla(0,0%,100%,0.1); }
 
 .projects-bento {
-    flex:1; display:grid; grid-template-columns:2fr 1.5fr; grid-template-rows:1fr 1fr 1fr; gap:1rem;
-    grid-template-areas:"aegis safety" "chatbot safety" "tanya silencers"; min-height:620px;
+    flex:1; display:grid; grid-template-columns:2fr 1.5fr; grid-template-rows:1fr 1fr 1fr 1fr; gap:1rem;
+    grid-template-areas:"aegis safety" "chatbot safety" "tanya silencers" "veoplaca veoplacaapp"; min-height:820px;
 }
 .projects-bento__card--aegis { grid-area:aegis; }
 .projects-bento__card--safety { grid-area:safety; }
 .projects-bento__card--chatbot { grid-area:chatbot; }
 .projects-bento__card--tanya { grid-area:tanya; }
 .projects-bento__card--silencers { grid-area:silencers; }
+.projects-bento__card--veoplaca { grid-area:veoplaca; }
+.projects-bento__card--veoplacaapp { grid-area:veoplacaapp; }
 
 .projects-bento__card {
     position:relative; border-radius:16px; overflow:hidden; border:1px solid hsla(0,0%,100%,0.08);
@@ -1280,7 +1282,7 @@ section {
 .projects-bento__card--safety .projects-bento__media img { object-position:left top; }
 .projects-bento__glass { position:absolute; inset:0; backdrop-filter:blur(2px) saturate(1.1); background:hsla(0,0%,100%,0.03); border-radius:inherit; pointer-events:none; z-index:2; transition:all 0.4s; }
 .projects-bento__specular { position:absolute; inset:0; pointer-events:none; z-index:3; border-radius:inherit; background:radial-gradient(ellipse 40% 30% at var(--specular-x) var(--specular-y),rgba(var(--card-accent,128,70,200),0.2) 0,rgba(var(--card-accent,128,70,200),0.08) 40%,transparent 70%); animation:specularDrift 8s ease-in-out infinite; }
-.projects-bento__overlay { position:absolute; inset:0; z-index:4; display:flex; flex-direction:column; justify-content:flex-end; padding:1.5rem; opacity:0; transform:translateY(8px); transition:all 0.4s cubic-bezier(0.4,0,0.2,1); background:linear-gradient(0deg,rgba(0,0,0,0.75) 0,rgba(0,0,0,0.35) 50%,transparent); border-radius:inherit; }
+.projects-bento__overlay { position:absolute; inset:0; z-index:4; display:flex; flex-direction:column; justify-content:flex-end; padding:1.5rem; opacity:0; transform:translateY(8px); transition:all 0.4s cubic-bezier(0.4,0,0.2,1); background:linear-gradient(0deg,rgba(0,0,0,0.88) 0,rgba(0,0,0,0.68) 45%,rgba(0,0,0,0.4) 100%); backdrop-filter:blur(8px) saturate(1.1); -webkit-backdrop-filter:blur(8px) saturate(1.1); border-radius:inherit; overflow:hidden; }
 .projects-bento__title { font-size:1.15rem; font-weight:700; color:hsla(0,0%,100%,0.95); margin-bottom:0.35rem; }
 .projects-bento__desc { font-size:0.8rem; color:hsla(0,0%,100%,0.65); line-height:1.5; max-width:320px; margin-bottom:0.5rem; }
 
@@ -1321,10 +1323,63 @@ section {
 @media (max-width:768px) {
     .projects-layout { flex-direction:column; }
     .projects-sidebar { flex:auto; flex-direction:row; overflow-x:auto; gap:0.5rem; }
-    .projects-bento { display:block; min-height:auto; }
-    .projects-bento__card { display:none; aspect-ratio: 16 / 11; min-height: 260px; opacity:1; transform:none; }
-    .projects-bento__card--active { display:flex; }
-    .projects-bento__card .projects-bento__overlay { opacity: 1; transform: translateY(0); }
+
+    .projects-bento-shell { position:relative; }
+
+    .projects-bento__arrow {
+        display:flex; align-items:center; justify-content:center;
+        position:absolute; top:50%; transform:translateY(-50%);
+        width:44px; height:44px; z-index:30;
+        background:hsla(0,0%,5%,0.78); backdrop-filter:blur(8px);
+        border:1px solid hsla(0,0%,100%,0.15); border-radius:50%;
+        color:hsla(0,0%,100%,0.85); cursor:pointer;
+        transition:background 0.3s, color 0.3s;
+    }
+    .projects-bento__arrow:hover { background:hsla(0,0%,15%,0.9); color:#fff; }
+    .projects-bento__arrow--prev { left:0.5rem; }
+    .projects-bento__arrow--next { right:0.5rem; }
+    .projects-bento__arrow svg { width:18px; height:18px; }
+
+    .projects-bento {
+        display:flex !important; flex-direction:row !important;
+        overflow-x:auto; overflow-y:hidden;
+        scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+        padding:1.5rem 10%; gap:0.75rem;
+        perspective:1400px; min-height:auto;
+    }
+    .projects-bento::-webkit-scrollbar { display:none; }
+
+    .projects-bento .projects-bento__card,
+    .projects-bento .projects-bento__card.visible {
+        display:flex !important;
+        min-width:80%; max-width:80%; flex-shrink:0;
+        scroll-snap-align:center; scroll-snap-stop:always;
+        aspect-ratio: 16 / 11; min-height: 260px;
+        opacity:0.7; transform:scale(0.86); filter:blur(3px) brightness(0.55);
+        transition:filter 0.45s cubic-bezier(0.4,0,0.2,1), transform 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.45s ease;
+        transform-origin:center; backface-visibility:hidden;
+        grid-area:auto !important;
+    }
+    .projects-bento .projects-bento__card--center,
+    .projects-bento .projects-bento__card--center.visible {
+        opacity:1; transform:scale(1); filter:none;
+    }
+    .projects-bento .projects-bento__card--center::after { opacity:1; }
+    .projects-bento .projects-bento__card--center + .projects-bento__card,
+    .projects-bento .projects-bento__card--center + .projects-bento__card.visible {
+        transform:scale(0.86) rotateY(-22deg); transform-origin:left center;
+    }
+    .projects-bento .projects-bento__card:has(+ .projects-bento__card--center),
+    .projects-bento .projects-bento__card.visible:has(+ .projects-bento__card--center) {
+        transform:scale(0.86) rotateY(22deg); transform-origin:right center;
+    }
+    .projects-bento__card .projects-bento__overlay { opacity:1; transform:translateY(0); }
+}
+
+@media (min-width:769px) {
+    .projects-bento-shell { display:contents; }
+    .projects-bento__arrow { display:none; }
 }
 
 /* ---- EXPERIENCE ---- */

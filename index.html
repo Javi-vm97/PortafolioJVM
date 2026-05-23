@@ -380,9 +380,25 @@
                             <span class="projects-sidebar__subtitle">GAMING HUB & COMUNIDAD</span>
                         </div>
                     </div>
+                    <div class="projects-sidebar__card" data-project="veoplaca" style="--card-accent: 240,180,60;">
+                        <div class="projects-sidebar__text">
+                            <span class="projects-sidebar__name">Veoplaca Landing</span>
+                            <span class="projects-sidebar__subtitle">LANDING & UI FIGMA</span>
+                        </div>
+                    </div>
+                    <div class="projects-sidebar__card" data-project="veoplacaapp" style="--card-accent: 70,150,220;">
+                        <div class="projects-sidebar__text">
+                            <span class="projects-sidebar__name">Veoplaca App</span>
+                            <span class="projects-sidebar__subtitle">FULL STACK & SCRAPING</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="projects-bento">
+                <div class="projects-bento-shell">
+                    <button class="projects-bento__arrow projects-bento__arrow--prev" id="projectsBentoPrev" aria-label="Anterior">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <div class="projects-bento" id="projectsBento">
                     <div class="projects-bento__card projects-bento__card--aegis projects-bento__card--active" data-project="aegis" style="--card-accent: 128,70,200;">
                         <div class="projects-bento__media"><img src="./img/poc.png" alt="PoC AegisAI Agents"></div>
                         <div class="projects-bento__glass"></div>
@@ -442,6 +458,34 @@
                             <button class="btn btn-primary project-detail-btn" data-url="https://thesilencers.netlify.app/" data-blocked="true" style="padding:0.5rem 1.2rem;font-size:0.85rem;">Ver detalle</button>
                         </div>
                     </div>
+
+                    <div class="projects-bento__card projects-bento__card--veoplaca" data-project="veoplaca" style="--card-accent: 240,180,60;">
+                        <div class="projects-bento__media"><img src="./img/webveoplaca.png" alt="Veoplaca Landing"></div>
+                        <div class="projects-bento__glass"></div>
+                        <div class="projects-bento__specular"></div>
+                        <div class="projects-bento__overlay">
+                            <h3 class="projects-bento__title">Veoplaca — Landing</h3>
+                            <p class="projects-bento__desc">Landing page para consulta vehicular Perú. Maquetado responsive fiel al prototipo Figma y publicación en VPS.</p>
+                            <div class="project-tech-tags"><span>Figma</span><span>Frontend</span><span>VPS</span></div>
+                            <button class="btn btn-primary project-detail-btn" data-url="https://veoplaca.com/" data-blocked="true" style="padding:0.5rem 1.2rem;font-size:0.85rem;">Ver detalle</button>
+                        </div>
+                    </div>
+
+                    <div class="projects-bento__card projects-bento__card--veoplacaapp" data-project="veoplacaapp" style="--card-accent: 70,150,220;">
+                        <div class="projects-bento__media"><img src="./img/appveoplaca.png" alt="Veoplaca App"></div>
+                        <div class="projects-bento__glass"></div>
+                        <div class="projects-bento__specular"></div>
+                        <div class="projects-bento__overlay">
+                            <h3 class="projects-bento__title">Veoplaca — App</h3>
+                            <p class="projects-bento__desc">Consulta vehicular Perú con web scraping de 11 instituciones (SUNARP, MTC, SOAT y más) y sistema de quests gamificado.</p>
+                            <div class="project-tech-tags"><span>Full Stack</span><span>Web Scraping</span><span>VPS</span></div>
+                            <button class="btn btn-primary project-detail-btn" data-url="https://app.veoplaca.com/" data-blocked="true" style="padding:0.5rem 1.2rem;font-size:0.85rem;">Ver detalle</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="projects-bento__arrow projects-bento__arrow--next" id="projectsBentoNext" aria-label="Siguiente">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
                 </div>
             </div>
         </section>
