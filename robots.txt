@@ -26,4 +26,4 @@ Disallow: /
 User-agent: Google-Extended
 Disallow: /
 
-Sitemap: https://javiervidalm.netlify.app/sitemap.xml
+Sitemap: https://javi-vidalm.netlify.app/sitemap.xml
