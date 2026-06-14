@@ -1,43 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://javi-vidalm.netlify.app/</loc>
+    <lastmod>2026-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://javi-vidalm.netlify.app/img/perfil.png</image:loc>
-      <image:title>Javier Vidal Miguel - Cloud Engineer, DevOps &amp; Full Stack Developer</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://javi-vidalm.netlify.app/img/poc.png</image:loc>
-      <image:title>PoC AegisAI Agents</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://javi-vidalm.netlify.app/img/seg.png</image:loc>
-      <image:title>Safety Excellence App</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://javi-vidalm.netlify.app/img/seg-website.png</image:loc>
-      <image:title>Website Safety Excellence Group</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://javi-vidalm.netlify.app/img/pacastanya.png</image:loc>
-      <image:title>Pacas Tanya</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://javi-vidalm.netlify.app/img/thesilencers.png</image:loc>
-      <image:title>The Silencers</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://javi-vidalm.netlify.app/img/webveoplaca.png</image:loc>
-      <image:title>Veoplaca Landing</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://javi-vidalm.netlify.app/img/appveoplaca.png</image:loc>
-      <image:title>Veoplaca App</image:title>
-    </image:image>
   </url>
-
 </urlset>
