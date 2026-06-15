@@ -1,0 +1,32 @@
+/* TEAM */
+
+Owner & Developer: Javier Vidal Miguel
+Also known as: Javier Vidal, Javier VidalM, Javier Vidal M, Javi, javidev, javiervidalm, javiervidal, Javi Digital, javimxoficial, Javi Oficial
+Role: Cloud Engineer, DevOps & Full Stack Developer
+Modality: 100% Remote
+Email: javividalm11@gmail.com
+LinkedIn: linkedin.com/in/javiervidalm
+GitHub: github.com/Javi-vm97 · github.com/javiavm
+Instagram: instagram.com/javimxoficial
+YouTube: youtube.com/@javimxoficial
+Facebook: facebook.com/digitalstudiojavi
+Site: https://javi-vidalm.netlify.app/
+
+/* SERVICES */
+
+- Desarrollo Web (React, Next.js, SEO)
+- Aplicaciones Web & Mobile (Node.js, React, PWA)
+- Integraciones Empresariales (SAP, CRM, REST API)
+- Soporte Técnico L1-L3 (ITIL, Monitoring, SLA)
+- Cloud Architecture & DevOps (AWS, Docker, Terraform, Kubernetes)
+- Marketing Digital & Growth (SEO, CRO, Analytics)
+- Automatización & IA (OpenAI, LangChain, AI Agents)
+- Seguridad & Compliance (Pentesting, OSHA)
+
+/* SITE */
+
+Last update: 2026/06/15
+Standards: HTML5, CSS3, ES2022, JSON-LD, Schema.org
+Components: Vanilla JavaScript, No frameworks
+Hosting: Netlify
+Build: Static deploy from GitHub
