@@ -51,6 +51,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/voice-widget.css">
     <style>html,body{background:#0b0d17;}</style>
 
     <script type="application/ld+json">
@@ -137,7 +138,7 @@
               "name": "¿Quién es Javier Vidal Miguel?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Javier Vidal Miguel — también conocido como Javier VidalM, javiervidalm o Javi Digital — es Cloud Engineer, DevOps y Full Stack Developer con más de 6 años de experiencia construyendo plataformas web escalables, agentes de inteligencia artificial, despliegues en AWS y soluciones de automatización. Trabaja 100% remoto para empresas, startups y emprendedores."
+                "text": "También conocido como Javier VidalM, javiervidalm o Javi Digital, es Cloud Engineer, DevOps y Full Stack Developer con más de 6 años de experiencia híbrida construyendo plataformas web escalables, agentes de inteligencia artificial, despliegues en AWS y soluciones de automatización. Trabaja 100% remoto para empresas, startups y emprendedores."
               }
             },
             {
@@ -145,7 +146,7 @@
               "name": "¿Qué servicios ofrece Javier Vidal como desarrollador web?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Javier ofrece desarrollo web de alto rendimiento (React, Next.js, SEO), aplicaciones web y móviles, integraciones empresariales (SAP, CRM, APIs), soporte técnico L1-L3, cloud architecture y DevOps en AWS con Docker y Terraform, marketing digital orientado a conversión, automatización con IA usando OpenAI y LangChain, y consultoría en seguridad y compliance."
+                "text": "Javier ofrece desarrollo web de alto rendimiento (React, Next.js, SEO), aplicaciones web y móviles, integraciones empresariales (SAP, CRM, APIs), soporte técnico L1-L3, cloud architecture y DevOps en AWS con Docker y Terraform, marketing digital orientado a conversión, automatización con IA usando OpenAI, LangChain y Anthropic, y consultoría en seguridad y compliance."
               }
             },
             {
@@ -222,13 +223,13 @@
                 <a href="#inicio" class="logo"><span class="logo-j">J</span></a>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#proyectos">Proyectos</a></li>
                     <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#proyectos">Proyectos</a></li>
                     <li><a href="#sobre-mi">Sobre mí</a></li>
                     <li><a href="#faq">FAQ</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
-                <a href="./img/Curriculum_javier vidalmdevops.pdf" download class="nav-cta">
+                <a href="./img/Curriculum_javier vidalmm.pdf" download class="nav-cta">
                     <i class="fas fa-download"></i> CV
                 </a>
                 <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -508,6 +509,170 @@
             <div class="svc-carousel__dots" id="svcDots"></div>
         </section>
 
+        <!-- TIENDA: oculta. Para reactivar, quitar el comentario que envuelve la seccion y restaurar el link "Tienda" en el navbar. -->
+        <!--
+        <section id="tienda">
+            <h2 class="section-title">Tienda</h2>
+            <p class="store__lead">Software, suscripciones y plataformas listas para tu negocio. Despliegue inmediato.</p>
+
+            <div class="store-showcase">
+                <button class="store-arrow store-arrow--prev" id="storePrev" aria-label="Anterior producto">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+
+                <div class="store-stage" id="storeStage">
+
+                    <article class="store-product store-product--active" data-product="aegis" data-index="0" style="--product-accent: 128,70,200;">
+                        <div class="store-product__glow"></div>
+                        <div class="store-product__shimmer"></div>
+                        <div class="store-product__inner">
+                            <div class="store-product__badge">SUSCRIPCIÓN</div>
+                            <div class="store-product__icon">🤖</div>
+                            <h3 class="store-product__name">AegisAI Agent Suite</h3>
+                            <p class="store-product__desc">Agente IA que analiza observaciones de seguridad, evalúa riesgos y genera planes de acción OSHA en tiempo real.</p>
+                            <div class="store-plans">
+                                <button class="store-plan-btn" data-plan="monthly" data-price="49" data-period="/mes">Mensual</button>
+                                <button class="store-plan-btn store-plan-btn--active" data-plan="annual" data-price="490" data-period="/año">Anual</button>
+                                <button class="store-plan-btn" data-plan="lifetime" data-price="1990" data-period="único">Lifetime</button>
+                            </div>
+                            <div class="store-price"><span class="store-price__currency">$</span><span class="store-price__amount">490</span><span class="store-price__period">/año</span></div>
+                            <ul class="store-features">
+                                <li>Análisis OSHA en tiempo real</li>
+                                <li>Hasta 1,000 observaciones/mes</li>
+                                <li>Plan de acción automatizado</li>
+                                <li>API y soporte por email</li>
+                            </ul>
+                            <a href="https://buy.stripe.com/REEMPLAZA_CON_TU_LINK_AEGIS" target="_blank" rel="noopener noreferrer" class="btn btn-primary store-cta">Comprar ahora <i class="fas fa-arrow-right" style="margin-left:0.4rem;font-size:0.8rem;"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="store-product" data-product="safety" data-index="1" style="--product-accent: 160,90,240;">
+                        <div class="store-product__glow"></div>
+                        <div class="store-product__shimmer"></div>
+                        <div class="store-product__inner">
+                            <div class="store-product__badge">SUSCRIPCIÓN</div>
+                            <div class="store-product__icon">☁️</div>
+                            <h3 class="store-product__name">Cloud DevOps Dashboard</h3>
+                            <p class="store-product__desc">Panel de monitoreo, despliegue y rotación de keys para infraestructura AWS, con automatizaciones DevOps listas para usar.</p>
+                            <div class="store-plans">
+                                <button class="store-plan-btn" data-plan="monthly" data-price="79" data-period="/mes">Mensual</button>
+                                <button class="store-plan-btn store-plan-btn--active" data-plan="annual" data-price="790" data-period="/año">Anual</button>
+                                <button class="store-plan-btn" data-plan="lifetime" data-price="2990" data-period="único">Lifetime</button>
+                            </div>
+                            <div class="store-price"><span class="store-price__currency">$</span><span class="store-price__amount">790</span><span class="store-price__period">/año</span></div>
+                            <ul class="store-features">
+                                <li>Monitoreo AWS multi-cuenta</li>
+                                <li>Rotación de keys automática</li>
+                                <li>Alertas en tiempo real</li>
+                                <li>CI/CD pre-configurado</li>
+                            </ul>
+                            <a href="https://buy.stripe.com/REEMPLAZA_CON_TU_LINK_DEVOPS" target="_blank" rel="noopener noreferrer" class="btn btn-primary store-cta">Comprar ahora <i class="fas fa-arrow-right" style="margin-left:0.4rem;font-size:0.8rem;"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="store-product" data-product="veoplaca" data-index="2" style="--product-accent: 240,180,60;">
+                        <div class="store-product__glow"></div>
+                        <div class="store-product__shimmer"></div>
+                        <div class="store-product__inner">
+                            <div class="store-product__badge">PLATAFORMA</div>
+                            <div class="store-product__icon">🚗</div>
+                            <h3 class="store-product__name">Veoplaca Pro</h3>
+                            <p class="store-product__desc">Acceso a la plataforma de consulta vehicular con web scraping de 11 instituciones públicas. Reportes ilimitados.</p>
+                            <div class="store-plans">
+                                <button class="store-plan-btn" data-plan="monthly" data-price="19" data-period="/mes">Mensual</button>
+                                <button class="store-plan-btn store-plan-btn--active" data-plan="annual" data-price="190" data-period="/año">Anual</button>
+                                <button class="store-plan-btn" data-plan="lifetime" data-price="690" data-period="único">Lifetime</button>
+                            </div>
+                            <div class="store-price"><span class="store-price__currency">$</span><span class="store-price__amount">190</span><span class="store-price__period">/año</span></div>
+                            <ul class="store-features">
+                                <li>Consultas ilimitadas</li>
+                                <li>SUNARP, MTC, SOAT, ATU y más</li>
+                                <li>Historial de placas</li>
+                                <li>API para integraciones</li>
+                            </ul>
+                            <a href="https://buy.stripe.com/REEMPLAZA_CON_TU_LINK_VEOPLACA" target="_blank" rel="noopener noreferrer" class="btn btn-primary store-cta">Comprar ahora <i class="fas fa-arrow-right" style="margin-left:0.4rem;font-size:0.8rem;"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="store-product" data-product="silencers" data-index="3" style="--product-accent: 139,92,246;">
+                        <div class="store-product__glow"></div>
+                        <div class="store-product__shimmer"></div>
+                        <div class="store-product__inner">
+                            <div class="store-product__badge">PLATAFORMA</div>
+                            <div class="store-product__icon">🎮</div>
+                            <h3 class="store-product__name">Gaming Hub Premium</h3>
+                            <p class="store-product__desc">Plataforma de comunidad gamer con login Discord, gestión de servidores, mods y guías. Listo para escalar.</p>
+                            <div class="store-plans">
+                                <button class="store-plan-btn" data-plan="monthly" data-price="29" data-period="/mes">Mensual</button>
+                                <button class="store-plan-btn store-plan-btn--active" data-plan="annual" data-price="290" data-period="/año">Anual</button>
+                                <button class="store-plan-btn" data-plan="lifetime" data-price="990" data-period="único">Lifetime</button>
+                            </div>
+                            <div class="store-price"><span class="store-price__currency">$</span><span class="store-price__amount">290</span><span class="store-price__period">/año</span></div>
+                            <ul class="store-features">
+                                <li>Login con Discord OAuth</li>
+                                <li>Catálogo de servidores y mods</li>
+                                <li>Panel de admin completo</li>
+                                <li>Tema dark moderno</li>
+                            </ul>
+                            <a href="https://buy.stripe.com/REEMPLAZA_CON_TU_LINK_GAMING" target="_blank" rel="noopener noreferrer" class="btn btn-primary store-cta">Comprar ahora <i class="fas fa-arrow-right" style="margin-left:0.4rem;font-size:0.8rem;"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="store-product" data-product="ecommerce" data-index="4" style="--product-accent: 220,120,180;">
+                        <div class="store-product__glow"></div>
+                        <div class="store-product__shimmer"></div>
+                        <div class="store-product__inner">
+                            <div class="store-product__badge">PAGO ÚNICO</div>
+                            <div class="store-product__icon">🛒</div>
+                            <h3 class="store-product__name">E-commerce Starter Kit</h3>
+                            <p class="store-product__desc">Template completo de e-commerce con catálogo de productos, sistema de pedidos y pasarela de pago. Listo para personalizar.</p>
+                            <div class="store-plans">
+                                <button class="store-plan-btn store-plan-btn--active" data-plan="lifetime" data-price="299" data-period="único">Licencia única</button>
+                            </div>
+                            <div class="store-price"><span class="store-price__currency">$</span><span class="store-price__amount">299</span><span class="store-price__period">único</span></div>
+                            <ul class="store-features">
+                                <li>Catálogo y carrito completo</li>
+                                <li>Stripe + MercadoPago integrados</li>
+                                <li>Panel admin de pedidos</li>
+                                <li>Código fuente + documentación</li>
+                            </ul>
+                            <a href="https://buy.stripe.com/REEMPLAZA_CON_TU_LINK_ECOMMERCE" target="_blank" rel="noopener noreferrer" class="btn btn-primary store-cta">Comprar ahora <i class="fas fa-arrow-right" style="margin-left:0.4rem;font-size:0.8rem;"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="store-product" data-product="cloud-setup" data-index="5" style="--product-accent: 70,150,220;">
+                        <div class="store-product__glow"></div>
+                        <div class="store-product__shimmer"></div>
+                        <div class="store-product__inner">
+                            <div class="store-product__badge">SERVICIO</div>
+                            <div class="store-product__icon">⚙️</div>
+                            <h3 class="store-product__name">Cloud DevOps Setup</h3>
+                            <p class="store-product__desc">Setup completo de infraestructura AWS con Docker, Terraform y CI/CD listo para producción. Incluye 30 días de soporte.</p>
+                            <div class="store-plans">
+                                <button class="store-plan-btn store-plan-btn--active" data-plan="lifetime" data-price="1499" data-period="único">Setup completo</button>
+                            </div>
+                            <div class="store-price"><span class="store-price__currency">$</span><span class="store-price__amount">1,499</span><span class="store-price__period">único</span></div>
+                            <ul class="store-features">
+                                <li>AWS multi-región configurado</li>
+                                <li>Docker + Terraform IaC</li>
+                                <li>Pipeline CI/CD completo</li>
+                                <li>30 días de soporte post-setup</li>
+                            </ul>
+                            <a href="https://buy.stripe.com/REEMPLAZA_CON_TU_LINK_CLOUDSETUP" target="_blank" rel="noopener noreferrer" class="btn btn-primary store-cta">Comprar ahora <i class="fas fa-arrow-right" style="margin-left:0.4rem;font-size:0.8rem;"></i></a>
+                        </div>
+                    </article>
+
+                </div>
+
+                <button class="store-arrow store-arrow--next" id="storeNext" aria-label="Siguiente producto">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+
+            <div class="store-dots" id="storeDots"></div>
+        </section>
+        -->
+
         <!-- PROYECTOS -->
         <section id="proyectos">
             <h2 class="section-title">Proyectos Destacados</h2>
@@ -682,17 +847,18 @@
             <div class="about__grid">
                 <div class="about__card">
                     <h3>Javier Vidal Miguel</h3>
-                    <p>Soy <strong>Javier Vidal Miguel</strong> — también conocido como <strong>Javier VidalM</strong>, <strong>javiervidalm</strong>, <strong>javidev</strong> o simplemente <strong>Javi</strong> en mis canales digitales (<strong>javimxoficial</strong>, <strong>Javi Digital</strong>, <strong>Javi Oficial</strong>). Cloud Engineer, DevOps y Full Stack Developer con más de 6 años construyendo plataformas web escalables, agentes de IA, despliegues en AWS y soluciones de automatización para empresas y startups.</p>
+                    <p>Soy <strong>Javier Vidal Miguel</strong> 👨‍💻</p>
+                    <p>También conocido como <strong>Javier VidalM</strong>, <strong>javiervidalm</strong>, <strong>javidev</strong> o simplemente <strong>Javi</strong> en mis canales digitales (<strong>javimxoficial</strong>, <strong>Javi Digital</strong>, <strong>Javi Oficial</strong>). Cloud Engineer, DevOps y Full Stack Developer con más de 6 años de experiencia híbrida construyendo plataformas web escalables, agentes de IA, despliegues en AWS y soluciones de automatización para empresas y startups.</p>
                 </div>
 
                 <div class="about__card">
                     <h3>Qué hago</h3>
-                    <p>Si necesitas <strong>crear una página web</strong> moderna, <strong>desarrollar una aplicación web</strong> a medida, integrar <strong>inteligencia artificial</strong> en tu producto, automatizar procesos, o tener <strong>soporte técnico</strong> y mantenimiento continuo de tus aplicaciones — eso es lo que hago. Trabajo con stacks modernos (React, Next.js, Node.js, .NET) y nubes principales (AWS, Docker, Terraform).</p>
+                    <p>Si necesitas <strong>crear una página web</strong> moderna, <strong>desarrollar una aplicación web</strong> a medida, integrar <strong>inteligencia artificial</strong> en tu producto, automatizar procesos, o tener <strong>soporte técnico</strong> y mantenimiento continuo de tus aplicaciones, eso es lo que hago. Trabajo con stacks modernos (React, Next.js, Node.js, .NET) y nubes principales (AWS, Docker, Terraform), entre otras tecnologías.</p>
                 </div>
 
                 <div class="about__card">
                     <h3>Cómo trabajo</h3>
-                    <p>100% remoto, en sprints cortos con entregas tangibles. Cubro desde discovery y diseño hasta despliegue, monitoreo y <strong>soporte técnico L1, L2 y L3</strong>. Colaboro con equipos hispanohablantes y angloparlantes. Si quieres iniciar un proyecto, ofrezco una consultoría inicial gratuita para evaluar el alcance.</p>
+                    <p>100% remoto, en sprints cortos con entregas tangibles. Cubro desde la planeación y diseño hasta despliegue, monitoreo y mantenimiento, también doy <strong>soporte técnico L1, L2 y L3</strong>. Colaboro con equipos hispanohablantes y angloparlantes. Si quieres iniciar un proyecto, ofrezco una consultoría inicial gratuita para evaluar el alcance e iniciar con el desarrollo.</p>
                 </div>
             </div>
         </section>
@@ -705,12 +871,12 @@
             <div class="faq__list">
                 <details class="faq__item">
                     <summary>¿Quién es Javier Vidal Miguel?</summary>
-                    <p>Javier Vidal Miguel — también conocido como Javier VidalM, javiervidalm o Javi Digital — es Cloud Engineer, DevOps y Full Stack Developer con más de 6 años de experiencia construyendo plataformas web escalables, agentes de inteligencia artificial, despliegues en AWS y soluciones de automatización. Trabaja 100% remoto para empresas, startups y emprendedores.</p>
+                    <p>También conocido como Javier VidalM, javiervidalm o Javi Digital, es Cloud Engineer, DevOps y Full Stack Developer con más de 6 años de experiencia híbrida construyendo plataformas web escalables, agentes de inteligencia artificial, despliegues en AWS y soluciones de automatización. Trabaja 100% remoto para empresas, startups y emprendedores.</p>
                 </details>
 
                 <details class="faq__item">
                     <summary>¿Qué servicios ofrece Javier Vidal como desarrollador web?</summary>
-                    <p>Javier ofrece desarrollo web de alto rendimiento (React, Next.js, SEO), aplicaciones web y móviles, integraciones empresariales (SAP, CRM, APIs), soporte técnico L1-L3, cloud architecture y DevOps en AWS con Docker y Terraform, marketing digital orientado a conversión, automatización con IA usando OpenAI y LangChain, y consultoría en seguridad y compliance.</p>
+                    <p>Javier ofrece desarrollo web de alto rendimiento (React, Next.js, SEO), aplicaciones web y móviles, integraciones empresariales (SAP, CRM, APIs), soporte técnico L1-L3, cloud architecture y DevOps en AWS con Docker y Terraform, marketing digital orientado a conversión, automatización con IA usando OpenAI, LangChain y Anthropic, y consultoría en seguridad y compliance.</p>
                 </details>
 
                 <details class="faq__item">
@@ -900,5 +1066,6 @@
     </div><!-- /main-content -->
 
     <script src="./js/script.js" defer></script>
+    <script src="./js/voice-widget.js" defer></script>
 </body>
 </html>

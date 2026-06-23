@@ -1,0 +1,669 @@
+/**
+ * Javier IA - Voice Widget Styles
+ * Adapted to portfolio's dark + purple glass aesthetic.
+ */
+
+/* ===== Container & FAB ===== */
+.javi-fab-container {
+    position: fixed;
+    bottom: calc(1.5rem + 60px + 0.75rem);
+    right: 1.5rem;
+    z-index: 950;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.javi-fab {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg, rgba(129, 140, 248, 1), rgba(167, 139, 250, 1));
+    box-shadow:
+        0 8px 32px rgba(129, 140, 248, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+        0 -6px 14px rgba(129, 140, 248, 0.25) inset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+}
+
+.javi-fab:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow:
+        0 14px 40px rgba(129, 140, 248, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.16) inset,
+        0 -6px 14px rgba(167, 139, 250, 0.3) inset;
+}
+
+.javi-fab:active {
+    transform: translateY(-1px) scale(1);
+}
+
+.javi-fab__icon {
+    width: 24px;
+    height: 24px;
+    z-index: 2;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.javi-fab__pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(167, 139, 250, 0.55);
+    animation: javiPulse 2.6s ease-out infinite;
+    pointer-events: none;
+}
+.javi-fab__pulse--delay { animation-delay: 1.3s; }
+
+@keyframes javiPulse {
+    0%   { transform: scale(0.85); opacity: 0.85; }
+    100% { transform: scale(2);    opacity: 0; }
+}
+
+.javi-fab__badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #1a1408;
+    font-size: 0.55rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 0.18rem 0.36rem;
+    border-radius: 100px;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ===== Panel ===== */
+.javi-panel {
+    position: absolute;
+    bottom: calc(60px + 1rem);
+    right: 0;
+    width: 380px;
+    max-width: calc(100vw - 3rem);
+    max-height: 70vh;
+    background: linear-gradient(160deg, rgba(15, 12, 22, 0.96) 0%, rgba(8, 6, 14, 0.96) 100%);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
+    border-radius: 22px;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(129, 140, 248, 0.15) inset,
+        0 0 60px rgba(129, 140, 248, 0.08);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.javi-panel--open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.javi-panel__border {
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+        from var(--border-angle, 0deg),
+        transparent 65%,
+        rgba(129, 140, 248, 0.5) 82%,
+        rgba(167, 139, 250, 0.9) 92%,
+        transparent 100%
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+    animation: borderRotate 6s linear infinite;
+}
+
+/* ===== Header ===== */
+.javi-panel__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1rem 0.85rem;
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.06);
+    position: relative;
+    z-index: 2;
+}
+
+.javi-panel__avatar {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+}
+
+.javi-panel__avatar-ring {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, rgba(129, 140, 248, 0.8), rgba(167, 139, 250, 0.4), rgba(129, 140, 248, 0.8));
+    animation: javiAvatarSpin 8s linear infinite;
+    filter: blur(2px);
+    opacity: 0.85;
+}
+
+@keyframes javiAvatarSpin {
+    to { transform: rotate(360deg); }
+}
+
+.javi-panel__avatar-core {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a1226, #0b0716);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #fff;
+    background-clip: padding-box;
+    text-shadow: 0 0 12px rgba(129, 140, 248, 0.6);
+    z-index: 2;
+}
+
+.javi-panel__heading {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.javi-panel__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.javi-panel__subtitle {
+    font-size: 0.7rem;
+    color: hsla(0, 0%, 100%, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.javi-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px #4ade80;
+    animation: javiStatusBlink 2.4s ease-in-out infinite;
+}
+
+@keyframes javiStatusBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.javi-lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.35rem 0.55rem;
+    background: hsla(0, 0%, 100%, 0.04);
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
+    border-radius: 100px;
+    color: hsla(0, 0%, 100%, 0.55);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.javi-lang-toggle:hover {
+    background: rgba(129, 140, 248, 0.12);
+    border-color: rgba(129, 140, 248, 0.3);
+    color: #fff;
+}
+
+.javi-lang-toggle__current {
+    color: rgba(167, 139, 250, 1);
+    font-weight: 800;
+}
+
+.javi-lang-toggle__divider {
+    color: hsla(0, 0%, 100%, 0.25);
+}
+
+.javi-lang-toggle__other {
+    opacity: 0.5;
+}
+
+.javi-panel__close {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: hsla(0, 0%, 100%, 0.04);
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
+    color: hsla(0, 0%, 100%, 0.7);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.javi-panel__close:hover {
+    background: hsla(0, 0%, 100%, 0.1);
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+.javi-panel__close svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ===== Stage ===== */
+.javi-panel__stage {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem 1.25rem 1rem;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.javi-panel__stage::-webkit-scrollbar { width: 6px; }
+.javi-panel__stage::-webkit-scrollbar-thumb {
+    background: hsla(0, 0%, 100%, 0.12);
+    border-radius: 100px;
+}
+
+/* ===== Orb ===== */
+.javi-orb {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0.5rem auto 1.25rem;
+    transform-style: preserve-3d;
+}
+
+.javi-orb__halo {
+    position: absolute;
+    inset: -20%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(129, 140, 248, 0.4) 0%, rgba(129, 140, 248, 0) 70%);
+    filter: blur(12px);
+    animation: javiOrbHalo 4s ease-in-out infinite;
+}
+
+@keyframes javiOrbHalo {
+    0%, 100% { opacity: 0.6; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.08); }
+}
+
+.javi-orb__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(167, 139, 250, 0.45);
+    pointer-events: none;
+}
+
+.javi-orb__ring--1 {
+    inset: 0;
+    animation: javiOrbRing 3.2s ease-out infinite;
+}
+.javi-orb__ring--2 {
+    inset: 5%;
+    animation: javiOrbRing 3.2s ease-out infinite;
+    animation-delay: 1.1s;
+}
+.javi-orb__ring--3 {
+    inset: 10%;
+    animation: javiOrbRing 3.2s ease-out infinite;
+    animation-delay: 2.2s;
+}
+
+@keyframes javiOrbRing {
+    0%   { transform: scale(0.85); opacity: 0.7; }
+    100% { transform: scale(1.4);  opacity: 0; }
+}
+
+.javi-orb__core {
+    position: absolute;
+    inset: 22%;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 50%),
+        linear-gradient(135deg, rgba(129, 140, 248, 1), rgba(99, 102, 241, 1));
+    box-shadow:
+        0 0 40px rgba(129, 140, 248, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+        0 -8px 20px rgba(167, 139, 250, 0.4) inset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s;
+    z-index: 2;
+}
+
+.javi-orb__core svg { width: 32px; height: 32px; }
+
+.javi-orb--idle .javi-orb__core {
+    animation: javiOrbBreathe 4s ease-in-out infinite;
+}
+
+@keyframes javiOrbBreathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+.javi-orb--listening .javi-orb__core {
+    transform: scale(1.08);
+    box-shadow:
+        0 0 60px rgba(74, 222, 128, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+        0 -8px 20px rgba(74, 222, 128, 0.4) inset;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 50%),
+        linear-gradient(135deg, #4ade80, #22c55e);
+}
+
+.javi-orb--listening .javi-orb__ring {
+    border-color: rgba(74, 222, 128, 0.5);
+}
+
+.javi-orb--thinking .javi-orb__core {
+    box-shadow:
+        0 0 60px rgba(251, 191, 36, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.25) inset,
+        0 -8px 20px rgba(251, 191, 36, 0.4) inset;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 50%),
+        linear-gradient(135deg, #fbbf24, #f59e0b);
+    animation: javiOrbThink 1.2s linear infinite;
+}
+
+@keyframes javiOrbThink {
+    0%, 100% { transform: scale(1) rotate(0); }
+    50% { transform: scale(1.04) rotate(180deg); }
+}
+
+.javi-orb--speaking .javi-orb__core {
+    animation: javiOrbBounce 0.6s ease-in-out infinite;
+}
+
+@keyframes javiOrbBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Wave bars inside core when speaking */
+.javi-wave {
+    display: none;
+    align-items: center;
+    gap: 3px;
+    height: 24px;
+}
+
+.javi-orb--speaking .javi-wave,
+.javi-orb--listening .javi-wave {
+    display: flex;
+}
+
+.javi-orb--speaking .javi-orb__core svg,
+.javi-orb--listening .javi-orb__core svg { display: none; }
+
+.javi-wave span {
+    display: block;
+    width: 3px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 100px;
+    animation: javiWaveBar 1s ease-in-out infinite;
+}
+
+.javi-wave span:nth-child(1) { animation-delay: 0s;   height: 40%; }
+.javi-wave span:nth-child(2) { animation-delay: 0.1s; height: 70%; }
+.javi-wave span:nth-child(3) { animation-delay: 0.2s; height: 100%; }
+.javi-wave span:nth-child(4) { animation-delay: 0.3s; height: 70%; }
+.javi-wave span:nth-child(5) { animation-delay: 0.4s; height: 40%; }
+
+@keyframes javiWaveBar {
+    0%, 100% { transform: scaleY(0.4); }
+    50%      { transform: scaleY(1); }
+}
+
+/* ===== Intro stage ===== */
+.javi-intro__text {
+    text-align: center;
+    color: hsla(0, 0%, 100%, 0.78);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0 0 1.25rem;
+}
+
+.javi-intro__text strong {
+    color: #fff;
+}
+
+.javi-intro__hint {
+    text-align: center;
+    color: hsla(0, 0%, 100%, 0.4);
+    font-size: 0.72rem;
+    margin: 0.75rem 0 0;
+    font-style: italic;
+}
+
+.javi-btn {
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.javi-btn--primary {
+    background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+    color: #fff;
+    box-shadow:
+        0 10px 28px rgba(129, 140, 248, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.javi-btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 14px 36px rgba(129, 140, 248, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+}
+
+.javi-btn--primary:active {
+    transform: translateY(0);
+}
+
+/* ===== Call stage ===== */
+.javi-status {
+    text-align: center;
+    color: hsla(0, 0%, 100%, 0.85);
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin: 0 0 1rem;
+    min-height: 1.2em;
+}
+
+.javi-transcript {
+    flex: 1;
+    max-height: 180px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding: 0 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.javi-transcript::-webkit-scrollbar { width: 4px; }
+.javi-transcript::-webkit-scrollbar-thumb { background: hsla(0, 0%, 100%, 0.1); border-radius: 100px; }
+
+.javi-line {
+    display: flex;
+}
+
+.javi-line--user { justify-content: flex-end; }
+.javi-line--bot  { justify-content: flex-start; }
+
+.javi-bubble {
+    max-width: 82%;
+    padding: 0.55rem 0.85rem;
+    border-radius: 14px;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.javi-line--user .javi-bubble {
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.85), rgba(99, 102, 241, 0.85));
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.javi-line--bot .javi-bubble {
+    background: hsla(0, 0%, 100%, 0.05);
+    border: 1px solid hsla(0, 0%, 100%, 0.06);
+    color: hsla(0, 0%, 100%, 0.85);
+    border-bottom-left-radius: 4px;
+}
+
+.javi-controls {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.javi-ctrl {
+    flex: 1;
+    padding: 0.65rem 0.5rem;
+    background: hsla(0, 0%, 100%, 0.04);
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
+    border-radius: 12px;
+    color: hsla(0, 0%, 100%, 0.85);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: all 0.3s;
+}
+
+.javi-ctrl:hover {
+    background: hsla(0, 0%, 100%, 0.08);
+    border-color: hsla(0, 0%, 100%, 0.15);
+}
+
+.javi-ctrl--active {
+    background: rgba(251, 191, 36, 0.15);
+    border-color: rgba(251, 191, 36, 0.4);
+    color: rgb(251, 191, 36);
+}
+
+.javi-ctrl--danger {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: rgb(248, 113, 113);
+}
+
+.javi-ctrl--danger:hover {
+    background: rgba(239, 68, 68, 0.22);
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #fff;
+}
+
+/* ===== Error stage ===== */
+.javi-stage__error {
+    padding: 1.5rem 1rem;
+    text-align: center;
+}
+
+.javi-error__title {
+    color: rgb(248, 113, 113);
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+}
+
+.javi-error__msg {
+    color: hsla(0, 0%, 100%, 0.65);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ===== Footer ===== */
+.javi-panel__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    border-top: 1px solid hsla(0, 0%, 100%, 0.06);
+    font-size: 0.7rem;
+    color: hsla(0, 0%, 100%, 0.4);
+    background: hsla(0, 0%, 100%, 0.02);
+    position: relative;
+    z-index: 2;
+}
+
+.javi-panel__footer a {
+    color: rgba(167, 139, 250, 1);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.javi-panel__footer a:hover { color: #fff; }
+
+/* ===== Mobile responsive ===== */
+@media (max-width: 480px) {
+    .javi-fab-container {
+        bottom: calc(1rem + 60px + 0.75rem);
+        right: 1rem;
+    }
+
+    .javi-panel {
+        width: calc(100vw - 2rem);
+        max-height: 80vh;
+        right: -0.5rem;
+    }
+
+    .javi-orb {
+        width: 110px;
+        height: 110px;
+    }
+}

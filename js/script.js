@@ -822,3 +822,127 @@ if (waFab) {
         waWidget.classList.remove('open');
     });
 }
+
+// --- Store Showcase 360 ---
+(() => {
+    const stage = document.getElementById('storeStage');
+    if (!stage) return;
+    const products = Array.from(stage.querySelectorAll('.store-product'));
+    const prevBtn = document.getElementById('storePrev');
+    const nextBtn = document.getElementById('storeNext');
+    const dotsBox = document.getElementById('storeDots');
+    let currentIdx = 0;
+    let isAnimating = false;
+
+    function formatPrice(amount) {
+        const n = parseInt(amount, 10);
+        if (isNaN(n)) return amount;
+        return n.toLocaleString('en-US');
+    }
+
+    function updatePriceFor(product) {
+        const activePlan = product.querySelector('.store-plan-btn--active');
+        if (!activePlan) return;
+        const price = activePlan.dataset.price || '0';
+        const period = activePlan.dataset.period || '';
+        const amountEl = product.querySelector('.store-price__amount');
+        const periodEl = product.querySelector('.store-price__period');
+        if (amountEl) amountEl.textContent = formatPrice(price);
+        if (periodEl) periodEl.textContent = period;
+    }
+
+    // Plan switcher per product
+    products.forEach(product => {
+        product.querySelectorAll('.store-plan-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                product.querySelectorAll('.store-plan-btn').forEach(b => b.classList.remove('store-plan-btn--active'));
+                btn.classList.add('store-plan-btn--active');
+                updatePriceFor(product);
+            });
+        });
+    });
+
+    // Dots
+    products.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'store-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Producto ${i + 1}`);
+        dot.addEventListener('click', () => goTo(i));
+        dotsBox.appendChild(dot);
+    });
+
+    function goTo(newIdx) {
+        if (isAnimating) return;
+        const n = products.length;
+        newIdx = ((newIdx % n) + n) % n;
+        if (newIdx === currentIdx) return;
+        isAnimating = true;
+
+        const currentProduct = products[currentIdx];
+        const nextProduct = products[newIdx];
+        const direction = newIdx > currentIdx || (currentIdx === n - 1 && newIdx === 0) ? 'right' : 'left';
+
+        if (direction === 'right') {
+            currentProduct.classList.remove('store-product--active');
+            currentProduct.classList.add('store-product--exit-left');
+            nextProduct.style.transform = 'rotateY(-90deg) scale(0.7)';
+            nextProduct.style.opacity = '0';
+            nextProduct.style.visibility = 'visible';
+        } else {
+            currentProduct.classList.remove('store-product--active');
+            currentProduct.classList.add('store-product--exit-right');
+            nextProduct.style.transform = 'rotateY(90deg) scale(0.7)';
+            nextProduct.style.opacity = '0';
+            nextProduct.style.visibility = 'visible';
+        }
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                nextProduct.classList.add('store-product--active');
+                nextProduct.style.transform = '';
+                nextProduct.style.opacity = '';
+            });
+        });
+
+        dotsBox.querySelectorAll('.store-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === newIdx);
+        });
+
+        currentIdx = newIdx;
+
+        setTimeout(() => {
+            currentProduct.classList.remove('store-product--exit-left', 'store-product--exit-right');
+            currentProduct.style.transform = '';
+            currentProduct.style.opacity = '';
+            currentProduct.style.visibility = '';
+            isAnimating = false;
+        }, 700);
+    }
+
+    prevBtn.addEventListener('click', () => goTo(currentIdx - 1));
+    nextBtn.addEventListener('click', () => goTo(currentIdx + 1));
+
+    // Keyboard nav
+    document.addEventListener('keydown', (e) => {
+        const tiendaSection = document.getElementById('tienda');
+        if (!tiendaSection) return;
+        const rect = tiendaSection.getBoundingClientRect();
+        const visible = rect.top < window.innerHeight && rect.bottom > 0;
+        if (!visible) return;
+        if (e.key === 'ArrowLeft') goTo(currentIdx - 1);
+        if (e.key === 'ArrowRight') goTo(currentIdx + 1);
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    stage.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) goTo(currentIdx + 1);
+            else goTo(currentIdx - 1);
+        }
+    }, { passive: true });
+})();
