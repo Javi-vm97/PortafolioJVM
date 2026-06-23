@@ -1768,6 +1768,13 @@ a.contact-item--link:hover h4 { color: #25d366; }
     right: 1.5rem;
     z-index: 900;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wa-widget--hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px) scale(0.85);
 }
 
 .wa-fab {

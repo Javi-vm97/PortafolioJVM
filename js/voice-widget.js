@@ -195,9 +195,12 @@
 
     // ===== UI helpers =====
     function open() {
-        // Auto-close other widgets (WhatsApp form)
+        // Auto-close + hide the WhatsApp widget (FAB included)
         const wa = document.getElementById('waWidget');
-        if (wa) wa.classList.remove('open');
+        if (wa) {
+            wa.classList.remove('open');
+            wa.classList.add('wa-widget--hidden');
+        }
 
         document.getElementById('javi-panel').classList.add('javi-panel--open');
         document.getElementById('javi-panel').setAttribute('aria-hidden', 'false');
@@ -208,6 +211,9 @@
     function close() {
         document.getElementById('javi-panel').classList.remove('javi-panel--open');
         document.getElementById('javi-panel').setAttribute('aria-hidden', 'true');
+        // Bring back the WhatsApp widget
+        const wa = document.getElementById('waWidget');
+        if (wa) wa.classList.remove('wa-widget--hidden');
         isOpen = false;
         if (isCallActive) endCall();
     }

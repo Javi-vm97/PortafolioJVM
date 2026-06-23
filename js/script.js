@@ -782,17 +782,26 @@ const waSend = document.getElementById('waSend');
 if (waFab) {
     waFab.addEventListener('click', () => {
         const willOpen = !waWidget.classList.contains('open');
+        const javiPanel = document.getElementById('javi-panel');
+        const javiFabContainer = document.getElementById('javi-fab-container');
         if (willOpen) {
-            // Auto-close Javier IA panel if open
-            const javiPanel = document.getElementById('javi-panel');
+            // Auto-close + hide Javier IA widget (FAB + label too)
             if (javiPanel) {
                 javiPanel.classList.remove('javi-panel--open');
                 javiPanel.setAttribute('aria-hidden', 'true');
             }
+            if (javiFabContainer) javiFabContainer.classList.add('javi-fab-container--hidden');
+        } else {
+            // Closing WhatsApp -> bring Javier IA back
+            if (javiFabContainer) javiFabContainer.classList.remove('javi-fab-container--hidden');
         }
         waWidget.classList.toggle('open');
     });
-    waClose.addEventListener('click', () => waWidget.classList.remove('open'));
+    waClose.addEventListener('click', () => {
+        waWidget.classList.remove('open');
+        const javiFabContainer = document.getElementById('javi-fab-container');
+        if (javiFabContainer) javiFabContainer.classList.remove('javi-fab-container--hidden');
+    });
 
     // Custom select
     const waSelect = document.getElementById('waSelect');
