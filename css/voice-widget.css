@@ -6,7 +6,7 @@
 /* ===== Container & FAB ===== */
 .javi-fab-container {
     position: fixed;
-    bottom: calc(1.5rem + 60px + 0.75rem);
+    bottom: calc(1.5rem + 60px + 2rem);
     right: 1.5rem;
     z-index: 950;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -65,19 +65,57 @@
     100% { transform: scale(2);    opacity: 0; }
 }
 
-.javi-fab__badge {
+.javi-fab__label {
     position: absolute;
-    top: -4px;
-    right: -4px;
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    color: #1a1408;
-    font-size: 0.55rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    padding: 0.18rem 0.36rem;
+    top: 50%;
+    right: calc(100% + 14px);
+    transform: translateY(-50%);
+    padding: 0.55rem 0.95rem;
+    background: linear-gradient(135deg, rgba(20, 14, 35, 0.96), rgba(10, 7, 22, 0.96));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
     border-radius: 100px;
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+        0 0 20px rgba(129, 140, 248, 0.15);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-50%) translateX(8px);
+    animation: javiLabelEntry 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards,
+               javiLabelBob 3.6s ease-in-out 1.8s infinite;
+}
+
+.javi-fab__label::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    border-style: solid;
+    border-width: 6px 0 6px 7px;
+    border-color: transparent transparent transparent rgba(167, 139, 250, 0.35);
+}
+
+@keyframes javiLabelEntry {
+    from { opacity: 0; transform: translateY(-50%) translateX(8px); }
+    to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+@keyframes javiLabelBob {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50%      { transform: translateY(-50%) translateX(-4px); }
+}
+
+.javi-panel--open ~ .javi-fab .javi-fab__label,
+.javi-fab:hover .javi-fab__label {
+    animation-play-state: paused;
+    opacity: 0.6;
 }
 
 /* ===== Panel ===== */
@@ -652,8 +690,13 @@
 /* ===== Mobile responsive ===== */
 @media (max-width: 480px) {
     .javi-fab-container {
-        bottom: calc(1rem + 60px + 0.75rem);
+        bottom: calc(1rem + 60px + 2rem);
         right: 1rem;
+    }
+
+    .javi-fab__label {
+        font-size: 0.7rem;
+        padding: 0.45rem 0.75rem;
     }
 
     .javi-panel {
@@ -666,4 +709,8 @@
         width: 110px;
         height: 110px;
     }
+}
+
+@media (max-width: 360px) {
+    .javi-fab__label { display: none; }
 }

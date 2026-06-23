@@ -84,7 +84,7 @@
         <line x1="12" y1="19" x2="12" y2="23"/>
         <line x1="8" y1="23" x2="16" y2="23"/>
     </svg>
-    <span class="javi-fab__badge">IA</span>
+    <span class="javi-fab__label" id="javi-fab-label">Habla con Javier IA</span>
 </button>
 
 <div class="javi-panel" id="javi-panel" role="dialog" aria-hidden="true" aria-label="Asistente Javier IA">
@@ -195,6 +195,10 @@
 
     // ===== UI helpers =====
     function open() {
+        // Auto-close other widgets (WhatsApp form)
+        const wa = document.getElementById('waWidget');
+        if (wa) wa.classList.remove('open');
+
         document.getElementById('javi-panel').classList.add('javi-panel--open');
         document.getElementById('javi-panel').setAttribute('aria-hidden', 'false');
         isOpen = true;

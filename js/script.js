@@ -780,7 +780,18 @@ const waClose = document.getElementById('waClose');
 const waSend = document.getElementById('waSend');
 
 if (waFab) {
-    waFab.addEventListener('click', () => waWidget.classList.toggle('open'));
+    waFab.addEventListener('click', () => {
+        const willOpen = !waWidget.classList.contains('open');
+        if (willOpen) {
+            // Auto-close Javier IA panel if open
+            const javiPanel = document.getElementById('javi-panel');
+            if (javiPanel) {
+                javiPanel.classList.remove('javi-panel--open');
+                javiPanel.setAttribute('aria-hidden', 'true');
+            }
+        }
+        waWidget.classList.toggle('open');
+    });
     waClose.addEventListener('click', () => waWidget.classList.remove('open'));
 
     // Custom select

@@ -1761,69 +1761,111 @@ a.contact-item--link:hover h4 { color: #25d366; }
 
 /* ---- FOOTER ---- */
 /* ---- WHATSAPP WIDGET ---- */
+/* ===== WHATSAPP WIDGET — dark glass aesthetic, matches Javier IA ===== */
 .wa-widget {
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
     z-index: 900;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 .wa-fab {
+    position: relative;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: none;
-    background: #25d366;
-    color: #fff;
-    font-size: 1.8rem;
     cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg, #25d366, #128c4e);
+    box-shadow:
+        0 8px 32px rgba(37, 211, 102, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+        0 -6px 14px rgba(37, 211, 102, 0.25) inset;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
+    font-size: 1.8rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
     z-index: 2;
+}
+
+.wa-fab:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow:
+        0 14px 40px rgba(37, 211, 102, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.16) inset;
+}
+
+.wa-fab:active {
+    transform: translateY(-1px) scale(1);
 }
 
 .wa-fab::before {
     content: '';
     position: absolute;
-    inset: -4px;
+    inset: 0;
     border-radius: 50%;
-    background: rgba(37, 211, 102, 0.2);
-    animation: waPulse 2s ease-in-out infinite;
+    border: 2px solid rgba(74, 222, 128, 0.55);
+    animation: waPulse 2.6s ease-out infinite;
+    pointer-events: none;
 }
 
 @keyframes waPulse {
-    0%, 100% { transform: scale(1); opacity: 0.6; }
-    50% { transform: scale(1.15); opacity: 0; }
-}
-
-.wa-fab:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+    0%   { transform: scale(0.85); opacity: 0.85; }
+    100% { transform: scale(2);    opacity: 0; }
 }
 
 .wa-widget.open .wa-fab {
-    transform: scale(0.9);
-    background: #128c4e;
+    transform: scale(0.94);
+    box-shadow:
+        0 4px 16px rgba(37, 211, 102, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
 }
 
 .wa-form {
     position: absolute;
-    bottom: 75px;
+    bottom: calc(60px + 1rem);
     right: 0;
-    width: 340px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
+    width: 380px;
+    max-width: calc(100vw - 3rem);
+    background: linear-gradient(160deg, rgba(15, 12, 22, 0.96) 0%, rgba(8, 6, 14, 0.96) 100%);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
+    border-radius: 22px;
     overflow: hidden;
-    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(74, 222, 128, 0.15) inset,
+        0 0 60px rgba(37, 211, 102, 0.08);
     opacity: 0;
-    transform: translateY(10px) scale(0.95);
+    transform: translateY(20px) scale(0.96);
     pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wa-form::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+        from var(--border-angle, 0deg),
+        transparent 65%,
+        rgba(74, 222, 128, 0.5) 82%,
+        rgba(37, 211, 102, 0.9) 92%,
+        transparent 100%
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+    animation: borderRotate 6s linear infinite;
+    z-index: 1;
 }
 
 .wa-widget.open .wa-form {
@@ -1835,103 +1877,173 @@ a.contact-item--link:hover h4 { color: #25d366; }
 .wa-form-header {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 1rem 1.25rem;
-    background: #25d366;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.06);
+    background: none;
     color: #fff;
-    font-weight: 700;
-    font-size: 0.95rem;
+    position: relative;
+    z-index: 2;
 }
 
-.wa-form-header i {
+.wa-form-header__avatar {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #25d366, #128c4e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
     font-size: 1.3rem;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+    isolation: isolate;
+}
+
+.wa-form-header__avatar::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, rgba(74, 222, 128, 0.8), rgba(37, 211, 102, 0.4), rgba(74, 222, 128, 0.8));
+    animation: javiAvatarSpin 8s linear infinite;
+    filter: blur(2px);
+    opacity: 0.85;
+    z-index: -1;
+}
+
+.wa-form-header__heading {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.wa-form-header__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+}
+
+.wa-form-header__subtitle {
+    font-size: 0.7rem;
+    color: hsla(0, 0%, 100%, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 500;
+}
+
+.wa-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px #4ade80;
+    animation: javiStatusBlink 2.4s ease-in-out infinite;
 }
 
 .wa-form-close {
-    margin-left: auto;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.4rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: hsla(0, 0%, 100%, 0.04);
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
+    color: hsla(0, 0%, 100%, 0.7);
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
     line-height: 1;
-    opacity: 0.8;
-    transition: opacity 0.2s;
+    padding: 0;
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: all 0.3s;
 }
 
-.wa-form-close:hover { opacity: 1; }
+.wa-form-close:hover {
+    background: hsla(0, 0%, 100%, 0.1);
+    color: #fff;
+    transform: rotate(90deg);
+}
 
 .wa-form-body {
+    position: relative;
+    z-index: 2;
     padding: 1.25rem;
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 0.85rem;
 }
 
 .wa-field {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.35rem;
 }
 
 .wa-field label {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: hsla(0, 0%, 100%, 0.55);
+    letter-spacing: 0.02em;
 }
 
 .wa-field input,
-.wa-field select,
 .wa-field textarea {
-    padding: 0.7rem 0.85rem;
+    padding: 0.75rem 0.85rem;
     background: hsla(0, 0%, 100%, 0.04);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
+    border-radius: 12px;
+    color: #fff;
     font-family: inherit;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, background 0.3s;
     resize: none;
 }
 
 .wa-field input:focus,
-.wa-field select:focus,
 .wa-field textarea:focus {
-    border-color: #25d366;
+    border-color: rgba(37, 211, 102, 0.5);
+    background: hsla(0, 0%, 100%, 0.06);
 }
 
 .wa-field input::placeholder,
 .wa-field textarea::placeholder {
-    color: var(--text-dim);
+    color: hsla(0, 0%, 100%, 0.35);
 }
 
-.wa-select {
-    position: relative;
-}
+.wa-select { position: relative; }
 
 .wa-select-trigger {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.7rem 0.85rem;
+    padding: 0.75rem 0.85rem;
     background: hsla(0, 0%, 100%, 0.04);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    font-size: 0.85rem;
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.88rem;
     cursor: pointer;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, background 0.3s;
 }
 
 .wa-select-trigger i {
-    font-size: 0.65rem;
-    color: var(--text-dim);
+    font-size: 0.7rem;
+    color: hsla(0, 0%, 100%, 0.5);
     transition: transform 0.3s;
 }
 
 .wa-select.open .wa-select-trigger {
-    border-color: #25d366;
+    border-color: rgba(37, 211, 102, 0.5);
+    background: hsla(0, 0%, 100%, 0.06);
 }
 
 .wa-select.open .wa-select-trigger i {
@@ -1940,18 +2052,21 @@ a.contact-item--link:hover h4 { color: #25d366; }
 
 .wa-select-options {
     position: absolute;
-    top: calc(100% + 4px);
+    top: calc(100% + 6px);
     left: 0;
     right: 0;
-    background: #1a1e3a;
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    background: linear-gradient(160deg, rgba(20, 14, 35, 0.98) 0%, rgba(10, 7, 22, 0.98) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsla(0, 0%, 100%, 0.1);
+    border-radius: 12px;
     overflow: hidden;
     z-index: 10;
     opacity: 0;
     transform: translateY(-4px);
     pointer-events: none;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
 
 .wa-select.open .wa-select-options {
@@ -1961,47 +2076,60 @@ a.contact-item--link:hover h4 { color: #25d366; }
 }
 
 .wa-select-option {
-    padding: 0.65rem 0.85rem;
+    padding: 0.7rem 0.9rem;
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: hsla(0, 0%, 100%, 0.7);
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.18s;
 }
 
 .wa-select-option:hover {
-    background: rgba(37, 211, 102, 0.15);
-    color: var(--text);
+    background: rgba(37, 211, 102, 0.12);
+    color: #fff;
 }
 
 .wa-select-option--active {
-    color: #25d366;
+    color: rgba(74, 222, 128, 1);
+    background: rgba(37, 211, 102, 0.08);
 }
 
 .wa-send {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.8rem;
-    background: #25d366;
+    gap: 0.55rem;
+    padding: 0.9rem 1.25rem;
+    background: linear-gradient(135deg, #25d366 0%, #1fb855 100%);
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 100px;
     font-family: inherit;
     font-size: 0.9rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
+    box-shadow:
+        0 10px 28px rgba(37, 211, 102, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .wa-send:hover {
-    background: #1fb855;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+    transform: translateY(-2px);
+    box-shadow:
+        0 14px 36px rgba(37, 211, 102, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+}
+
+.wa-send:active {
+    transform: translateY(0);
 }
 
 @media (max-width: 480px) {
+    .wa-widget {
+        bottom: 1rem;
+        right: 1rem;
+    }
     .wa-form {
         width: calc(100vw - 2rem);
         right: -0.5rem;
