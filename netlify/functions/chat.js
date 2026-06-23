@@ -129,7 +129,8 @@ export default async (req) => {
             console.error('Gemini API error:', geminiResp.status, errText.slice(0, 500));
             return jsonResponse({
                 error: 'AI service unavailable',
-                detail: process.env.CONTEXT === 'dev' ? errText.slice(0, 300) : undefined
+                status: geminiResp.status,
+                detail: errText.slice(0, 500)
             }, 502);
         }
 
