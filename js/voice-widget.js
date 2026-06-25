@@ -386,16 +386,25 @@
         setOrbState('thinking');
         setStatus(currentLang.startsWith('es') ? 'Pensando…' : 'Thinking…');
 
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 20000);
+
         fetch('/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 message: text,
                 history: history.slice(-18)
-            })
+            }),
+            signal: controller.signal
         })
         .then(r => {
-            if (!r.ok) throw new Error('HTTP ' + r.status);
+            clearTimeout(timeoutId);
+            if (!r.ok) {
+                return r.text().then(body => {
+                    throw new Error('HTTP ' + r.status + ' ' + body.slice(0, 200));
+                });
+            }
             return r.json();
         })
         .then(data => {
@@ -405,7 +414,6 @@
 
             history.push({ role: 'assistant', content: reply });
 
-            // Detect lang of model's reply (might have switched)
             const replyLang = detectLang(reply);
             if (replyLang !== currentLang) {
                 currentLang = replyLang;
@@ -418,10 +426,29 @@
             });
         })
         .catch(err => {
-            console.error('[Javier IA] chat failed', err);
-            const fallback = currentLang.startsWith('es')
-                ? 'Estoy teniendo problemas de conexión. Por favor inténtalo de nuevo, o contáctame por WhatsApp.'
-                : 'I am having connection issues. Please try again, or contact me via WhatsApp.';
+            clearTimeout(timeoutId);
+            const isTimeout = err.name === 'AbortError';
+            const isNetwork = err.message && err.message.toLowerCase().includes('failed to fetch');
+            console.error('[Javier IA] chat failed:', {
+                name: err.name,
+                message: err.message,
+                isTimeout,
+                isNetwork
+            });
+            let fallback;
+            if (isTimeout) {
+                fallback = currentLang.startsWith('es')
+                    ? 'La respuesta esta tardando demasiado. Intenta de nuevo o contactame por WhatsApp.'
+                    : 'The response is taking too long. Try again or contact me via WhatsApp.';
+            } else if (isNetwork) {
+                fallback = currentLang.startsWith('es')
+                    ? 'No pude conectar. Verifica tu conexion o desactiva bloqueadores de anuncios.'
+                    : 'Could not connect. Check your network or disable ad blockers.';
+            } else {
+                fallback = currentLang.startsWith('es')
+                    ? 'Hubo un problema. Por favor intenta de nuevo, o contactame por WhatsApp.'
+                    : 'There was an issue. Please try again, or contact me via WhatsApp.';
+            }
             addTranscript('bot', fallback);
             speak(fallback, () => {
                 if (isCallActive && !isMuted) startListening();
