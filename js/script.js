@@ -684,44 +684,68 @@ if (skillsCube) {
         skillsCube.appendChild(faceEl);
     });
 
-    // Drag
+    // State
     let isDragging = false, prevX = 0, prevY = 0;
     let rotationX = -20, rotationY = 25;
-    let velocityX = 0, velocityY = 0, inertiaFrame = null;
+    let velocityX = 0, velocityY = 0;
+    let animationFrame = null;
+    let autoTime = 0;
+
+    // Auto-rotation continuo en JS:
+    //  - Tumbling libre: dos osciladores independientes generan movimiento en TODAS las
+    //    direcciones (X e Y varian con sin/cos a frecuencias distintas, ocasionalmente
+    //    se invierten).
+    //  - Si hay inercia activa, prevalece sobre el auto-rotate hasta que decae.
+    //  - Cuando el usuario suelta, sigue rotando desde la posicion final (no snap-back).
+    const AUTO_ROTATE_BASE = 0.55;       // amplitud base (deg/frame)
+    const INERTIA_FRICTION = 0.94;
+    const INERTIA_STOP = 0.04;
 
     function applyCubeTransform() {
         skillsCube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
     }
 
-    function startInertia() {
-        cancelAnimationFrame(inertiaFrame);
-        const friction = 0.95, stop = 0.05;
-        const animate = () => {
-            rotationY += velocityX;
-            rotationX -= velocityY;
-            velocityX *= friction;
-            velocityY *= friction;
+    function tick() {
+        if (!isDragging) {
+            if (Math.abs(velocityX) > INERTIA_STOP || Math.abs(velocityY) > INERTIA_STOP) {
+                // Inercia residual del drag
+                rotationY += velocityX;
+                rotationX -= velocityY;
+                velocityX *= INERTIA_FRICTION;
+                velocityY *= INERTIA_FRICTION;
+            } else {
+                // Tumbling: dos osciladores lentos en frecuencias distintas
+                autoTime += 1;
+                const t1 = autoTime * 0.005;
+                const t2 = autoTime * 0.0037;
+                // Y: tiene bias hacia adelante pero la velocidad oscila (a veces rapida, a veces lenta)
+                rotationY += AUTO_ROTATE_BASE * (0.85 + 0.4 * Math.cos(t1) + 0.25 * Math.sin(t2 * 1.6));
+                // X: pequeno bias + amplia oscilacion -> tilt vertical en ambas direcciones
+                rotationX += AUTO_ROTATE_BASE * (0.15 + 0.55 * Math.sin(t2) + 0.35 * Math.cos(t1 * 1.3));
+            }
             applyCubeTransform();
-            if (Math.abs(velocityX) > stop || Math.abs(velocityY) > stop)
-                inertiaFrame = requestAnimationFrame(animate);
-        };
-        inertiaFrame = requestAnimationFrame(animate);
+        }
+        animationFrame = requestAnimationFrame(tick);
     }
 
+    // Pointer down
     skillsCube.addEventListener('pointerdown', (e) => {
         isDragging = true;
         prevX = e.clientX; prevY = e.clientY;
-        skillsCube.classList.add('dragging', 'paused');
-        cancelAnimationFrame(inertiaFrame);
+        velocityX = 0;
+        velocityY = 0;
+        skillsCube.classList.add('dragging');
         skillsCube.setPointerCapture(e.pointerId);
         e.preventDefault();
     });
 
+    // Pointer move
     skillsCube.addEventListener('pointermove', (e) => {
         if (!isDragging) return;
         const dx = e.clientX - prevX, dy = e.clientY - prevY;
         rotationY += dx * 0.5;
         rotationX -= dy * 0.5;
+        // Guardar velocidad reciente para inercia al soltar
         velocityX = dx * 0.09;
         velocityY = dy * 0.09;
         applyCubeTransform();
@@ -729,17 +753,19 @@ if (skillsCube) {
         e.preventDefault();
     });
 
-    skillsCube.addEventListener('pointerup', () => {
+    // Pointer up / cancel
+    const endDrag = () => {
+        if (!isDragging) return;
         isDragging = false;
-        skillsCube.classList.remove('paused', 'dragging');
-        startInertia();
-    });
+        skillsCube.classList.remove('dragging');
+    };
+    skillsCube.addEventListener('pointerup', endDrag);
+    skillsCube.addEventListener('pointercancel', endDrag);
+    skillsCube.addEventListener('pointerleave', endDrag);
 
-    skillsCube.addEventListener('pointercancel', () => {
-        isDragging = false;
-        skillsCube.classList.remove('paused', 'dragging');
-        startInertia();
-    });
+    // Iniciar el loop
+    applyCubeTransform();
+    animationFrame = requestAnimationFrame(tick);
 }
 
 // --- Matrix Background ---
