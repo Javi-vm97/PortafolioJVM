@@ -25,8 +25,13 @@
     let isCallActive = false;
     let isListening = false;
     let isMuted = false;
+    let isSpeaking = false;         // TRUE mientras el TTS este reproduciendo
+    let lastBotReply = '';          // Ultima respuesta hablada por el bot (para deteccion de eco)
     let currentLang = 'es-MX';     // 'es-MX' or 'en-US'
     let history = [];               // [{role: 'user'|'assistant', content: string}]
+
+    // Tiempo de asentamiento despues de TTS antes de reactivar mic (evita capturar la cola del audio)
+    const TTS_SETTLE_MS = 700;
     let voicesES = null;
     let voicesEN = null;
     let chosenVoiceES = null;
@@ -294,6 +299,8 @@
         isCallActive = false;
         stopListening();
         if (synth) synth.cancel();
+        isSpeaking = false;
+        lastBotReply = '';
         // Reset UI
         document.getElementById('javi-call').hidden = true;
         document.getElementById('javi-intro').hidden = false;
@@ -334,7 +341,23 @@
 
         recognition.onresult = (event) => {
             const transcript = event.results[0][0].transcript.trim();
-            if (transcript) handleUserMessage(transcript);
+            if (!transcript) return;
+
+            // Defensa 1: si el TTS esta reproduciendo, esto es eco -- ignorar
+            if (isSpeaking) {
+                console.warn('[Javier IA] Ignorado (TTS activo):', transcript);
+                if (isCallActive && !isMuted) setTimeout(startListening, 200);
+                return;
+            }
+
+            // Defensa 3: patron de eco -- lo transcrito coincide con lo que dijo el bot
+            if (isTtsEcho(transcript)) {
+                console.warn('[Javier IA] Ignorado (eco TTS detectado):', transcript);
+                if (isCallActive && !isMuted) setTimeout(startListening, 300);
+                return;
+            }
+
+            handleUserMessage(transcript);
         };
 
         recognition.onerror = (event) => {
@@ -461,6 +484,11 @@
         if (!synth) { if (onDone) onDone(); return; }
         if (synth.speaking) synth.cancel();
 
+        // Defensa 1: parar cualquier escucha activa mientras hablamos
+        stopListening();
+        isSpeaking = true;
+        lastBotReply = String(text || '').toLowerCase();
+
         // Pick voice
         if (!chosenVoiceES || !chosenVoiceEN) loadVoices();
         const voice = getVoiceForLang(currentLang);
@@ -475,17 +503,40 @@
         setOrbState('speaking');
         setStatus(currentLang.startsWith('es') ? 'Hablando…' : 'Speaking…');
 
-        utter.onend = () => {
+        const finish = () => {
             setOrbState(null);
-            if (onDone) onDone();
+            // Defensa 2: delay de asentamiento antes de reactivar el mic
+            // (evita que el mic capture la cola del audio TTS)
+            setTimeout(() => {
+                isSpeaking = false;
+                if (onDone) onDone();
+            }, TTS_SETTLE_MS);
         };
-        utter.onerror = () => {
-            setOrbState(null);
-            if (onDone) onDone();
-        };
+
+        utter.onend = finish;
+        utter.onerror = finish;
 
         activeUtterance = utter;
         synth.speak(utter);
+    }
+
+    // Defensa 3: deteccion de eco -- si lo transcrito es un fragmento significativo
+    // de lo que el bot acaba de decir, es TTS captado por el mic y se debe ignorar.
+    function isTtsEcho(userTranscript) {
+        if (!userTranscript || !lastBotReply || userTranscript.length < 4) return false;
+        const clean = (s) => s.toLowerCase().replace(/[^\p{L}\s]/gu, '').trim();
+        const u = clean(userTranscript);
+        const b = clean(lastBotReply);
+        if (!u || !b) return false;
+
+        // Match directo: el transcript esta contenido en la respuesta del bot
+        if (u.length >= 4 && b.includes(u)) return true;
+
+        // Match fuzzy: al menos 60% de las palabras del transcript aparecen en la respuesta bot
+        const userWords = u.split(/\s+/).filter(w => w.length > 2);
+        if (userWords.length < 2) return false;
+        const matched = userWords.filter(w => b.includes(w)).length;
+        return (matched / userWords.length) >= 0.6;
     }
 
     function cleanForTTS(text) {
