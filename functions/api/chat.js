@@ -1,10 +1,12 @@
 /**
- * Javier IA - Voice Agent Chat Backend
+ * Javier IA - Voice Agent Chat Backend (Cloudflare Pages Function)
  *
- * Netlify Function that proxies user messages to Gemini 2.0 Flash.
- * The Web Speech API handles voice IO on the client; this just provides the "brain".
+ * File-based routing: functions/api/chat.js → /api/chat
  *
- * Env var required: GEMINI_API_KEY (configured in Netlify dashboard).
+ * Env var required: GEMINI_API_KEY (configured in Cloudflare Pages dashboard).
+ *
+ * Runtime: Cloudflare Workers (V8 isolates). Uses standard Web APIs
+ * (Request, Response, fetch) — no Node-specific code.
  */
 
 const SYSTEM_PROMPT = `Eres "Javier IA", el asistente virtual conversacional del portafolio de Javier Vidal Miguel.
@@ -61,26 +63,39 @@ Respuesta: "Hi, costs depend on the scope and integration complexity. The best p
 Usuario (ES): "Cuéntame sobre AegisAI"
 Respuesta: "AegisAI es un agente de inteligencia artificial que analiza observaciones de seguridad y genera planes OSHA en tiempo real. Está en producción y usa OpenAI, Node y React."`;
 
-export default async (req) => {
-    if (req.method === 'OPTIONS') {
-        return new Response(null, {
-            status: 204,
-            headers: corsHeaders()
-        });
-    }
+function corsHeaders() {
+    return {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+    };
+}
 
-    if (req.method !== 'POST') {
-        return jsonResponse({ error: 'Method not allowed' }, 405);
-    }
+function jsonResponse(payload, status = 200) {
+    return new Response(JSON.stringify(payload), {
+        status,
+        headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders()
+        }
+    });
+}
 
+export async function onRequestOptions() {
+    return new Response(null, { status: 204, headers: corsHeaders() });
+}
+
+export async function onRequestPost(context) {
     try {
-        const apiKey = process.env.GEMINI_API_KEY;
+        const { request, env } = context;
+
+        const apiKey = env.GEMINI_API_KEY;
         if (!apiKey) {
-            console.error('GEMINI_API_KEY missing');
+            console.error('GEMINI_API_KEY missing in Cloudflare Pages env');
             return jsonResponse({ error: 'Server not configured. Missing API key.' }, 500);
         }
 
-        const body = await req.json();
+        const body = await request.json();
         const { message, history = [] } = body || {};
 
         if (!message || typeof message !== 'string' || message.length > 1500) {
@@ -88,7 +103,6 @@ export default async (req) => {
         }
 
         // Build Gemini-format conversation from history + current message.
-        // Gemini expects alternating user/model. Trim to last 18 turns to stay light.
         const contents = [];
         for (const turn of history.slice(-18)) {
             if (!turn || !turn.role || !turn.content) continue;
@@ -127,17 +141,14 @@ export default async (req) => {
         if (!geminiResp.ok) {
             const errText = await geminiResp.text();
             console.error('Gemini API error:', geminiResp.status, errText.slice(0, 500));
-            return jsonResponse({
-                error: 'AI service unavailable',
-                detail: process.env.CONTEXT === 'dev' ? errText.slice(0, 300) : undefined
-            }, 502);
+            return jsonResponse({ error: 'AI service unavailable' }, 502);
         }
 
         const data = await geminiResp.json();
         const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
         if (!reply) {
-            console.warn('No reply text in Gemini response:', JSON.stringify(data).slice(0, 300));
+            console.warn('No reply text in Gemini response');
             return jsonResponse({
                 message: "Disculpa, no pude procesar eso. ¿Puedes repetirlo? / Sorry, I could not process that. Could you repeat?"
             });
@@ -149,22 +160,4 @@ export default async (req) => {
         console.error('Chat function error:', err);
         return jsonResponse({ error: 'Internal error', detail: err.message }, 500);
     }
-};
-
-function corsHeaders() {
-    return {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
-    };
-}
-
-function jsonResponse(payload, status = 200) {
-    return new Response(JSON.stringify(payload), {
-        status,
-        headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders()
-        }
-    });
 }

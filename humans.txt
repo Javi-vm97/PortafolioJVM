@@ -10,7 +10,7 @@ GitHub: github.com/Javi-vm97 · github.com/javiavm
 Instagram: instagram.com/javimxoficial
 YouTube: youtube.com/@javimxoficial
 Facebook: facebook.com/digitalstudiojavi
-Site: https://javi-vidalm.netlify.app/
+Site: https://javividalm.pages.dev/
 
 /* SERVICES */
 
@@ -25,8 +25,8 @@ Site: https://javi-vidalm.netlify.app/
 
 /* SITE */
 
-Last update: 2026/06/15
+Last update: 2026/07/07
 Standards: HTML5, CSS3, ES2022, JSON-LD, Schema.org
 Components: Vanilla JavaScript, No frameworks
-Hosting: Netlify
-Build: Static deploy from GitHub
+Hosting: Cloudflare Pages
+Build: Static deploy from GitHub · Pages Functions for /api/chat

@@ -69,4 +69,4 @@ Allow: /
 User-agent: Diffbot
 Allow: /
 
-Sitemap: https://javi-vidalm.netlify.app/sitemap.xml
+Sitemap: https://javividalm.pages.dev/sitemap.xml
