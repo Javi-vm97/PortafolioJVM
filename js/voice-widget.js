@@ -61,12 +61,63 @@
         voicesES = voices.filter(v => v.lang.startsWith('es'));
         voicesEN = voices.filter(v => v.lang.startsWith('en'));
 
-        // Prefer "natural" / "neural" / known male voices
-        const malePrefsES = ['Microsoft Jorge Online (Natural)', 'Microsoft Dalia Online (Natural)', 'Google español', 'Jorge', 'Diego', 'Paulina'];
-        const malePrefsEN = ['Microsoft Guy Online (Natural)', 'Microsoft Davis Online (Natural)', 'Daniel', 'Alex', 'Google US English'];
+        // Lista PRIORIZADA de voces MASCULINAS (Windows + iOS/macOS + Android + Google)
+        const malePrefsES = [
+            // Windows Microsoft Natural voices (masculinas verificadas)
+            'Microsoft Jorge Online (Natural)',
+            'Microsoft Alvaro Online (Natural)',
+            'Microsoft Pablo Online (Natural)',
+            'Microsoft Dario Online (Natural)',
+            // iOS / macOS (masculinas nativas)
+            'Diego',      // es-AR/es-MX masculino
+            'Jorge',      // es-ES masculino
+            'Juan',       // es-MX masculino
+            // Google / Android
+            'Google español de Estados Unidos',
+            'Google español',
+            'es-ES-Standard-B',
+            'es-US-Standard-B'
+        ];
+        const malePrefsEN = [
+            'Microsoft Guy Online (Natural)',
+            'Microsoft Davis Online (Natural)',
+            'Microsoft Tony Online (Natural)',
+            'Microsoft Brandon Online (Natural)',
+            'Alex',       // US male (macOS/iOS)
+            'Daniel',     // UK male
+            'Fred',       // US male
+            'Aaron',      // US male
+            'Arthur',     // UK male
+            'Tom',        // US male
+            'Google US English'
+        ];
 
-        chosenVoiceES = malePrefsES.map(n => voicesES.find(v => v.name.includes(n))).find(Boolean) || voicesES[0] || null;
-        chosenVoiceEN = malePrefsEN.map(n => voicesEN.find(v => v.name.includes(n))).find(Boolean) || voicesEN[0] || null;
+        // Buscar priorizado (match exacto primero, luego substring)
+        chosenVoiceES = malePrefsES
+            .map(n => voicesES.find(v => v.name === n) || voicesES.find(v => v.name.includes(n)))
+            .find(Boolean);
+        chosenVoiceEN = malePrefsEN
+            .map(n => voicesEN.find(v => v.name === n) || voicesEN.find(v => v.name.includes(n)))
+            .find(Boolean);
+
+        // Fallback anti-femenino: si no encontramos voz masculina, evita las femeninas conocidas
+        const femaleTokensES = ['paulina', 'monica', 'lupe', 'dalia', 'esperanza', 'carmen', 'maria', 'lucia', 'sabina'];
+        const femaleTokensEN = ['samantha', 'karen', 'victoria', 'veena', 'zira', 'jessa', 'aria', 'jane', 'mia', 'nora', 'nova', 'susan', 'kate', 'moira', 'fiona', 'tessa'];
+
+        if (!chosenVoiceES) {
+            chosenVoiceES = voicesES.find(v => !femaleTokensES.some(t => v.name.toLowerCase().includes(t))) || voicesES[0];
+        }
+        if (!chosenVoiceEN) {
+            chosenVoiceEN = voicesEN.find(v => !femaleTokensEN.some(t => v.name.toLowerCase().includes(t))) || voicesEN[0];
+        }
+
+        // Debug: agrega ?debug=voice a la URL para ver que voz se selecciono
+        if (window.location.search.includes('debug=voice')) {
+            console.log('[Javier IA] ES voices disponibles:', voicesES.map(v => `${v.name} (${v.lang})`));
+            console.log('[Javier IA] EN voices disponibles:', voicesEN.map(v => `${v.name} (${v.lang})`));
+            console.log('[Javier IA] Voz ES elegida:', chosenVoiceES?.name);
+            console.log('[Javier IA] Voz EN elegida:', chosenVoiceEN?.name);
+        }
     }
 
     function getVoiceForLang(lang) {
@@ -380,15 +431,26 @@
         };
 
         recognition.onerror = (event) => {
+            const isES = currentLang.startsWith('es');
+            console.error('[Javier IA] Recognition error:', event.error, event.message || '');
+
             if (event.error === 'no-speech') {
-                // restart silently
-                if (isCallActive && !isMuted) setTimeout(startListening, 300);
-            } else if (event.error === 'not-allowed') {
-                setStatus('Sin permiso de micrófono');
+                // No detecto voz -- reintenta silenciosamente
+                if (isCallActive && !isMuted) setTimeout(startListening, isIOS ? 800 : 300);
+            } else if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+                setStatus(isES ? 'Permiso de microfono denegado' : 'Microphone permission denied');
                 endCall();
+            } else if (event.error === 'audio-capture') {
+                setStatus(isES ? 'No se detecta microfono' : 'Microphone not detected');
+                if (isCallActive && !isMuted) setTimeout(startListening, 1200);
+            } else if (event.error === 'network') {
+                setStatus(isES ? 'Sin red para reconocer voz' : 'Network error');
+                if (isCallActive && !isMuted) setTimeout(startListening, 1500);
+            } else if (event.error === 'aborted') {
+                // Se cancelo intencionalmente, no reiniciar aqui
             } else {
-                setStatus('Error: ' + event.error);
-                if (isCallActive && !isMuted) setTimeout(startListening, 800);
+                setStatus((isES ? 'Error de voz: ' : 'Voice error: ') + event.error);
+                if (isCallActive && !isMuted) setTimeout(startListening, isIOS ? 1500 : 800);
             }
         };
 
@@ -401,7 +463,11 @@
         try {
             recognition.start();
         } catch (e) {
-            // already running; ignore
+            // "already running" u otro error de estado en iOS -- reintenta con delay
+            console.warn('[Javier IA] recognition.start() throw:', e.message);
+            if (isCallActive && !isMuted) {
+                setTimeout(() => { try { recognition.start(); } catch (_) {} }, 500);
+            }
         }
     }
 
