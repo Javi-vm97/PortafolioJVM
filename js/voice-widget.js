@@ -17,6 +17,7 @@
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const synth = window.speechSynthesis;
     const SUPPORTED = !!(SpeechRecognition && synth);
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
     // ----- State -----
     let panel = null;
@@ -136,6 +137,7 @@
                 Iniciar conversación
             </button>
             <p class="javi-intro__hint">Se necesita acceso a tu micrófono</p>
+            <p class="javi-intro__hint javi-intro__hint--ios" id="javi-ios-tip" hidden>💡 <strong>iPhone / iPad</strong>: quita el modo silencio (interruptor lateral) para escuchar la voz.</p>
         </div>
 
         <div class="javi-stage__call" id="javi-call" hidden>
@@ -270,28 +272,45 @@
     }
 
     // ===== Call lifecycle =====
-    async function startCall() {
+    // IMPORTANTE: NO uses `async` aqui. iOS Safari requiere que synth.speak()
+    // ocurra dentro del user-gesture chain sincronico del click. Si hacemos
+    // `await` antes de speak, iOS "pierde" el gesto y silencia el TTS.
+    function startCall() {
         if (!SUPPORTED) { showError(); return; }
 
         document.getElementById('javi-intro').hidden = true;
         document.getElementById('javi-call').hidden = false;
 
-        try {
-            // Request mic permission proactively
-            await navigator.mediaDevices.getUserMedia({ audio: true });
-        } catch (e) {
-            setStatus('Sin permiso de micrófono');
-            return;
+        // Warm-up de SpeechSynthesis para iOS Safari:
+        // Prime el audio engine con un utterance silencioso dentro del gesto del usuario.
+        // Sin esto, iOS a veces no reproduce el primer speak() correctamente.
+        if (synth) {
+            try {
+                if (synth.paused) synth.resume();
+                const warmup = new SpeechSynthesisUtterance(' ');
+                warmup.volume = 0;
+                warmup.rate = 10;
+                synth.speak(warmup);
+            } catch (e) { /* ignore */ }
         }
 
         isCallActive = true;
         history = [];
 
-        // Greet
+        // Saludo SINCRONICAMENTE dentro del gesto -- garantiza reproducibilidad en iOS.
         const greet = "Hola, soy Javier IA. ¿En qué puedo ayudarte hoy?";
         addTranscript('bot', greet);
         speak(greet, () => {
-            if (isCallActive && !isMuted) startListening();
+            // Despues del saludo, pedir mic (getUserMedia es async, ya salio del gesto).
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(() => {
+                    if (isCallActive && !isMuted) startListening();
+                })
+                .catch(() => {
+                    setStatus(currentLang.startsWith('es')
+                        ? 'Sin permiso de micrófono'
+                        : 'Microphone permission needed');
+                });
         });
     }
 
@@ -554,6 +573,11 @@
         if (synth) {
             synth.addEventListener('voiceschanged', loadVoices);
             loadVoices();
+        }
+        // Mostrar el tip de iOS (silent switch) solo si estamos en iPhone/iPad
+        if (isIOS) {
+            const iosTip = document.getElementById('javi-ios-tip');
+            if (iosTip) iosTip.hidden = false;
         }
     }
 
