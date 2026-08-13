@@ -179,7 +179,7 @@
                     </svg>
                 </span>
             </div>
-            <p class="javi-intro__text">Hola, soy <strong>Javier IA</strong>. Háblame en <strong>español</strong> o <strong>inglés</strong> y te respondo igual.</p>
+            <p class="javi-intro__text">Hola, soy <strong>Javier IA</strong>. Pregúntame por la experiencia, el stack o la disponibilidad profesional de Javier.</p>
             <button class="javi-btn javi-btn--primary" id="javi-start" type="button">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;margin-right:0.5rem;">
                     <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
@@ -231,7 +231,7 @@
 
     <div class="javi-panel__footer">
         <span>Web Speech · Gemini</span>
-        <a href="#booking">Agendar llamada con Javier</a>
+        <a href="#contacto">Contactar a Javier</a>
     </div>
 </div>
         `;
@@ -349,7 +349,7 @@
         history = [];
 
         // Saludo SINCRONICAMENTE dentro del gesto -- garantiza reproducibilidad en iOS.
-        const greet = "Hola, soy Javier IA. ¿En qué puedo ayudarte hoy?";
+        const greet = "Hola, soy Javier IA. Puedes preguntarme por la experiencia, las competencias o la disponibilidad profesional de Javier.";
         addTranscript('bot', greet);
         speak(greet, () => {
             // Despues del saludo, pedir mic (getUserMedia es async, ya salio del gesto).
